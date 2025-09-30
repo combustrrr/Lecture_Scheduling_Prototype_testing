@@ -1,4 +1,4 @@
-# Lecture Scheduling System (LSP-6)
+# Lecture Scheduling System
 
 A comprehensive full-stack application for managing college lecture schedules, student enrollments, and faculty course management. Built with modern web technologies to provide an intuitive interface for students and faculty to manage their academic schedules.
 
