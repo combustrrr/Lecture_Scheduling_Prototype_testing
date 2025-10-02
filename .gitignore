@@ -11,6 +11,9 @@ dist
 dist-ssr
 *.local
 
+# Ignore local env overrides
+.env.local
+
 .vscode/*
 !.vscode/extensions.json
 .idea
