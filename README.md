@@ -120,7 +120,7 @@ LSP-6/
    ```bash
    git clone <repository-url>
    cd LSP-6/project
-   npm run install:all
+   npm install
    ```
 
 2. **Environment Configuration:**
@@ -133,7 +133,7 @@ LSP-6/
    MONGODB_URI=mongodb://localhost:27017/college_scheduling
    JWT_SECRET=your-super-secret-jwt-key-change-in-production
    JWT_EXPIRES_IN=7d
-   ALLOWED_ORIGINS=http://localhost:3000
+   ALLOWED_ORIGINS=http://localhost:5173
    RATE_LIMIT_WINDOW_MS=900000
    RATE_LIMIT_MAX_REQUESTS=100
    ```
@@ -160,7 +160,7 @@ LSP-6/
    
    # Or start individually
    npm run dev:backend  # Backend runs on http://localhost:5000
-   npm run dev:frontend # Frontend runs on http://localhost:3000
+   npm run dev:frontend # Frontend runs on http://localhost:5173
    ```
 
 5. **Seed Database (Optional):**
@@ -198,24 +198,23 @@ docker run -p 3000:3000 college-scheduling-frontend
 
 ### Root Level
 - `npm run dev` - Start both frontend and backend in development
-- `npm run build` - Build both applications for production
-- `npm run install:all` - Install dependencies for all projects
-- `npm run lint` - Lint both frontend and backend
-- `npm run format` - Format code using Prettier
+- `npm run start` - Start backend in production mode (from root)
+- `npm run build` - Build the frontend application for production
 
 ### Backend Scripts
 - `npm run dev` - Start development server with nodemon
 - `npm run start` - Start production server
-- `npm run build` - Build for production
+- `npm run build` - (No build step required for Node.js)
 - `npm run lint` - Run ESLint
 - `npm run format` - Format with Prettier
 
 ### Frontend Scripts
-- `npm run dev` - Start Vite development server
+- `npm run dev` - Start Vite development server (default http://localhost:5173)
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 - `npm run format` - Format with Prettier
+- `npm run typecheck` - Run TypeScript type checking
 
 ## 🌐 API Endpoints
 
@@ -275,6 +274,23 @@ npm run build
 
 ### Environment Variables
 Ensure all production environment variables are properly configured before deployment.
+
+Backend `.env` example (production):
+```env
+NODE_ENV=production
+PORT=5000
+MONGODB_URI=your-production-mongodb-uri
+JWT_SECRET=your-strong-production-secret
+JWT_EXPIRES_IN=7d
+ALLOWED_ORIGINS=https://your-frontend-domain
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+```
+
+Frontend `.env` example (production):
+```env
+VITE_API_URL=https://your-backend-domain/api
+```
 
 ## 🤝 Contributing
 
