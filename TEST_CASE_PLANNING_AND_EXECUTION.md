@@ -7,1992 +7,1200 @@
 
 ---
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Test Strategy](#test-strategy)
-3. [Test Scope](#test-scope)
-4. [Test Environment](#test-environment)
-5. [Test Cases](#test-cases)
-   - [Authentication Module](#1-authentication-module)
-   - [User Management](#2-user-management)
-   - [Course Management](#3-course-management)
-   - [Lecture Slots Management](#4-lecture-slots-management)
-   - [Enrollment System](#5-enrollment-system)
-   - [Student Timetable](#6-student-timetable)
-   - [Faculty Dashboard](#7-faculty-dashboard)
-   - [Student Dashboard](#8-student-dashboard)
-   - [Schedule Management](#9-schedule-management)
-   - [Security & Authorization](#10-security--authorization)
-   - [API Testing](#11-api-testing)
-   - [UI/UX Testing](#12-uiux-testing)
-   - [Performance Testing](#13-performance-testing)
-   - [Integration Testing](#14-integration-testing)
-6. [Test Execution Summary](#test-execution-summary)
-7. [Defect Management](#defect-management)
+## Document Overview
 
----
+This document contains comprehensive test cases for the Lecture Scheduling System. Each test case follows a standardized table format with detailed steps, expected results, and execution tracking.
 
-## Introduction
-
-### Purpose
-This document outlines comprehensive test cases for the Lecture Scheduling System, a full-stack web application designed to manage college lecture schedules, student enrollments, and faculty course management.
-
-### Application Overview
-The system provides:
-- **Student Features**: Browse lectures, enroll in courses, view timetables, manage profile
-- **Faculty Features**: Create/manage lecture slots, view enrolled students, track analytics
-- **Admin Features**: User management, system configuration
-- **Core Technologies**: React, Node.js, Express, MongoDB, JWT authentication
-
----
-
-## Test Strategy
-
-### Testing Approach
-- **Functional Testing**: Verify all features work as expected
-- **Integration Testing**: Ensure modules work together seamlessly
-- **Security Testing**: Validate authentication, authorization, and data protection
-- **Usability Testing**: Confirm user-friendly interface and navigation
-- **Performance Testing**: Assess system responsiveness and scalability
-- **API Testing**: Validate RESTful API endpoints
-
-### Testing Types
-- ✅ Manual Testing
-- ✅ Automated Testing (Jest, Supertest)
-- ✅ Regression Testing
-- ✅ Smoke Testing
-- ✅ Exploratory Testing
-
-### Test Priority Levels
-- **P0 (Critical)**: Core functionality, blocking issues
-- **P1 (High)**: Major features, significant impact
-- **P2 (Medium)**: Standard features, moderate impact
-- **P3 (Low)**: Minor features, cosmetic issues
-
----
-
-## Test Scope
-
-### In Scope
-- User authentication and authorization
-- Course and lecture slot management
-- Enrollment and waitlist functionality
-- Timetable generation and viewing
-- Profile management
-- Dashboard features for all user roles
-- Schedule creation and management
-- API endpoint validation
-- Security measures
-- UI/UX consistency
-
-### Out of Scope
-- Third-party integrations (payment gateways, email services)
-- Mobile app testing (iOS/Android native apps)
-- Load testing with 10,000+ concurrent users
-- Browser compatibility testing (testing on Chrome only)
-
----
-
-## Test Environment
-
-### Hardware
-- Processor: Dual-core 2.0 GHz or higher
-- RAM: 8 GB minimum
-- Storage: 20 GB available space
-
-### Software
-- **OS**: Windows 10/11, macOS, Linux
-- **Browser**: Chrome (latest version)
-- **Node.js**: v18+
-- **MongoDB**: v7.0
-- **Docker**: Latest version (optional)
-
-### Test Data
-- Pre-seeded database with sample users, courses, and lecture slots
-- Test accounts for different user roles
-- Sample enrollment scenarios
+### Test Case Coverage Areas:
+- Dashboard & Homepage
+- User Profile (View, Edit)
+- Data Lists (Lecture Slots, Courses, Enrollments)
+- Search & Filtering
+- Create/Add New Item forms
+- View Item Details pages
+- Edit/Update existing items
+- Delete items & confirmation modals
+- File Upload/Download
+- Settings & Configuration
+- Navigation & Breadcrumbs
+- Notifications & Alerts
+- Role-Based Access (Admin vs. Faculty vs. Student)
+- Enrollment workflows
+- Timetable functionality
 
 ---
 
 ## Test Cases
 
-## 1. Authentication Module
-
-### TC-AUTH-001: User Registration - Student Role
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** None  
-**Test Steps:**
-1. Navigate to registration page (`/register`)
-2. Enter valid student details:
-   - Name: "John Doe"
-   - Email: "john.doe@student.college.edu"
-   - Password: "password123"
-   - Confirm Password: "password123"
-   - Role: "Student"
-   - Student ID: "STU2025001"
-   - Year: "2"
-3. Click "Create Account" button
-
-**Expected Result:**
-- User account created successfully
-- Redirect to dashboard
-- Welcome toast notification displayed
-- User data stored in database with encrypted password
-
----
-
-### TC-AUTH-002: User Registration - Faculty Role
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** None  
-**Test Steps:**
-1. Navigate to registration page
-2. Enter valid faculty details:
-   - Name: "Dr. Jane Smith"
-   - Email: "jane.smith@college.edu"
-   - Password: "secure123"
-   - Confirm Password: "secure123"
-   - Role: "Faculty"
-   - Employee ID: "FAC2025001"
-   - Department: "Computer Science"
-3. Submit registration form
-
-**Expected Result:**
-- Faculty account created with appropriate role
-- User redirected to faculty dashboard
-- Profile includes faculty-specific fields
-
----
-
-### TC-AUTH-003: User Login - Valid Credentials
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** User account exists in database  
-**Test Steps:**
-1. Navigate to login page (`/login`)
-2. Enter email: "john.smith@student.college.edu"
-3. Enter password: "password123"
-4. Click "Sign in" button
-
-**Expected Result:**
-- User successfully authenticated
-- JWT token generated and stored
-- Redirect to dashboard based on user role
-- User session persists across page refreshes
-
----
-
-### TC-AUTH-004: User Login - Invalid Email
-**Priority:** P1  
-**Type:** Negative  
-**Preconditions:** None  
-**Test Steps:**
-1. Navigate to login page
-2. Enter email: "nonexistent@college.edu"
-3. Enter password: "password123"
-4. Attempt login
-
-**Expected Result:**
-- Login fails with error message
-- Error: "Invalid credentials"
-- No token generated
-- User remains on login page
-
----
-
-### TC-AUTH-005: User Login - Incorrect Password
-**Priority:** P1  
-**Type:** Negative  
-**Preconditions:** User account exists  
-**Test Steps:**
-1. Navigate to login page
-2. Enter valid email
-3. Enter incorrect password: "wrongpassword"
-4. Attempt login
-
-**Expected Result:**
-- Authentication fails
-- Error message displayed
-- Account not locked (unless multiple failed attempts)
-
----
 
-### TC-AUTH-006: Password Validation - Minimum Length
-**Priority:** P1  
-**Type:** Validation  
-**Preconditions:** On registration page  
-**Test Steps:**
-1. Enter password less than 6 characters: "pass"
-2. Attempt to submit form
-
-**Expected Result:**
-- Validation error: "Password must be at least 6 characters"
-- Form submission blocked
-- Client-side validation message displayed
+### Test Case #1
 
+**TEST TITLE:** Verify Dashboard Loads Correctly on Login | **PRIORITY:** High | **TEST CASE ID:** TC_001 | **TEST NUMBER:** 1 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Ensure dashboard displays all widgets and statistics after user login | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Ensure dashboard displays all widgets and statistics after user login | **TEST DEPENDENCIES:** User must be logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to login page | [Date] | Login page displays correctly | | | |
+| 2 | Enter valid credentials | [Date] | Credentials accepted | | | |
+| 3 | Click 'Sign In' button | [Date] | User is redirected to dashboard | | | |
+| 4 | Verify dashboard widgets load | [Date] | All statistics, upcoming classes, and quick actions are visible | | | |
+
+---
+
+### Test Case #2
+
+**TEST TITLE:** Verify Homepage Navigation for Unauthenticated User | **PRIORITY:** High | **TEST CASE ID:** TC_002 | **TEST NUMBER:** 2 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test homepage displays correctly for users not logged in | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test homepage displays correctly for users not logged in | **TEST DEPENDENCIES:** None | **TEST CONDITIONS:** Browser: Chrome, Role: Unauthenticated | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to homepage | [Date] | Homepage loads with welcome message | | | |
+| 2 | Verify 'Get Started' button is visible | [Date] | Button displays prominently | | | |
+| 3 | Verify 'Sign In' button is visible | [Date] | Button is accessible | | | |
+| 4 | Click 'Sign In' button | [Date] | User is redirected to login page | | | |
+
+---
+
+### Test Case #3
+
+**TEST TITLE:** Verify Faculty Dashboard Analytics Display | **PRIORITY:** High | **TEST CASE ID:** TC_003 | **TEST NUMBER:** 3 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Ensure faculty dashboard shows enrollment statistics | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Ensure faculty dashboard shows enrollment statistics | **TEST DEPENDENCIES:** Faculty user logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Faculty | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to faculty dashboard | [Date] | Dashboard loads successfully | | | |
+| 2 | Verify total lecture slots count | [Date] | Correct number displayed | | | |
+| 3 | Verify enrolled students count | [Date] | Accurate count shown | | | |
+| 4 | Verify upcoming lectures section | [Date] | Upcoming lectures list is visible | | | |
+
+---
+
+### Test Case #4
+
+**TEST TITLE:** Verify User Can View Profile Information | **PRIORITY:** High | **TEST CASE ID:** TC_004 | **TEST NUMBER:** 4 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test that user profile page displays all user details | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test that user profile page displays all user details | **TEST DEPENDENCIES:** User must be logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to profile page | [Date] | Profile page loads | | | |
+| 2 | Verify name is displayed | [Date] | User's full name shown correctly | | | |
+| 3 | Verify email is displayed | [Date] | Email address shown correctly | | | |
+| 4 | Verify role is displayed | [Date] | User role (Student) displayed | | | |
+| 5 | Verify student ID is displayed | [Date] | Student ID shown correctly | | | |
+
+---
+
+### Test Case #5
+
+**TEST TITLE:** Verify User Can Edit Profile Information | **PRIORITY:** High | **TEST CASE ID:** TC_005 | **TEST NUMBER:** 5 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test profile update functionality | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test profile update functionality | **TEST DEPENDENCIES:** User logged in with existing profile | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to profile edit page | [Date] | Edit form loads with pre-filled data | | | |
+| 2 | Update name field to 'Updated Name' | [Date] | Field accepts new value | | | |
+| 3 | Update year field | [Date] | Dropdown selection works | | | |
+| 4 | Click 'Save Changes' button | [Date] | Success message appears | | | |
+| 5 | Refresh page and verify changes | [Date] | Updated information persists | | | |
+
+---
+
+### Test Case #6
+
+**TEST TITLE:** Verify Profile Update Validation | **PRIORITY:** High | **TEST CASE ID:** TC_006 | **TEST NUMBER:** 6 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test validation on profile update form | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test validation on profile update form | **TEST DEPENDENCIES:** User logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to profile edit page | [Date] | Form loads | | | |
+| 2 | Clear required name field | [Date] | Field is empty | | | |
+| 3 | Attempt to save changes | [Date] | Validation error displayed | | | |
+| 4 | Verify error message clarity | [Date] | Error states 'Name is required' | | | |
+
+---
+
+### Test Case #7
+
+**TEST TITLE:** Verify Lecture Slots List Displays All Available Slots | **PRIORITY:** High | **TEST CASE ID:** TC_007 | **TEST NUMBER:** 7 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test lecture slots listing page shows all active slots | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test lecture slots listing page shows all active slots | **TEST DEPENDENCIES:** Lecture slots exist in database | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to lecture slots page | [Date] | Page loads successfully | | | |
+| 2 | Verify list contains lecture slots | [Date] | At least one slot is visible | | | |
+| 3 | Verify each slot shows subject name | [Date] | Subject names displayed | | | |
+| 4 | Verify each slot shows faculty name | [Date] | Faculty information visible | | | |
+| 5 | Verify each slot shows time and venue | [Date] | Schedule details shown | | | |
+| 6 | Verify available seats count | [Date] | Capacity information displayed | | | |
+
+---
+
+### Test Case #8
+
+**TEST TITLE:** Verify Course List Pagination | **PRIORITY:** High | **TEST CASE ID:** TC_008 | **TEST NUMBER:** 8 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test pagination controls on course listing | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test pagination controls on course listing | **TEST DEPENDENCIES:** More than 10 courses exist | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to courses page | [Date] | Course list loads | | | |
+| 2 | Verify pagination controls are visible | [Date] | Next/Previous buttons shown | | | |
+| 3 | Click 'Next Page' button | [Date] | Second page of courses loads | | | |
+| 4 | Verify page number updates | [Date] | Page indicator shows '2' | | | |
+| 5 | Click 'Previous Page' | [Date] | Returns to first page | | | |
+
+---
+
+### Test Case #9
+
+**TEST TITLE:** Verify Enrollment List Shows Student's Enrollments | **PRIORITY:** High | **TEST CASE ID:** TC_009 | **TEST NUMBER:** 9 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test my enrollments page displays correct data | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test my enrollments page displays correct data | **TEST DEPENDENCIES:** Student has active enrollments | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'My Enrollments' page | [Date] | Page loads | | | |
+| 2 | Verify enrolled courses are listed | [Date] | All enrollments visible | | | |
+| 3 | Verify enrollment status is shown | [Date] | Status displays as 'Enrolled' or 'Waitlisted' | | | |
+| 4 | Verify 'Drop' button is present | [Date] | Action button available for each enrollment | | | |
+
+---
+
+### Test Case #10
+
+**TEST TITLE:** Verify Course Search by Name | **PRIORITY:** High | **TEST CASE ID:** TC_010 | **TEST NUMBER:** 10 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test search functionality on courses page | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test search functionality on courses page | **TEST DEPENDENCIES:** Multiple courses exist | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to courses page | [Date] | Page loads with all courses | | | |
+| 2 | Enter 'Data Structures' in search box | [Date] | Search input accepts text | | | |
+| 3 | Press Enter or click Search | [Date] | Results filter in real-time | | | |
+| 4 | Verify only matching courses appear | [Date] | Only courses with 'Data Structures' in name shown | | | |
+| 5 | Clear search field | [Date] | All courses reappear | | | |
+
+---
+
+### Test Case #11
+
+**TEST TITLE:** Verify Lecture Slot Filter by Day | **PRIORITY:** High | **TEST CASE ID:** TC_011 | **TEST NUMBER:** 11 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test filtering lecture slots by day of week | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test filtering lecture slots by day of week | **TEST DEPENDENCIES:** Slots exist for multiple days | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to lecture slots page | [Date] | All slots displayed | | | |
+| 2 | Select 'Monday' from day filter dropdown | [Date] | Dropdown selection works | | | |
+| 3 | Click 'Apply Filter' | [Date] | Filter is applied | | | |
+| 4 | Verify only Monday slots are shown | [Date] | Results match filter criteria | | | |
+| 5 | Reset filter | [Date] | All slots visible again | | | |
+
+---
+
+### Test Case #12
+
+**TEST TITLE:** Verify Lecture Slot Filter by Faculty | **PRIORITY:** High | **TEST CASE ID:** TC_012 | **TEST NUMBER:** 12 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test filtering slots by faculty member | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test filtering slots by faculty member | **TEST DEPENDENCIES:** Multiple faculty with slots | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to lecture slots page | [Date] | Page loads | | | |
+| 2 | Select faculty from dropdown | [Date] | Faculty list populated | | | |
+| 3 | Apply filter | [Date] | Filter applied successfully | | | |
+| 4 | Verify only selected faculty's slots shown | [Date] | Results filtered correctly | | | |
+
+---
+
+### Test Case #13
+
+**TEST TITLE:** Verify Search with No Results Handling | **PRIORITY:** High | **TEST CASE ID:** TC_013 | **TEST NUMBER:** 13 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test behavior when search returns no results | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test behavior when search returns no results | **TEST DEPENDENCIES:** Courses exist | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to courses page | [Date] | Page loads | | | |
+| 2 | Enter 'NonExistentCourse123' in search | [Date] | Search input accepts text | | | |
+| 3 | Execute search | [Date] | Search completes | | | |
+| 4 | Verify 'No results found' message | [Date] | Helpful message displayed | | | |
+| 5 | Verify suggestion to clear filters | [Date] | User guidance provided | | | |
+
+---
+
+### Test Case #14
+
+**TEST TITLE:** Verify Faculty Can Create New Lecture Slot | **PRIORITY:** High | **TEST CASE ID:** TC_014 | **TEST NUMBER:** 14 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test lecture slot creation form | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test lecture slot creation form | **TEST DEPENDENCIES:** Faculty user logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Faculty | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'Create Lecture Slot' page | [Date] | Form loads | | | |
+| 2 | Enter subject name: 'Advanced Algorithms' | [Date] | Field accepts input | | | |
+| 3 | Enter venue: 'Room 201' | [Date] | Field accepts input | | | |
+| 4 | Set capacity to 50 | [Date] | Number field accepts value | | | |
+| 5 | Select day: Monday | [Date] | Dropdown selection works | | | |
+| 6 | Set start time: 10:00 | [Date] | Time picker works | | | |
+| 7 | Set end time: 11:30 | [Date] | Time picker works | | | |
+| 8 | Check 'Recurring' checkbox | [Date] | Checkbox toggles | | | |
+| 9 | Click 'Create Slot' button | [Date] | Slot created successfully | | | |
+| 10 | Verify success notification | [Date] | Toast message appears | | | |
+| 11 | Verify redirect to slot list | [Date] | New slot visible in list | | | |
+
+---
+
+### Test Case #15
+
+**TEST TITLE:** Verify Course Creation Form Validation | **PRIORITY:** High | **TEST CASE ID:** TC_015 | **TEST NUMBER:** 15 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test validation on course creation | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test validation on course creation | **TEST DEPENDENCIES:** Admin/Instructor logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Admin | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'Create Course' page | [Date] | Form displays | | | |
+| 2 | Leave course name empty | [Date] | Required field empty | | | |
+| 3 | Attempt to submit form | [Date] | Submission blocked | | | |
+| 4 | Verify error message for course name | [Date] | Error: 'Course name is required' | | | |
+| 5 | Enter valid course name | [Date] | Error clears | | | |
+| 6 | Enter negative credits value | [Date] | Field accepts input | | | |
+| 7 | Attempt submit | [Date] | Validation catches invalid value | | | |
+| 8 | Verify error for credits field | [Date] | Error message shown | | | |
+
+---
+
+### Test Case #16
+
+**TEST TITLE:** Verify Student Registration Form | **PRIORITY:** High | **TEST CASE ID:** TC_016 | **TEST NUMBER:** 16 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test new student account creation | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test new student account creation | **TEST DEPENDENCIES:** None | **TEST CONDITIONS:** Browser: Chrome, Role: Unauthenticated | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to registration page | [Date] | Form loads | | | |
+| 2 | Enter name: 'John Doe' | [Date] | Field accepts input | | | |
+| 3 | Enter email: 'john.doe@student.edu' | [Date] | Email field accepts input | | | |
+| 4 | Enter password: 'password123' | [Date] | Password field masked | | | |
+| 5 | Confirm password: 'password123' | [Date] | Confirmation field matches | | | |
+| 6 | Select role: 'Student' | [Date] | Dropdown selection works | | | |
+| 7 | Enter student ID: 'STU2025001' | [Date] | Field accepts input | | | |
+| 8 | Select year: '2' | [Date] | Dropdown selection works | | | |
+| 9 | Click 'Create Account' | [Date] | Registration submitted | | | |
+| 10 | Verify account created | [Date] | Success message and redirect to dashboard | | | |
+
+---
+
+### Test Case #17
+
+**TEST TITLE:** Verify Schedule Creation | **PRIORITY:** High | **TEST CASE ID:** TC_017 | **TEST NUMBER:** 17 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test creating a custom schedule | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test creating a custom schedule | **TEST DEPENDENCIES:** User logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to schedules page | [Date] | Page loads | | | |
+| 2 | Click 'Create Schedule' button | [Date] | Creation modal/form opens | | | |
+| 3 | Enter schedule name: 'Spring 2025' | [Date] | Field accepts input | | | |
+| 4 | Select semester: 'Spring' | [Date] | Dropdown works | | | |
+| 5 | Enter year: 2025 | [Date] | Field accepts input | | | |
+| 6 | Click 'Save Schedule' | [Date] | Schedule created | | | |
+| 7 | Verify schedule appears in list | [Date] | New schedule visible | | | |
+
+---
+
+### Test Case #18
+
+**TEST TITLE:** Verify Course Detail Page Display | **PRIORITY:** High | **TEST CASE ID:** TC_018 | **TEST NUMBER:** 18 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test course detail page shows all information | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test course detail page shows all information | **TEST DEPENDENCIES:** Course exists | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to courses list | [Date] | Courses displayed | | | |
+| 2 | Click on specific course | [Date] | Course detail page loads | | | |
+| 3 | Verify course name is displayed | [Date] | Name shown prominently | | | |
+| 4 | Verify course code is displayed | [Date] | Code visible | | | |
+| 5 | Verify credits are shown | [Date] | Credit hours displayed | | | |
+| 6 | Verify description is visible | [Date] | Full description shown | | | |
+| 7 | Verify associated lecture slots | [Date] | Related slots listed | | | |
+
+---
+
+### Test Case #19
+
+**TEST TITLE:** Verify Lecture Slot Detail View | **PRIORITY:** High | **TEST CASE ID:** TC_019 | **TEST NUMBER:** 19 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test lecture slot detail page | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test lecture slot detail page | **TEST DEPENDENCIES:** Lecture slot exists | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to lecture slots list | [Date] | Slots displayed | | | |
+| 2 | Click on a specific slot | [Date] | Detail page opens | | | |
+| 3 | Verify subject name | [Date] | Subject displayed | | | |
+| 4 | Verify faculty information | [Date] | Faculty name and details shown | | | |
+| 5 | Verify schedule (day/time) | [Date] | Day and time visible | | | |
+| 6 | Verify venue | [Date] | Location displayed | | | |
+| 7 | Verify capacity information | [Date] | Total and available seats shown | | | |
+| 8 | Verify enrollment button status | [Date] | Button enabled/disabled based on capacity | | | |
+
+---
+
+### Test Case #20
+
+**TEST TITLE:** Verify Faculty Can View Enrolled Students | **PRIORITY:** High | **TEST CASE ID:** TC_020 | **TEST NUMBER:** 20 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test faculty viewing student enrollment list | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test faculty viewing student enrollment list | **TEST DEPENDENCIES:** Faculty owns slot with enrollments | **TEST CONDITIONS:** Browser: Chrome, Role: Faculty | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'My Lecture Slots' | [Date] | Faculty slots listed | | | |
+| 2 | Click on a slot with enrollments | [Date] | Slot detail page opens | | | |
+| 3 | Click 'View Enrolled Students' button | [Date] | Student list loads | | | |
+| 4 | Verify student names are listed | [Date] | All enrolled students shown | | | |
+| 5 | Verify student IDs are visible | [Date] | IDs displayed | | | |
+| 6 | Verify enrollment dates | [Date] | Enrollment timestamps shown | | | |
+| 7 | Verify waitlist section if applicable | [Date] | Waitlisted students shown separately | | | |
+
+---
+
+### Test Case #21
+
+**TEST TITLE:** Verify Lecture Slot Update Functionality | **PRIORITY:** High | **TEST CASE ID:** TC_021 | **TEST NUMBER:** 21 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test faculty editing lecture slot | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test faculty editing lecture slot | **TEST DEPENDENCIES:** Faculty owns lecture slot | **TEST CONDITIONS:** Browser: Chrome, Role: Faculty | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'My Lecture Slots' | [Date] | Slots listed | | | |
+| 2 | Click 'Edit' on a slot | [Date] | Edit form loads with current data | | | |
+| 3 | Update capacity from 50 to 60 | [Date] | Field accepts new value | | | |
+| 4 | Update venue to 'Room 301' | [Date] | Field accepts change | | | |
+| 5 | Click 'Save Changes' | [Date] | Update submitted | | | |
+| 6 | Verify success notification | [Date] | Toast message appears | | | |
+| 7 | Verify changes reflected in list | [Date] | Updated values displayed | | | |
+
+---
+
+### Test Case #22
+
+**TEST TITLE:** Verify Course Update by Admin | **PRIORITY:** High | **TEST CASE ID:** TC_022 | **TEST NUMBER:** 22 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test admin editing course information | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test admin editing course information | **TEST DEPENDENCIES:** Admin logged in, course exists | **TEST CONDITIONS:** Browser: Chrome, Role: Admin | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to courses management | [Date] | Courses listed | | | |
+| 2 | Select course to edit | [Date] | Edit form loads | | | |
+| 3 | Update course name | [Date] | Field accepts change | | | |
+| 4 | Update credits | [Date] | Field accepts new value | | | |
+| 5 | Update description | [Date] | Text area accepts input | | | |
+| 6 | Save changes | [Date] | Update processed | | | |
+| 7 | Verify changes saved | [Date] | Updated information displayed | | | |
+
+---
+
+### Test Case #23
+
+**TEST TITLE:** Verify User Profile Update | **PRIORITY:** High | **TEST CASE ID:** TC_023 | **TEST NUMBER:** 23 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test user updating own profile | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test user updating own profile | **TEST DEPENDENCIES:** User logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to profile page | [Date] | Profile displays | | | |
+| 2 | Click 'Edit Profile' button | [Date] | Edit mode activated | | | |
+| 3 | Change name to 'Updated Name' | [Date] | Field accepts input | | | |
+| 4 | Update phone number | [Date] | Field accepts input | | | |
+| 5 | Click 'Save' | [Date] | Changes submitted | | | |
+| 6 | Verify success message | [Date] | Confirmation shown | | | |
+| 7 | Refresh page | [Date] | Changes persist | | | |
+
+---
+
+### Test Case #24
+
+**TEST TITLE:** Verify Lecture Slot Deletion with Confirmation | **PRIORITY:** High | **TEST CASE ID:** TC_024 | **TEST NUMBER:** 24 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test delete functionality with confirmation | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test delete functionality with confirmation | **TEST DEPENDENCIES:** Faculty owns lecture slot | **TEST CONDITIONS:** Browser: Chrome, Role: Faculty | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'My Lecture Slots' | [Date] | Slots listed | | | |
+| 2 | Click 'Delete' button on a slot | [Date] | Confirmation modal appears | | | |
+| 3 | Verify warning message | [Date] | Modal shows deletion warning | | | |
+| 4 | Click 'Cancel' | [Date] | Modal closes, slot not deleted | | | |
+| 5 | Click 'Delete' again | [Date] | Modal reappears | | | |
+| 6 | Click 'Confirm Delete' | [Date] | Slot deletion processed | | | |
+| 7 | Verify slot removed from list | [Date] | Slot no longer visible | | | |
+| 8 | Verify success notification | [Date] | Deletion confirmed message shown | | | |
+
+---
+
+### Test Case #25
+
+**TEST TITLE:** Verify Course Deletion by Admin | **PRIORITY:** High | **TEST CASE ID:** TC_025 | **TEST NUMBER:** 25 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test admin deleting a course | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test admin deleting a course | **TEST DEPENDENCIES:** Admin logged in, course exists | **TEST CONDITIONS:** Browser: Chrome, Role: Admin | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to course management | [Date] | Courses listed | | | |
+| 2 | Click delete icon on course | [Date] | Confirmation dialog appears | | | |
+| 3 | Verify confirmation message | [Date] | Warning about deletion shown | | | |
+| 4 | Confirm deletion | [Date] | Course deleted | | | |
+| 5 | Verify course removed | [Date] | No longer in list | | | |
+| 6 | Verify associated data handled | [Date] | Related slots addressed appropriately | | | |
+
+---
+
+### Test Case #26
+
+**TEST TITLE:** Verify Schedule Deletion | **PRIORITY:** High | **TEST CASE ID:** TC_026 | **TEST NUMBER:** 26 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test deleting a custom schedule | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test deleting a custom schedule | **TEST DEPENDENCIES:** User has created schedule | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to schedules page | [Date] | Schedules listed | | | |
+| 2 | Click delete on a schedule | [Date] | Confirmation prompt shows | | | |
+| 3 | Confirm deletion | [Date] | Schedule deleted | | | |
+| 4 | Verify removal from list | [Date] | Schedule no longer visible | | | |
+
+---
+
+### Test Case #27
+
+**TEST TITLE:** Verify Timetable Export to PDF | **PRIORITY:** High | **TEST CASE ID:** TC_027 | **TEST NUMBER:** 27 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test exporting timetable as PDF | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test exporting timetable as PDF | **TEST DEPENDENCIES:** Student has enrollments | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to timetable page | [Date] | Timetable displays | | | |
+| 2 | Click 'Export' button | [Date] | Export options appear | | | |
+| 3 | Select 'PDF' format | [Date] | PDF option selected | | | |
+| 4 | Click 'Download' | [Date] | Download initiates | | | |
+| 5 | Verify file downloads | [Date] | PDF file received | | | |
+| 6 | Open PDF and verify content | [Date] | Timetable data correctly formatted in PDF | | | |
+
+---
+
+### Test Case #28
+
+**TEST TITLE:** Verify Timetable Print Functionality | **PRIORITY:** High | **TEST CASE ID:** TC_028 | **TEST NUMBER:** 28 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test print feature for timetable | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test print feature for timetable | **TEST DEPENDENCIES:** Student has enrollments | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to timetable page | [Date] | Timetable visible | | | |
+| 2 | Click 'Print' button | [Date] | Print dialog opens | | | |
+| 3 | Verify print preview shows timetable | [Date] | Content properly formatted for printing | | | |
+| 4 | Verify all data is visible in preview | [Date] | No content cut off | | | |
+
+---
+
+### Test Case #29
+
+**TEST TITLE:** Verify User Can Change Password | **PRIORITY:** High | **TEST CASE ID:** TC_029 | **TEST NUMBER:** 29 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test password change functionality | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test password change functionality | **TEST DEPENDENCIES:** User logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to settings/profile page | [Date] | Page loads | | | |
+| 2 | Click 'Change Password' link | [Date] | Password change form appears | | | |
+| 3 | Enter current password | [Date] | Field accepts input | | | |
+| 4 | Enter new password | [Date] | Field accepts input | | | |
+| 5 | Confirm new password | [Date] | Confirmation field matches | | | |
+| 6 | Click 'Update Password' | [Date] | Password updated | | | |
+| 7 | Verify success message | [Date] | Confirmation shown | | | |
+| 8 | Logout and login with new password | [Date] | New password works | | | |
+
+---
+
+### Test Case #30
+
+**TEST TITLE:** Verify Admin User Management Settings | **PRIORITY:** High | **TEST CASE ID:** TC_030 | **TEST NUMBER:** 30 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test admin viewing user management | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test admin viewing user management | **TEST DEPENDENCIES:** Admin logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Admin | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to admin settings | [Date] | Admin panel loads | | | |
+| 2 | Click 'User Management' | [Date] | User list displays | | | |
+| 3 | Verify all users are listed | [Date] | Users from all roles visible | | | |
+| 4 | Verify user role information | [Date] | Roles displayed correctly | | | |
+| 5 | Verify user status (active/inactive) | [Date] | Status indicators shown | | | |
+
+---
+
+### Test Case #31
+
+**TEST TITLE:** Verify Navigation Menu Functionality | **PRIORITY:** High | **TEST CASE ID:** TC_031 | **TEST NUMBER:** 31 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test main navigation menu | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test main navigation menu | **TEST DEPENDENCIES:** User logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Verify navigation menu is visible | [Date] | Menu displayed | | | |
+| 2 | Click 'Dashboard' link | [Date] | Navigates to dashboard | | | |
+| 3 | Verify active menu item highlighted | [Date] | Dashboard link highlighted | | | |
+| 4 | Click 'Courses' link | [Date] | Navigates to courses page | | | |
+| 5 | Verify active state updates | [Date] | Courses link now highlighted | | | |
+| 6 | Test all menu items | [Date] | All navigation links work correctly | | | |
+
+---
+
+### Test Case #32
+
+**TEST TITLE:** Verify Breadcrumb Navigation | **PRIORITY:** High | **TEST CASE ID:** TC_032 | **TEST NUMBER:** 32 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test breadcrumb trail on nested pages | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test breadcrumb trail on nested pages | **TEST DEPENDENCIES:** User navigating deep pages | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to course detail page | [Date] | Page loads | | | |
+| 2 | Verify breadcrumb trail shows: Home > Courses > Course Name | [Date] | Breadcrumb visible | | | |
+| 3 | Click 'Courses' in breadcrumb | [Date] | Returns to courses list | | | |
+| 4 | Verify navigation worked | [Date] | Courses list displayed | | | |
+
+---
+
+### Test Case #33
+
+**TEST TITLE:** Verify Mobile Navigation Menu | **PRIORITY:** High | **TEST CASE ID:** TC_033 | **TEST NUMBER:** 33 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test navigation on mobile viewport | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test navigation on mobile viewport | **TEST DEPENDENCIES:** User logged in | **TEST CONDITIONS:** Browser: Chrome (375px width), Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Resize browser to mobile width | [Date] | Layout adapts | | | |
+| 2 | Verify hamburger menu icon visible | [Date] | Menu icon shown | | | |
+| 3 | Click hamburger menu | [Date] | Navigation menu expands | | | |
+| 4 | Verify menu items accessible | [Date] | All links visible | | | |
+| 5 | Click a menu item | [Date] | Navigation works | | | |
+| 6 | Verify menu closes after navigation | [Date] | Menu collapses | | | |
+
+---
+
+### Test Case #34
+
+**TEST TITLE:** Verify Success Notification on Enrollment | **PRIORITY:** High | **TEST CASE ID:** TC_034 | **TEST NUMBER:** 34 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test toast notification on successful enrollment | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test toast notification on successful enrollment | **TEST DEPENDENCIES:** Student logged in, slot available | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to lecture slots | [Date] | Slots listed | | | |
+| 2 | Click 'Enroll' on available slot | [Date] | Enrollment initiated | | | |
+| 3 | Verify success toast appears | [Date] | Green notification shown | | | |
+| 4 | Verify message content | [Date] | Message states 'Successfully enrolled' | | | |
+| 5 | Verify toast auto-dismisses | [Date] | Notification disappears after few seconds | | | |
+
+---
+
+### Test Case #35
+
+**TEST TITLE:** Verify Error Notification on Failed Action | **PRIORITY:** High | **TEST CASE ID:** TC_035 | **TEST NUMBER:** 35 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test error notification display | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test error notification display | **TEST DEPENDENCIES:** Student logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to profile edit | [Date] | Edit form loads | | | |
+| 2 | Clear required field | [Date] | Field empty | | | |
+| 3 | Attempt to save | [Date] | Validation fails | | | |
+| 4 | Verify error notification | [Date] | Red error toast appears | | | |
+| 5 | Verify error message clarity | [Date] | Message explains issue | | | |
+| 6 | Dismiss notification | [Date] | Can close manually | | | |
+
+---
+
+### Test Case #36
+
+**TEST TITLE:** Verify Waitlist Notification | **PRIORITY:** High | **TEST CASE ID:** TC_036 | **TEST NUMBER:** 36 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test notification when joining waitlist | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test notification when joining waitlist | **TEST DEPENDENCIES:** Student trying to enroll in full slot | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to lecture slots | [Date] | Slots displayed | | | |
+| 2 | Click 'Enroll' on full slot | [Date] | Waitlist option appears | | | |
+| 3 | Confirm joining waitlist | [Date] | Waitlist enrollment processed | | | |
+| 4 | Verify notification message | [Date] | Toast shows 'Added to waitlist' | | | |
+| 5 | Verify waitlist position shown | [Date] | Position number displayed | | | |
+
+---
+
+### Test Case #37
+
+**TEST TITLE:** Verify Student Cannot Access Faculty Features | **PRIORITY:** High | **TEST CASE ID:** TC_037 | **TEST NUMBER:** 37 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test access control for student role | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test access control for student role | **TEST DEPENDENCIES:** Student logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Attempt to navigate to /faculty/create-slot | [Date] | Access blocked | | | |
+| 2 | Verify redirect or error message | [Date] | 403 Forbidden or redirect to dashboard | | | |
+| 3 | Attempt to access admin panel | [Date] | Access denied | | | |
+| 4 | Verify appropriate error message | [Date] | Error states insufficient permissions | | | |
+
+---
+
+### Test Case #38
+
+**TEST TITLE:** Verify Faculty Cannot Access Admin Features | **PRIORITY:** High | **TEST CASE ID:** TC_038 | **TEST NUMBER:** 38 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test faculty role restrictions | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test faculty role restrictions | **TEST DEPENDENCIES:** Faculty logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Faculty | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Attempt to navigate to /admin/users | [Date] | Access blocked | | | |
+| 2 | Verify error response | [Date] | 403 Forbidden shown | | | |
+| 3 | Attempt to delete users | [Date] | Action not permitted | | | |
+| 4 | Verify faculty can access own features | [Date] | Faculty dashboard accessible | | | |
+
+---
+
+### Test Case #39
+
+**TEST TITLE:** Verify Admin Has Full Access | **PRIORITY:** High | **TEST CASE ID:** TC_039 | **TEST NUMBER:** 39 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test admin role permissions | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test admin role permissions | **TEST DEPENDENCIES:** Admin logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Admin | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to user management | [Date] | Access granted | | | |
+| 2 | Navigate to course management | [Date] | Access granted | | | |
+| 3 | Navigate to all system settings | [Date] | All areas accessible | | | |
+| 4 | Verify admin-specific actions available | [Date] | Delete, edit all resources possible | | | |
+
+---
+
+### Test Case #40
+
+**TEST TITLE:** Verify Student Enrollment in Available Slot | **PRIORITY:** High | **TEST CASE ID:** TC_040 | **TEST NUMBER:** 40 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test successful enrollment workflow | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test successful enrollment workflow | **TEST DEPENDENCIES:** Student logged in, slot available | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to lecture slots | [Date] | Slots listed | | | |
+| 2 | Identify slot with available capacity | [Date] | Slot shows available seats | | | |
+| 3 | Click 'Enroll' button | [Date] | Enrollment modal appears | | | |
+| 4 | Confirm enrollment | [Date] | Enrollment processed | | | |
+| 5 | Verify success message | [Date] | Confirmation shown | | | |
+| 6 | Verify enrollment in 'My Enrollments' | [Date] | Slot appears in enrollments list | | | |
+| 7 | Verify capacity decremented | [Date] | Available seats reduced by 1 | | | |
+
+---
+
+### Test Case #41
+
+**TEST TITLE:** Verify Student Drops Enrollment | **PRIORITY:** High | **TEST CASE ID:** TC_041 | **TEST NUMBER:** 41 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test drop enrollment functionality | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test drop enrollment functionality | **TEST DEPENDENCIES:** Student enrolled in slot | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'My Enrollments' | [Date] | Enrollments listed | | | |
+| 2 | Click 'Drop' button on enrollment | [Date] | Confirmation dialog appears | | | |
+| 3 | Confirm drop action | [Date] | Enrollment cancelled | | | |
+| 4 | Verify success message | [Date] | Confirmation displayed | | | |
+| 5 | Verify enrollment removed from list | [Date] | No longer in 'My Enrollments' | | | |
+| 6 | Verify slot capacity increased | [Date] | Available seats incremented | | | |
+
+---
+
+### Test Case #42
+
+**TEST TITLE:** Verify Waitlist Automatic Promotion | **PRIORITY:** High | **TEST CASE ID:** TC_042 | **TEST NUMBER:** 42 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test waitlist promotion when spot opens | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test waitlist promotion when spot opens | **TEST DEPENDENCIES:** Slot full with waitlist, one student drops | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Student A enrolled, Student B on waitlist | [Date] | Initial state set | | | |
+| 2 | Student A drops enrollment | [Date] | Spot opens | | | |
+| 3 | System automatically enrolls Student B | [Date] | Promotion occurs | | | |
+| 4 | Verify Student B receives notification | [Date] | Email/notification sent | | | |
+| 5 | Verify Student B now shows as enrolled | [Date] | Status updated to 'Enrolled' | | | |
+| 6 | Verify waitlist position updated for others | [Date] | Remaining waitlist moves up | | | |
+
+---
+
+### Test Case #43
+
+**TEST TITLE:** Verify Duplicate Enrollment Prevention | **PRIORITY:** High | **TEST CASE ID:** TC_043 | **TEST NUMBER:** 43 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test system prevents enrolling in same slot twice | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test system prevents enrolling in same slot twice | **TEST DEPENDENCIES:** Student already enrolled in slot | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to lecture slots | [Date] | Slots displayed | | | |
+| 2 | Attempt to enroll in already enrolled slot | [Date] | Enroll button clicked | | | |
+| 3 | Verify error message | [Date] | Error: 'Already enrolled in this slot' | | | |
+| 4 | Verify enrollment count unchanged | [Date] | No duplicate created | | | |
+
+---
+
+### Test Case #44
+
+**TEST TITLE:** Verify Time Conflict Detection | **PRIORITY:** High | **TEST CASE ID:** TC_044 | **TEST NUMBER:** 44 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test enrollment blocked for time conflicts | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test enrollment blocked for time conflicts | **TEST DEPENDENCIES:** Student enrolled in Mon 10:00-11:30 | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Attempt to enroll in Mon 10:30-12:00 slot | [Date] | Conflicting time | | | |
+| 2 | Verify conflict warning appears | [Date] | Warning message shown | | | |
+| 3 | Verify conflict details provided | [Date] | Shows conflicting slot name and time | | | |
+| 4 | Verify enrollment blocked or requires confirmation | [Date] | Cannot proceed without acknowledging conflict | | | |
+
+---
+
+### Test Case #45
+
+**TEST TITLE:** Verify Timetable Display | **PRIORITY:** High | **TEST CASE ID:** TC_045 | **TEST NUMBER:** 45 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test student timetable view | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test student timetable view | **TEST DEPENDENCIES:** Student with multiple enrollments | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'My Timetable' | [Date] | Timetable page loads | | | |
+| 2 | Verify weekly grid layout | [Date] | Days as columns, times as rows | | | |
+| 3 | Verify all enrolled courses shown | [Date] | Each enrollment appears in correct time slot | | | |
+| 4 | Verify color coding | [Date] | Different subjects have distinct colors | | | |
+| 5 | Verify course details on hover/click | [Date] | Faculty, venue shown | | | |
+| 6 | Verify no overlapping courses | [Date] | Grid handles conflicts visually | | | |
+
+---
+
+### Test Case #46
+
+**TEST TITLE:** Verify Empty Timetable Handling | **PRIORITY:** High | **TEST CASE ID:** TC_046 | **TEST NUMBER:** 46 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test timetable with no enrollments | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test timetable with no enrollments | **TEST DEPENDENCIES:** Student with no enrollments | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'My Timetable' | [Date] | Page loads | | | |
+| 2 | Verify empty state message | [Date] | Message: 'No enrollments yet' | | | |
+| 3 | Verify call-to-action present | [Date] | Link to browse courses shown | | | |
+| 4 | Click 'Browse Courses' link | [Date] | Navigates to courses page | | | |
+
+---
+
+
+
+### Test Case #47
+
+**TEST TITLE:** Verify Login with Valid Credentials | **PRIORITY:** High | **TEST CASE ID:** TC_047 | **TEST NUMBER:** 47 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test user login functionality with correct credentials | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test user login functionality with correct credentials | **TEST DEPENDENCIES:** User account exists | **TEST CONDITIONS:** Browser: Chrome, Role: Any | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to login page | [Date] | Login page displays | | | |
+| 2 | Enter valid email | [Date] | Email field accepts input | | | |
+| 3 | Enter valid password | [Date] | Password field masked | | | |
+| 4 | Click 'Sign In' button | [Date] | Authentication processed | | | |
+| 5 | Verify redirect to dashboard | [Date] | User redirected based on role | | | |
+
+---
+
+### Test Case #48
+
+**TEST TITLE:** Verify Login with Invalid Password | **PRIORITY:** High | **TEST CASE ID:** TC_048 | **TEST NUMBER:** 48 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test login failure with wrong password | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test login failure with wrong password | **TEST DEPENDENCIES:** User account exists | **TEST CONDITIONS:** Browser: Chrome, Role: Any | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to login page | [Date] | Page loads | | | |
+| 2 | Enter valid email | [Date] | Email accepted | | | |
+| 3 | Enter incorrect password | [Date] | Password entered | | | |
+| 4 | Click 'Sign In' | [Date] | Login attempted | | | |
+| 5 | Verify error message | [Date] | Error: 'Invalid credentials' shown | | | |
+| 6 | Verify user stays on login page | [Date] | No redirect occurs | | | |
+
+---
+
+### Test Case #49
+
+**TEST TITLE:** Verify Password Field Masking | **PRIORITY:** High | **TEST CASE ID:** TC_049 | **TEST NUMBER:** 49 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test password visibility toggle | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test password visibility toggle | **TEST DEPENDENCIES:** On login or registration page | **TEST CONDITIONS:** Browser: Chrome, Role: Any | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to login page | [Date] | Page loads | | | |
+| 2 | Enter password in password field | [Date] | Password hidden by default | | | |
+| 3 | Click 'Show Password' icon | [Date] | Password becomes visible | | | |
+| 4 | Click 'Hide Password' icon | [Date] | Password masked again | | | |
+
+---
+
+### Test Case #50
+
+**TEST TITLE:** Verify Logout Functionality | **PRIORITY:** High | **TEST CASE ID:** TC_050 | **TEST NUMBER:** 50 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test user logout clears session | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test user logout clears session | **TEST DEPENDENCIES:** User logged in | **TEST CONDITIONS:** Browser: Chrome, Role: Any | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Click user menu icon | [Date] | Dropdown menu opens | | | |
+| 2 | Click 'Logout' option | [Date] | Logout initiated | | | |
+| 3 | Verify redirect to login/home | [Date] | User logged out | | | |
+| 4 | Attempt to access protected route | [Date] | Redirect to login page | | | |
+| 5 | Verify session cleared | [Date] | Cannot access without re-login | | | |
+
+---
+
+### Test Case #51
+
+**TEST TITLE:** Verify API Response Time | **PRIORITY:** High | **TEST CASE ID:** TC_051 | **TEST NUMBER:** 51 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test API endpoints respond within acceptable time | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test API endpoints respond within acceptable time | **TEST DEPENDENCIES:** Server running | **TEST CONDITIONS:** Browser: Chrome with DevTools | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Open DevTools Network tab | [Date] | Network monitoring active | | | |
+| 2 | Navigate to lecture slots page | [Date] | Page loads | | | |
+| 3 | Check API response time for /api/lecture-slots | [Date] | Response time recorded | | | |
+| 4 | Verify response time < 500ms | [Date] | Performance acceptable | | | |
+| 5 | Test multiple endpoints | [Date] | All meet performance criteria | | | |
+
 ---
+
+### Test Case #52
+
+**TEST TITLE:** Verify Responsive Design on Tablet | **PRIORITY:** High | **TEST CASE ID:** TC_052 | **TEST NUMBER:** 52 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test layout on tablet viewport | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test layout on tablet viewport | **TEST DEPENDENCIES:** Application accessible | **TEST CONDITIONS:** Browser: Chrome (768px width) | **TEST CONTROL:** Manual
 
-### TC-AUTH-007: Password Confirmation Mismatch
-**Priority:** P1  
-**Type:** Validation  
-**Preconditions:** On registration page  
-**Test Steps:**
-1. Enter password: "password123"
-2. Enter confirm password: "password456"
-3. Attempt registration
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Resize browser to tablet width | [Date] | Viewport adjusted | | | |
+| 2 | Navigate through key pages | [Date] | All pages load | | | |
+| 3 | Verify layout adapts properly | [Date] | No horizontal scrolling | | | |
+| 4 | Verify touch targets are adequate size | [Date] | Buttons easily clickable | | | |
+| 5 | Test navigation menu | [Date] | Menu accessible and functional | | | |
 
-**Expected Result:**
-- Error: "Passwords do not match"
-- Form not submitted
-- Clear indication of mismatch
-
 ---
 
-### TC-AUTH-008: Email Format Validation
-**Priority:** P1  
-**Type:** Validation  
-**Preconditions:** On registration/login page  
-**Test Steps:**
-1. Enter invalid email format: "invalidemail"
-2. Attempt to submit
+### Test Case #53
 
-**Expected Result:**
-- Validation error displayed
-- HTML5 email validation triggered
-- Form submission prevented
-
----
+**TEST TITLE:** Verify Form Field Required Indicators | **PRIORITY:** High | **TEST CASE ID:** TC_053 | **TEST NUMBER:** 53 | **TEST DATE:** [Date]
 
-### TC-AUTH-009: User Logout
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** User logged in  
-**Test Steps:**
-1. Click on user menu/profile icon
-2. Select "Logout" option
-3. Confirm logout
+**TEST DESCRIPTION:** Test required field marking on forms | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
 
-**Expected Result:**
-- User session terminated
-- JWT token removed from storage
-- Redirect to login/home page
-- Protected routes inaccessible
-
+**TEST DESCRIPTION:** Test required field marking on forms | **TEST DEPENDENCIES:** On any form page | **TEST CONDITIONS:** Browser: Chrome, Role: Any | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to registration form | [Date] | Form displays | | | |
+| 2 | Verify required fields marked with asterisk | [Date] | All required fields indicated | | | |
+| 3 | Attempt to submit without required fields | [Date] | Validation triggers | | | |
+| 4 | Verify error messages for each required field | [Date] | Clear error indicators shown | | | |
+
 ---
+
+### Test Case #54
+
+**TEST TITLE:** Verify Loading Spinner During Data Fetch | **PRIORITY:** High | **TEST CASE ID:** TC_054 | **TEST NUMBER:** 54 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test loading indicators appear during async operations | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test loading indicators appear during async operations | **TEST DEPENDENCIES:** Network can be throttled | **TEST CONDITIONS:** Browser: Chrome with slow 3G | **TEST CONTROL:** Manual
 
-### TC-AUTH-010: Session Persistence
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** User logged in  
-**Test Steps:**
-1. Login successfully
-2. Close browser tab
-3. Reopen application URL
-4. Check authentication state
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Throttle network to slow 3G | [Date] | Network limited | | | |
+| 2 | Navigate to courses page | [Date] | Page starts loading | | | |
+| 3 | Verify loading spinner appears | [Date] | Spinner visible | | | |
+| 4 | Wait for data to load | [Date] | Content loads | | | |
+| 5 | Verify spinner disappears | [Date] | Loading indicator removed | | | |
 
-**Expected Result:**
-- User remains authenticated (if "Remember Me" enabled)
-- Token valid until expiration (7 days default)
-- User can access protected routes
-
 ---
 
-### TC-AUTH-011: View Current User Profile
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** User authenticated  
-**Test Steps:**
-1. Navigate to `/profile` or `/api/auth/me`
-2. View profile information
-
-**Expected Result:**
-- User details displayed correctly
-- Password not exposed in response
-- All profile fields visible (name, email, role, meta data)
-
+### Test Case #55
+
+**TEST TITLE:** Verify Keyboard Accessibility for Forms | **PRIORITY:** High | **TEST CASE ID:** TC_055 | **TEST NUMBER:** 55 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test form navigation using keyboard only | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test form navigation using keyboard only | **TEST DEPENDENCIES:** On any form | **TEST CONDITIONS:** Browser: Chrome, Keyboard only | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to registration form using Tab | [Date] | Focus moves between fields | | | |
+| 2 | Verify focus indicators visible | [Date] | Focused fields highlighted | | | |
+| 3 | Fill form using keyboard only | [Date] | All fields accessible | | | |
+| 4 | Submit form using Enter key | [Date] | Form submits successfully | | | |
+
 ---
+
+### Test Case #56
 
-### TC-AUTH-012: Update User Profile
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** User authenticated  
-**Test Steps:**
-1. Navigate to profile page
-2. Update name to "Updated Name"
-3. Update student ID to "STU2025099"
-4. Save changes
+**TEST TITLE:** Verify Faculty Slot Capacity Management | **PRIORITY:** High | **TEST CASE ID:** TC_056 | **TEST NUMBER:** 56 | **TEST DATE:** [Date]
 
-**Expected Result:**
-- Profile updated successfully
-- Changes reflected immediately
-- Success notification displayed
-- Updated data persisted in database
+**TEST DESCRIPTION:** Test increasing slot capacity automatically enrolls waitlist | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
 
+**TEST DESCRIPTION:** Test increasing slot capacity automatically enrolls waitlist | **TEST DEPENDENCIES:** Slot full with waitlist | **TEST CONDITIONS:** Browser: Chrome, Role: Faculty | **TEST CONTROL:** Manual
+
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to 'My Lecture Slots' | [Date] | Slots listed | | | |
+| 2 | Select slot with waitlist | [Date] | Slot details shown | | | |
+| 3 | Increase capacity from 50 to 55 | [Date] | Capacity updated | | | |
+| 4 | Save changes | [Date] | Update processed | | | |
+| 5 | Verify waitlisted students auto-enrolled | [Date] | First 5 on waitlist now enrolled | | | |
+| 6 | Verify notifications sent | [Date] | Students notified of enrollment | | | |
+
 ---
+
+### Test Case #57
 
-## 2. User Management
+**TEST TITLE:** Verify Browser Back Button Behavior | **PRIORITY:** High | **TEST CASE ID:** TC_057 | **TEST NUMBER:** 57 | **TEST DATE:** [Date]
 
-### TC-USER-001: Admin - View All Users
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Logged in as admin  
-**Test Steps:**
-1. Navigate to `/api/users` endpoint or admin panel
-2. Request list of all users
+**TEST DESCRIPTION:** Test application handles back button correctly | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
 
-**Expected Result:**
-- Complete list of users returned
-- Users from all roles visible
-- Pagination working if applicable
-- User data includes role, status, creation date
+**TEST DESCRIPTION:** Test application handles back button correctly | **TEST DEPENDENCIES:** User navigating multiple pages | **TEST CONDITIONS:** Browser: Chrome, Role: Student | **TEST CONTROL:** Manual
 
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate from Dashboard to Courses to Course Detail | [Date] | Navigation sequence | | | |
+| 2 | Click browser back button | [Date] | Returns to courses list | | | |
+| 3 | Verify page state preserved | [Date] | Filters/selections maintained | | | |
+| 4 | Click back again | [Date] | Returns to dashboard | | | |
+| 5 | Verify no errors occur | [Date] | Navigation works smoothly | | | |
+
 ---
+
+### Test Case #58
+
+**TEST TITLE:** Verify Session Timeout Handling | **PRIORITY:** High | **TEST CASE ID:** TC_058 | **TEST NUMBER:** 58 | **TEST DATE:** [Date]
 
-### TC-USER-002: Admin - View Specific User by ID
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Logged in as admin, user ID known  
-**Test Steps:**
-1. Send GET request to `/api/users/{userId}`
-2. View user details
+**TEST DESCRIPTION:** Test user session expires after inactivity | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
 
-**Expected Result:**
-- Specific user information retrieved
-- All user fields displayed
-- Password hash not exposed
-- Related data (enrollments, slots) accessible
+**TEST DESCRIPTION:** Test user session expires after inactivity | **TEST DEPENDENCIES:** User logged in | **TEST CONDITIONS:** Browser: Chrome, JWT expiration configured | **TEST CONTROL:** Manual
 
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Login to application | [Date] | Session started | | | |
+| 2 | Wait for token expiration (or simulate) | [Date] | Time passes | | | |
+| 3 | Attempt to perform action after expiration | [Date] | Action attempted | | | |
+| 4 | Verify session expired message | [Date] | User notified | | | |
+| 5 | Verify redirect to login | [Date] | Must re-authenticate | | | |
+
 ---
+
+### Test Case #59
+
+**TEST TITLE:** Verify XSS Prevention in Text Fields | **PRIORITY:** High | **TEST CASE ID:** TC_059 | **TEST NUMBER:** 59 | **TEST DATE:** [Date]
 
-### TC-USER-003: Admin - Update User Information
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Admin privileges, target user exists  
-**Test Steps:**
-1. Select user to update
-2. Modify user fields (name, role, status)
-3. Submit update request
-
-**Expected Result:**
-- User information updated successfully
-- Changes reflected in database
-- Audit trail recorded (if implemented)
-
----
-
-### TC-USER-004: Admin - Delete User Account
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Admin privileges  
-**Test Steps:**
-1. Select user account to delete
-2. Confirm deletion
-3. Execute DELETE request
-
-**Expected Result:**
-- User account removed from system
-- Associated enrollments handled appropriately
-- Cannot login with deleted account
-- Confirmation prompt shown before deletion
-
----
-
-### TC-USER-005: Non-Admin User Cannot Access User Management
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** Logged in as student or faculty  
-**Test Steps:**
-1. Attempt to access `/api/users` endpoint
-2. Try to view all users
-
-**Expected Result:**
-- Access denied (403 Forbidden)
-- Error message: "Not authorized to access this resource"
-- Redirect to appropriate page
-
----
-
-### TC-USER-006: Unauthorized Access to User Endpoints
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** Not authenticated  
-**Test Steps:**
-1. Access `/api/users` without JWT token
-2. Attempt to retrieve user list
+**TEST DESCRIPTION:** Test application sanitizes script inputs | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
 
-**Expected Result:**
-- 401 Unauthorized response
-- Error: "No token, authorization denied"
-- Request blocked by middleware
-
----
-
-## 3. Course Management
-
-### TC-COURSE-001: View All Courses
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Courses exist in database  
-**Test Steps:**
-1. Navigate to `/courses` page
-2. View course listing
-
-**Expected Result:**
-- All active courses displayed
-- Course information includes: name, code, credits, description
-- Courses sorted appropriately
-- Search/filter functionality available
-
----
-
-### TC-COURSE-002: View Course Details
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Course ID known  
-**Test Steps:**
-1. Click on specific course
-2. Navigate to course detail page
-3. View complete course information
-
-**Expected Result:**
-- Full course details displayed
-- Associated lecture slots shown
-- Enrolled student count visible
-- Faculty information included
-
----
-
-### TC-COURSE-003: Create New Course (Admin/Instructor)
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Logged in as admin or instructor  
-**Test Steps:**
-1. Navigate to "Create Course" page
-2. Enter course details:
-   - Name: "Data Structures"
-   - Code: "CS201"
-   - Credits: 3
-   - Description: "Fundamental data structures and algorithms"
-3. Submit course creation form
+**TEST DESCRIPTION:** Test application sanitizes script inputs | **TEST DEPENDENCIES:** User can edit profile or create content | **TEST CONDITIONS:** Browser: Chrome, Role: Any | **TEST CONTROL:** Manual
 
-**Expected Result:**
-- Course created successfully
-- New course appears in course list
-- Course ID generated
-- Success notification shown
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to profile edit page | [Date] | Form loads | | | |
+| 2 | Enter script tag in name field: <script>alert('XSS')</script> | [Date] | Malicious input entered | | | |
+| 3 | Save changes | [Date] | Data submitted | | | |
+| 4 | View profile page | [Date] | Profile displays | | | |
+| 5 | Verify script did not execute | [Date] | No alert popup | | | |
+| 6 | Verify script tags escaped/removed | [Date] | Input sanitized | | | |
 
 ---
+
+### Test Case #60
+
+**TEST TITLE:** Verify Course Code Uniqueness Validation | **PRIORITY:** High | **TEST CASE ID:** TC_060 | **TEST NUMBER:** 60 | **TEST DATE:** [Date]
+
+**TEST DESCRIPTION:** Test system prevents duplicate course codes | **TEST DESIGNED BY:** [Tester Name] | **TEST EXECUTED BY:** [Tester Name] | **EXECUTION DATE:** [Date]
+
+**TEST DESCRIPTION:** Test system prevents duplicate course codes | **TEST DEPENDENCIES:** Course with code 'CS101' exists | **TEST CONDITIONS:** Browser: Chrome, Role: Admin | **TEST CONTROL:** Manual
 
-### TC-COURSE-004: Update Course Information
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Course exists, admin/instructor logged in  
-**Test Steps:**
-1. Select course to update
-2. Modify course fields (name, credits, description)
-3. Save changes
-
-**Expected Result:**
-- Course information updated
-- Changes visible immediately
-- Edit history maintained (if applicable)
-
----
-
-### TC-COURSE-005: Delete Course
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Admin privileges, course exists  
-**Test Steps:**
-1. Select course to delete
-2. Confirm deletion
-3. Execute delete action
-
-**Expected Result:**
-- Course removed from system
-- Associated lecture slots handled
-- Enrolled students notified (if applicable)
-- Confirmation required before deletion
-
----
-
-### TC-COURSE-006: Student Cannot Create Course
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** Logged in as student  
-**Test Steps:**
-1. Attempt to access course creation endpoint
-2. Try to POST new course data
-
-**Expected Result:**
-- Access denied (403 Forbidden)
-- Authorization check prevents creation
-- Error message displayed
-
----
-
-### TC-COURSE-007: Course Search Functionality
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Multiple courses exist  
-**Test Steps:**
-1. Navigate to courses page
-2. Enter search term: "Computer"
-3. Execute search
-
-**Expected Result:**
-- Filtered course list displayed
-- Courses matching search criteria shown
-- Search is case-insensitive
-- Results update in real-time
-
----
-
-### TC-COURSE-008: Course Filter by Department
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Courses from multiple departments exist  
-**Test Steps:**
-1. Select department filter: "Computer Science"
-2. Apply filter
-
-**Expected Result:**
-- Only CS courses displayed
-- Filter applied correctly
-- Can clear filter to see all courses
-
----
-
-## 4. Lecture Slots Management
-
-### TC-SLOT-001: View All Lecture Slots
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Lecture slots exist  
-**Test Steps:**
-1. Navigate to lecture slots page
-2. View available slots
-
-**Expected Result:**
-- All active lecture slots displayed
-- Slot information includes: subject, faculty, time, venue, capacity
-- Available seats shown
-- Day and time clearly visible
-
----
-
-### TC-SLOT-002: Faculty - Create New Lecture Slot
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** Logged in as faculty  
-**Test Steps:**
-1. Navigate to "Create Lecture Slot" page
-2. Enter slot details:
-   - Subject Name: "Advanced Algorithms"
-   - Venue: "Room 201"
-   - Capacity: 50
-   - Day: Monday (1)
-   - Start Time: "10:00"
-   - End Time: "11:30"
-   - Description: "Advanced algorithmic techniques"
-   - Recurring: true
-3. Submit creation form
-
-**Expected Result:**
-- Lecture slot created successfully
-- Slot appears in faculty's slot list
-- Students can see and enroll in slot
-- Faculty ID automatically associated
-
----
-
-### TC-SLOT-003: Faculty - Update Lecture Slot
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Faculty owns lecture slot  
-**Test Steps:**
-1. Select owned lecture slot
-2. Update capacity from 50 to 60
-3. Update venue to "Room 301"
-4. Save changes
-
-**Expected Result:**
-- Slot information updated
-- Changes reflected immediately
-- Enrolled students notified of changes (if applicable)
-
----
-
-### TC-SLOT-004: Faculty - Delete Lecture Slot
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Faculty owns slot  
-**Test Steps:**
-1. Select lecture slot to delete
-2. Confirm deletion
-3. Execute delete action
-
-**Expected Result:**
-- Slot removed from system
-- Enrolled students notified
-- Enrollments cancelled
-- Confirmation required
-
----
-
-### TC-SLOT-005: View Lecture Slot Details
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Slot ID known  
-**Test Steps:**
-1. Click on lecture slot
-2. View detailed information
-
-**Expected Result:**
-- Complete slot details displayed
-- Faculty information shown
-- Current enrollment count visible
-- Available seats calculated correctly
-- Waitlist status shown
-
----
-
-### TC-SLOT-006: Student Cannot Create Lecture Slot
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** Logged in as student  
-**Test Steps:**
-1. Attempt to access slot creation endpoint
-2. Try to POST new slot data
-
-**Expected Result:**
-- Access denied (403)
-- Authorization middleware blocks request
-- Error message displayed
-
----
-
-### TC-SLOT-007: Filter Lecture Slots by Day
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Slots exist for multiple days  
-**Test Steps:**
-1. Select day filter: "Monday"
-2. Apply filter
-
-**Expected Result:**
-- Only Monday slots displayed
-- Filter works correctly
-- Can clear filter
-
----
-
-### TC-SLOT-008: Filter Lecture Slots by Faculty
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Multiple faculty with slots  
-**Test Steps:**
-1. Select faculty from dropdown
-2. Apply filter
-
-**Expected Result:**
-- Only selected faculty's slots shown
-- Filter accurate
-- Faculty name displayed correctly
-
----
-
-### TC-SLOT-009: View Available vs. Full Slots
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Mix of available and full slots  
-**Test Steps:**
-1. Browse lecture slots
-2. Identify slot status indicators
-
-**Expected Result:**
-- Clear visual indication of availability
-- Full slots marked appropriately
-- Available seat count displayed
-- Enrollment button disabled for full slots
-
----
-
-### TC-SLOT-010: Recurring Slot Creation
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Faculty logged in  
-**Test Steps:**
-1. Create slot with recurring = true
-2. Set weekly schedule
-
-**Expected Result:**
-- Recurring slot created
-- Repeats weekly at specified time
-- All instances visible
-- Can enroll in recurring series
-
----
-
-## 5. Enrollment System
-
-### TC-ENROLL-001: Student Enrolls in Available Slot
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** Student logged in, slot has available capacity  
-**Test Steps:**
-1. Navigate to lecture slots page
-2. Select available slot
-3. Click "Enroll" button
-4. Confirm enrollment
-
-**Expected Result:**
-- Enrollment successful
-- Student added to slot's enrolled list
-- Available capacity decremented
-- Enrollment appears in student's timetable
-- Success notification displayed
-
----
-
-### TC-ENROLL-002: Student Joins Waitlist (Full Slot)
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** Slot is at full capacity  
-**Test Steps:**
-1. Attempt to enroll in full slot
-2. System offers waitlist option
-3. Join waitlist
-
-**Expected Result:**
-- Student added to waitlist
-- Waitlist position assigned
-- Status shows "Waitlisted"
-- Notification when seat becomes available
-
----
-
-### TC-ENROLL-003: Student Drops Enrollment
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** Student enrolled in slot  
-**Test Steps:**
-1. Navigate to "My Enrollments"
-2. Select enrollment to drop
-3. Click "Drop" button
-4. Confirm drop action
-
-**Expected Result:**
-- Enrollment cancelled
-- Student removed from enrolled list
-- Available capacity incremented
-- Next waitlisted student promoted (if applicable)
-- Confirmation notification shown
-
----
-
-### TC-ENROLL-004: Waitlist Position Management
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Multiple students on waitlist  
-**Test Steps:**
-1. Create scenario with 5 waitlisted students
-2. One enrolled student drops
-3. Check waitlist positions
-
-**Expected Result:**
-- First waitlisted student automatically enrolled
-- Remaining students move up in position
-- Notifications sent to affected students
-- Waitlist positions updated correctly
-
----
-
-### TC-ENROLL-005: Prevent Duplicate Enrollment
-**Priority:** P1  
-**Type:** Validation  
-**Preconditions:** Student already enrolled in slot  
-**Test Steps:**
-1. Attempt to enroll in same slot again
-2. Click enroll button
-
-**Expected Result:**
-- Error message: "Already enrolled in this slot"
-- Duplicate enrollment prevented
-- No change to enrollment count
-
----
-
-### TC-ENROLL-006: Enrollment Capacity Validation
-**Priority:** P0  
-**Type:** Validation  
-**Preconditions:** Slot capacity = 50, 50 students enrolled  
-**Test Steps:**
-1. 51st student attempts to enroll
-2. System checks capacity
-
-**Expected Result:**
-- Direct enrollment blocked
-- Waitlist option offered
-- Capacity limit enforced
-- Clear message displayed
-
----
-
-### TC-ENROLL-007: View My Enrollments
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Student has active enrollments  
-**Test Steps:**
-1. Navigate to "My Enrollments" page
-2. View enrolled courses
-
-**Expected Result:**
-- All enrollments displayed
-- Status shown (Enrolled/Waitlisted)
-- Course details visible
-- Can drop from this view
-
----
-
-### TC-ENROLL-008: Faculty Views Enrolled Students
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Faculty owns slot with enrollments  
-**Test Steps:**
-1. Navigate to faculty's lecture slot
-2. View enrolled students list
-3. Check student details
-
-**Expected Result:**
-- Complete list of enrolled students
-- Student information displayed (name, ID, year)
-- Enrollment date shown
-- Waitlist separately visible
-- Export option available (if implemented)
-
----
-
-### TC-ENROLL-009: Cancel Waitlisted Enrollment
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Student on waitlist  
-**Test Steps:**
-1. Navigate to enrollments
-2. Select waitlisted enrollment
-3. Cancel waitlist registration
-
-**Expected Result:**
-- Student removed from waitlist
-- Subsequent students move up
-- Success confirmation shown
-
----
-
-### TC-ENROLL-010: Enrollment Time Conflict Detection
-**Priority:** P2  
-**Type:** Validation  
-**Preconditions:** Student enrolled in Monday 10:00-11:30 slot  
-**Test Steps:**
-1. Attempt to enroll in another Monday 10:30-12:00 slot
-2. System checks for conflicts
-
-**Expected Result:**
-- Time conflict detected
-- Warning message displayed
-- Enrollment blocked or requires confirmation
-- Clear conflict information shown
-
----
-
-## 6. Student Timetable
-
-### TC-TIMETABLE-001: View Personal Timetable
-**Priority:** P0  
-**Type:** Functional  
-**Preconditions:** Student with enrollments  
-**Test Steps:**
-1. Navigate to `/timetable` or "My Timetable"
-2. View weekly schedule
-
-**Expected Result:**
-- Weekly timetable displayed
-- All enrolled courses shown
-- Correct days and times
-- Color-coded by subject/course
-- Faculty and venue information visible
-
----
-
-### TC-TIMETABLE-002: Empty Timetable (No Enrollments)
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Student with no enrollments  
-**Test Steps:**
-1. Navigate to timetable page
-2. View empty schedule
-
-**Expected Result:**
-- Empty timetable displayed
-- Message: "No enrollments yet"
-- Link to browse available courses
-- Helpful guidance shown
-
----
-
-### TC-TIMETABLE-003: Timetable Grid Layout
-**Priority:** P2  
-**Type:** UI/UX  
-**Preconditions:** Student with multiple enrollments  
-**Test Steps:**
-1. View timetable
-2. Check layout and formatting
-
-**Expected Result:**
-- Clear grid structure
-- Days as columns (Mon-Fri)
-- Time slots as rows
-- Courses positioned correctly
-- No overlapping displays
-
----
-
-### TC-TIMETABLE-004: Export Timetable
-**Priority:** P3  
-**Type:** Functional  
-**Preconditions:** Student has enrollments  
-**Test Steps:**
-1. Click "Export" or "Download" button
-2. Select format (PDF/iCal/Image)
-3. Download timetable
-
-**Expected Result:**
-- Timetable exported successfully
-- Format matches selection
-- All information included
-- Readable and well-formatted
-
----
-
-### TC-TIMETABLE-005: Print Timetable
-**Priority:** P3  
-**Type:** Functional  
-**Preconditions:** Timetable populated  
-**Test Steps:**
-1. Click print button
-2. Preview print layout
-3. Print timetable
-
-**Expected Result:**
-- Print-friendly format
-- All details visible
-- Proper page breaks
-- Clean layout
-
----
-
-## 7. Faculty Dashboard
-
-### TC-FACULTY-001: View Faculty Dashboard
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Logged in as faculty  
-**Test Steps:**
-1. Navigate to dashboard after login
-2. View dashboard content
-
-**Expected Result:**
-- Faculty-specific dashboard displayed
-- Statistics shown (total slots, enrolled students)
-- Quick actions available
-- Upcoming lectures visible
-
----
-
-### TC-FACULTY-002: View My Lecture Slots
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Faculty with created slots  
-**Test Steps:**
-1. Navigate to "My Lecture Slots"
-2. View slot list
-
-**Expected Result:**
-- All faculty's slots displayed
-- Enrollment status shown
-- Can edit/delete owned slots
-- Create new slot option available
-
----
-
-### TC-FACULTY-003: Enrollment Analytics
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Faculty with enrollments  
-**Test Steps:**
-1. View enrollment statistics
-2. Check analytics dashboard
-
-**Expected Result:**
-- Total enrolled students count
-- Enrollment trends visible
-- Capacity utilization shown
-- Waitlist statistics displayed
-
----
-
-### TC-FACULTY-004: Manage Slot Capacity
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Faculty owns slot  
-**Test Steps:**
-1. Select lecture slot
-2. Increase capacity from 50 to 60
-3. Save changes
-
-**Expected Result:**
-- Capacity updated successfully
-- Waitlisted students automatically enrolled (if space available)
-- Changes reflected immediately
-
----
-
-### TC-FACULTY-005: View Student Details
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Students enrolled in faculty's slot  
-**Test Steps:**
-1. Select lecture slot
-2. View enrolled students
-3. Click on student for details
-
-**Expected Result:**
-- Student information displayed
-- Contact details visible (if permitted)
-- Enrollment history shown
-- Academic year visible
-
----
-
-## 8. Student Dashboard
-
-### TC-STUDENT-001: View Student Dashboard
-**Priority:** P1  
-**Type:** Functional  
-**Preconditions:** Logged in as student  
-**Test Steps:**
-1. Navigate to dashboard
-2. View dashboard overview
-
-**Expected Result:**
-- Student-specific dashboard shown
-- Enrollment statistics displayed
-- Upcoming classes visible
-- Quick links to key features
-
----
-
-### TC-STUDENT-002: Dashboard Statistics
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Student with enrollments  
-**Test Steps:**
-1. View dashboard stats
-2. Verify accuracy
-
-**Expected Result:**
-- Total enrollments count accurate
-- Total credits calculated correctly
-- Upcoming classes count correct
-- Available courses shown
-
----
-
-### TC-STUDENT-003: Quick Actions
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Student logged in  
-**Test Steps:**
-1. Identify quick action buttons
-2. Test navigation
-
-**Expected Result:**
-- "Browse Courses" button works
-- "View Timetable" link functional
-- "Manage Profile" accessible
-- All links navigate correctly
-
----
-
-### TC-STUDENT-004: Recent Activity
-**Priority:** P3  
-**Type:** Functional  
-**Preconditions:** Student has activity history  
-**Test Steps:**
-1. View recent activity section
-2. Check activity log
-
-**Expected Result:**
-- Recent enrollments shown
-- Drop actions logged
-- Activity timestamps accurate
-- Limited to recent items (e.g., last 10)
-
----
-
-## 9. Schedule Management
-
-### TC-SCHEDULE-001: Create Custom Schedule
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** User logged in  
-**Test Steps:**
-1. Navigate to schedules page
-2. Click "Create Schedule"
-3. Enter schedule details:
-   - Name: "Spring 2025"
-   - Semester: "Spring"
-   - Year: 2025
-4. Save schedule
-
-**Expected Result:**
-- Schedule created successfully
-- Appears in schedules list
-- Can add courses to schedule
-- Schedule ID generated
-
----
-
-### TC-SCHEDULE-002: Add Courses to Schedule
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Schedule exists  
-**Test Steps:**
-1. Open schedule
-2. Click "Add Course"
-3. Select courses to add
-4. Save schedule
-
-**Expected Result:**
-- Courses added to schedule
-- Total credits calculated
-- Time conflicts detected
-- Schedule updated
-
----
-
-### TC-SCHEDULE-003: Update Schedule
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Schedule exists  
-**Test Steps:**
-1. Select schedule to edit
-2. Modify name and details
-3. Save changes
-
-**Expected Result:**
-- Schedule information updated
-- Changes persisted
-- Success notification shown
-
----
-
-### TC-SCHEDULE-004: Delete Schedule
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** Schedule exists  
-**Test Steps:**
-1. Select schedule to delete
-2. Confirm deletion
-3. Execute delete
-
-**Expected Result:**
-- Schedule removed
-- Confirmation required
-- Associated data handled
-- Success message shown
-
----
-
-### TC-SCHEDULE-005: View All Schedules
-**Priority:** P2  
-**Type:** Functional  
-**Preconditions:** User has created schedules  
-**Test Steps:**
-1. Navigate to schedules page
-2. View schedule list
-
-**Expected Result:**
-- All user schedules displayed
-- Schedule details visible
-- Can filter/sort schedules
-- Quick access to actions
-
----
-
-## 10. Security & Authorization
-
-### TC-SEC-001: JWT Token Generation
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** User logs in  
-**Test Steps:**
-1. Login with valid credentials
-2. Inspect response
-
-**Expected Result:**
-- JWT token generated
-- Token includes user ID and role
-- Token has expiration (7 days)
-- Token signed with secret key
-
----
-
-### TC-SEC-002: Protected Route Access
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** Not authenticated  
-**Test Steps:**
-1. Attempt to access `/dashboard` without login
-2. Try to access protected API endpoint
-
-**Expected Result:**
-- Redirect to login page
-- 401 Unauthorized for API
-- Access denied
-- Token validation enforced
-
----
-
-### TC-SEC-003: Role-Based Access Control - Faculty
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** Logged in as student  
-**Test Steps:**
-1. Attempt to create lecture slot
-2. Try to access faculty-only endpoints
-
-**Expected Result:**
-- Access denied (403)
-- Authorization middleware blocks
-- Error message shown
-- Action not executed
-
----
-
-### TC-SEC-004: Role-Based Access Control - Admin
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** Logged in as student  
-**Test Steps:**
-1. Attempt to access user management
-2. Try to delete users
-
-**Expected Result:**
-- Admin-only actions blocked
-- 403 Forbidden response
-- Cannot modify system data
-
----
-
-### TC-SEC-005: Password Encryption
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** User registration  
-**Test Steps:**
-1. Create new user account
-2. Check database for password storage
-
-**Expected Result:**
-- Password stored as bcrypt hash
-- Original password not visible
-- Hash includes salt
-- Passwords cannot be reversed
-
----
-
-### TC-SEC-006: Token Expiration
-**Priority:** P1  
-**Type:** Security  
-**Preconditions:** User logged in  
-**Test Steps:**
-1. Generate token with short expiration
-2. Wait for expiration
-3. Attempt to access protected resource
-
-**Expected Result:**
-- Expired token rejected
-- 401 Unauthorized response
-- User prompted to re-login
-- Session invalidated
-
----
-
-### TC-SEC-007: CORS Configuration
-**Priority:** P1  
-**Type:** Security  
-**Preconditions:** API server running  
-**Test Steps:**
-1. Send request from unauthorized origin
-2. Check CORS headers
-
-**Expected Result:**
-- Only allowed origins accepted
-- CORS headers properly set
-- Unauthorized origins blocked
-- Preflight requests handled
-
----
-
-### TC-SEC-008: SQL Injection Prevention
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** API endpoints available  
-**Test Steps:**
-1. Attempt SQL injection in input fields
-2. Send malicious payloads
-
-**Expected Result:**
-- Mongoose/MongoDB prevents injection
-- Input sanitized
-- No database manipulation
-- Error handled gracefully
-
----
-
-### TC-SEC-009: XSS Prevention
-**Priority:** P0  
-**Type:** Security  
-**Preconditions:** User input fields  
-**Test Steps:**
-1. Enter script tags in input: `<script>alert('XSS')</script>`
-2. Submit form
-
-**Expected Result:**
-- Script tags escaped
-- No script execution
-- Data stored safely
-- Output properly encoded
-
----
-
-### TC-SEC-010: Rate Limiting
-**Priority:** P1  
-**Type:** Security  
-**Preconditions:** Rate limiting configured  
-**Test Steps:**
-1. Send 100+ requests in short time
-2. Exceed rate limit
-
-**Expected Result:**
-- Rate limit enforced
-- 429 Too Many Requests response
-- Access temporarily blocked
-- Retry-after header included
-
----
-
-## 11. API Testing
-
-### TC-API-001: Health Check Endpoint
-**Priority:** P1  
-**Type:** API  
-**Preconditions:** Server running  
-**Test Steps:**
-1. Send GET request to `/health`
-
-**Expected Result:**
-```json
-{
-  "status": "ok",
-  "timestamp": "2025-01-XX"
-}
-```
-
----
-
-### TC-API-002: Registration Endpoint
-**Priority:** P0  
-**Type:** API  
-**Preconditions:** None  
-**Test Steps:**
-1. POST `/api/auth/register` with user data
-
-**Expected Result:**
-- 201 Created status
-- User object returned
-- Token included
-- Password not in response
-
----
-
-### TC-API-003: Login Endpoint
-**Priority:** P0  
-**Type:** API  
-**Preconditions:** User exists  
-**Test Steps:**
-1. POST `/api/auth/login` with credentials
-
-**Expected Result:**
-- 200 OK status
-- Token returned
-- User data included
-- Session created
-
----
-
-### TC-API-004: Get User Profile Endpoint
-**Priority:** P1  
-**Type:** API  
-**Preconditions:** User authenticated  
-**Test Steps:**
-1. GET `/api/auth/me` with valid token
-
-**Expected Result:**
-- 200 OK status
-- User profile data returned
-- Password excluded
-- Role and meta data included
-
----
-
-### TC-API-005: Get All Courses Endpoint
-**Priority:** P1  
-**Type:** API  
-**Preconditions:** Courses exist  
-**Test Steps:**
-1. GET `/api/courses`
-
-**Expected Result:**
-- 200 OK status
-- Array of courses returned
-- Pagination info included
-- Public access allowed
-
----
-
-### TC-API-006: Create Lecture Slot Endpoint
-**Priority:** P1  
-**Type:** API  
-**Preconditions:** Faculty token  
-**Test Steps:**
-1. POST `/api/lecture-slots` with slot data
-
-**Expected Result:**
-- 201 Created status
-- Slot object returned
-- Faculty ID auto-assigned
-- Validation passed
-
----
-
-### TC-API-007: Enroll in Slot Endpoint
-**Priority:** P0  
-**Type:** API  
-**Preconditions:** Student token, slot available  
-**Test Steps:**
-1. POST `/api/enrollments/enroll/:slotId`
-
-**Expected Result:**
-- 200 OK or 201 Created
-- Enrollment object returned
-- Status: "enrolled" or "waitlisted"
-- Capacity updated
-
----
-
-### TC-API-008: Get Student Timetable Endpoint
-**Priority:** P1  
-**Type:** API  
-**Preconditions:** Student with enrollments  
-**Test Steps:**
-1. GET `/api/enrollments/my-timetable`
-
-**Expected Result:**
-- 200 OK status
-- Array of enrolled slots
-- Organized by day/time
-- Complete slot details
-
----
-
-### TC-API-009: Error Response Format
-**Priority:** P1  
-**Type:** API  
-**Preconditions:** Trigger error condition  
-**Test Steps:**
-1. Send invalid request
-2. Check error response
-
-**Expected Result:**
-```json
-{
-  "success": false,
-  "error": "Error message",
-  "statusCode": 400
-}
-```
-
----
-
-### TC-API-010: Pagination Parameters
-**Priority:** P2  
-**Type:** API  
-**Preconditions:** Many records exist  
-**Test Steps:**
-1. GET `/api/courses?page=2&limit=10`
-
-**Expected Result:**
-- Correct page returned
-- Limit respected
-- Total count included
-- Next/prev links provided
-
----
-
-## 12. UI/UX Testing
-
-### TC-UI-001: Responsive Design - Mobile View
-**Priority:** P2  
-**Type:** UI/UX  
-**Preconditions:** Application accessible  
-**Test Steps:**
-1. Resize browser to mobile width (375px)
-2. Navigate through pages
-
-**Expected Result:**
-- Layout adapts to mobile
-- All features accessible
-- Navigation menu collapses
-- Touch-friendly buttons
-
----
-
-### TC-UI-002: Navigation Menu
-**Priority:** P1  
-**Type:** UI/UX  
-**Preconditions:** User logged in  
-**Test Steps:**
-1. Click on navigation menu items
-2. Test all links
-
-**Expected Result:**
-- All menu items functional
-- Active page highlighted
-- Smooth navigation
-- Consistent across pages
-
----
-
-### TC-UI-003: Toast Notifications
-**Priority:** P2  
-**Type:** UI/UX  
-**Preconditions:** Perform actions  
-**Test Steps:**
-1. Complete enrollment
-2. Update profile
-3. Delete item
-
-**Expected Result:**
-- Success messages shown
-- Error messages displayed
-- Auto-dismiss after timeout
-- Non-intrusive positioning
-
----
-
-### TC-UI-004: Loading States
-**Priority:** P2  
-**Type:** UI/UX  
-**Preconditions:** Perform async action  
-**Test Steps:**
-1. Submit form
-2. Load large dataset
-3. Observe loading indicators
-
-**Expected Result:**
-- Spinner/loader shown during API calls
-- Buttons disabled during submission
-- Skeleton screens for data loading
-- Prevents duplicate submissions
-
----
-
-### TC-UI-005: Form Validation Messages
-**Priority:** P1  
-**Type:** UI/UX  
-**Preconditions:** Fill out forms  
-**Test Steps:**
-1. Submit form with invalid data
-2. Check validation messages
-
-**Expected Result:**
-- Error messages clear and specific
-- Field-level validation
-- Red border on invalid fields
-- Guidance on how to fix errors
-
----
-
-### TC-UI-006: Accessibility - Keyboard Navigation
-**Priority:** P2  
-**Type:** Accessibility  
-**Preconditions:** Application loaded  
-**Test Steps:**
-1. Navigate using Tab key
-2. Activate with Enter/Space
-3. Test all interactive elements
-
-**Expected Result:**
-- All elements reachable via keyboard
-- Focus indicators visible
-- Logical tab order
-- No keyboard traps
-
----
-
-### TC-UI-007: Color Contrast
-**Priority:** P3  
-**Type:** Accessibility  
-**Preconditions:** View pages  
-**Test Steps:**
-1. Check text color contrast
-2. Use contrast checker tool
-
-**Expected Result:**
-- Meets WCAG AA standards
-- Text readable on backgrounds
-- Interactive elements distinguishable
-- Sufficient contrast ratios
-
----
-
-### TC-UI-008: Empty States
-**Priority:** P2  
-**Type:** UI/UX  
-**Preconditions:** New user account  
-**Test Steps:**
-1. View pages with no data
-2. Check empty state messages
-
-**Expected Result:**
-- Helpful empty state messages
-- Call-to-action buttons present
-- Guidance on next steps
-- Not just blank pages
-
----
-
-## 13. Performance Testing
-
-### TC-PERF-001: Page Load Time
-**Priority:** P2  
-**Type:** Performance  
-**Preconditions:** Server running  
-**Test Steps:**
-1. Clear cache
-2. Navigate to dashboard
-3. Measure load time
-
-**Expected Result:**
-- Page loads in < 3 seconds
-- First contentful paint < 1.5s
-- Time to interactive < 3.5s
-- Optimized bundle sizes
-
----
-
-### TC-PERF-002: API Response Time
-**Priority:** P2  
-**Type:** Performance  
-**Preconditions:** Database populated  
-**Test Steps:**
-1. Send API requests
-2. Measure response times
-
-**Expected Result:**
-- Most endpoints respond < 200ms
-- Complex queries < 500ms
-- Consistent performance
-- No timeout errors
-
----
-
-### TC-PERF-003: Database Query Optimization
-**Priority:** P2  
-**Type:** Performance  
-**Preconditions:** Large dataset  
-**Test Steps:**
-1. Query large collections
-2. Check query execution time
-
-**Expected Result:**
-- Indexes utilized
-- Queries optimized
-- No N+1 query problems
-- Reasonable response times
-
----
-
-### TC-PERF-004: Concurrent User Handling
-**Priority:** P2  
-**Type:** Performance  
-**Preconditions:** Test environment  
-**Test Steps:**
-1. Simulate 50 concurrent users
-2. Monitor system performance
-
-**Expected Result:**
-- System remains responsive
-- No crashes or errors
-- Request queue handled
-- Resources managed well
-
----
-
-## 14. Integration Testing
-
-### TC-INT-001: End-to-End User Journey - Student
-**Priority:** P0  
-**Type:** Integration  
-**Test Steps:**
-1. Register new student account
-2. Browse available courses
-3. Enroll in lecture slots
-4. View timetable
-5. Update profile
-6. Drop enrollment
-7. Logout
-
-**Expected Result:**
-- All steps complete successfully
-- Data flows between modules
-- Consistent user experience
-- No broken workflows
-
----
-
-### TC-INT-002: End-to-End User Journey - Faculty
-**Priority:** P0  
-**Type:** Integration  
-**Test Steps:**
-1. Login as faculty
-2. Create lecture slot
-3. View enrolled students
-4. Update slot details
-5. Check enrollment analytics
-6. Logout
-
-**Expected Result:**
-- Faculty workflow seamless
-- All features integrated
-- Data synchronized
-- Actions reflected immediately
-
----
-
-### TC-INT-003: Enrollment Workflow Integration
-**Priority:** P0  
-**Type:** Integration  
-**Test Steps:**
-1. Faculty creates slot with capacity 2
-2. Student 1 enrolls (success)
-3. Student 2 enrolls (success)
-4. Student 3 enrolls (waitlisted)
-5. Student 1 drops
-6. Student 3 auto-enrolled
-
-**Expected Result:**
-- Complete workflow functions
-- Waitlist promotion automatic
-- All parties notified
-- Data consistency maintained
-
----
-
-### TC-INT-004: Authentication Flow Integration
-**Priority:** P0  
-**Type:** Integration  
-**Test Steps:**
-1. Access protected route (redirected to login)
-2. Login successfully
-3. Redirected to originally requested page
-4. Token persists across navigation
-5. Logout removes token
-6. Protected routes inaccessible
-
-**Expected Result:**
-- Auth flow seamless
-- State managed correctly
-- Redirects work properly
-- Session handling robust
-
----
-
-### TC-INT-005: Data Consistency Across Modules
-**Priority:** P1  
-**Type:** Integration  
-**Test Steps:**
-1. Update user profile
-2. Check profile in multiple locations
-3. Enroll in course
-4. Verify in timetable, dashboard, and enrollments
-5. Ensure data synchronized
-
-**Expected Result:**
-- Data consistent everywhere
-- Real-time or near real-time updates
-- No stale data displayed
-- Cache invalidation working
+| STEP ID | STEP DESCRIPTION | TEST DATE | EXPECTED RESULTS | ACTUAL RESULTS | PASS / FAIL | ADDITIONAL NOTES |
+|---------|------------------|-----------|------------------|----------------|-------------|------------------|
+| 1 | Navigate to create course page | [Date] | Form loads | | | |
+| 2 | Enter course name and existing code 'CS101' | [Date] | Duplicate code entered | | | |
+| 3 | Attempt to submit | [Date] | Validation triggered | | | |
+| 4 | Verify error message | [Date] | Error: 'Course code already exists' | | | |
+| 5 | Change to unique code | [Date] | New code entered | | | |
+| 6 | Submit successfully | [Date] | Course created | | | |
 
 ---
 
 ## Test Execution Summary
 
-### Test Metrics
+**Total Test Cases:** 61  
+**Status:** Ready for Execution  
+**Test Environment:** Chrome Browser, Local Development Environment  
+**Test Data:** Seeded database with sample users and content
 
-| Metric | Target | Status |
-|--------|--------|--------|
-| Total Test Cases | 102 | ✅ Complete |
-| P0 (Critical) Cases | 22 | Pending Execution |
-| P1 (High) Cases | 47 | Pending Execution |
-| P2 (Medium) Cases | 30 | Pending Execution |
-| P3 (Low) Cases | 6 | Pending Execution |
-| Pass Rate Target | > 95% | TBD |
-| Code Coverage Target | > 80% | TBD |
+### Priority Distribution:
+- **High Priority:** All test cases (Critical functionality)
 
-### Test Categories Distribution
-
-- **Authentication**: 12 test cases
-- **User Management**: 6 test cases
-- **Course Management**: 8 test cases
-- **Lecture Slots**: 10 test cases
-- **Enrollment System**: 10 test cases
-- **Student Timetable**: 5 test cases
-- **Faculty Dashboard**: 5 test cases
-- **Student Dashboard**: 4 test cases
-- **Schedule Management**: 5 test cases
-- **Security & Authorization**: 10 test cases
-- **API Testing**: 10 test cases
-- **UI/UX Testing**: 8 test cases
-- **Performance Testing**: 4 test cases
-- **Integration Testing**: 5 test cases
-
-### Execution Schedule
-
-**Phase 1 - Critical Features (Week 1)**
-- Authentication Module
-- Enrollment System
-- Security & Authorization
-- Core API Endpoints
-
-**Phase 2 - Major Features (Week 2)**
-- Course Management
-- Lecture Slots Management
-- User Management
-- Faculty & Student Dashboards
-
-**Phase 3 - Supporting Features (Week 3)**
-- Timetable Functionality
-- Schedule Management
-- UI/UX Testing
-- Integration Testing
-
-**Phase 4 - Performance & Polish (Week 4)**
-- Performance Testing
-- Regression Testing
-- Bug Fixes
-- Final Validation
+### Functional Area Distribution:
+- Dashboard & Homepage: 3 test cases
+- User Profile: 3 test cases  
+- Data Lists: 3 test cases
+- Search & Filtering: 4 test cases
+- Create/Add New Item: 4 test cases
+- View Item Details: 3 test cases
+- Edit/Update Items: 3 test cases
+- Delete Items: 3 test cases
+- File Download: 2 test cases
+- Settings: 2 test cases
+- Navigation: 3 test cases
+- Notifications: 3 test cases
+- Role-Based Access: 3 test cases
+- Enrollment: 5 test cases
+- Timetable: 2 test cases
+- Additional areas: 5 test cases
 
 ---
 
-## Defect Management
-
-### Defect Severity Levels
-
-**Critical (S1)**
-- System crash or data loss
-- Security vulnerabilities
-- Core functionality broken
-- Resolution: Immediate
-
-**High (S2)**
-- Major feature not working
-- Significant user impact
-- Workaround exists
-- Resolution: Within 24 hours
-
-**Medium (S3)**
-- Minor feature issues
-- Limited user impact
-- Resolution: Within 1 week
-
-**Low (S4)**
-- Cosmetic issues
-- Enhancement requests
-- Resolution: Next release
-
-### Defect Tracking
-
-Defects will be tracked using:
-- Bug ID
-- Title
-- Description
-- Steps to Reproduce
-- Expected vs. Actual Result
-- Severity
-- Priority
-- Status
-- Assigned To
-- Screenshots/Logs
-
----
-
-## Appendix
-
-### Test Credentials
+## Test Credentials
 
 **Admin Account:**
 - Email: admin@college.edu
 - Password: admin123
 
-**Faculty Accounts:**
-- sarah.johnson@college.edu / password123
-- michael.chen@college.edu / password123
+**Faculty Account:**
+- Email: sarah.johnson@college.edu
+- Password: password123
 
 **Student Accounts:**
-- john.smith@student.college.edu / password123
-- alice.johnson@student.college.edu / password123
-
-### Test Data
-
-Refer to `backend/src/utils/seedData.js` for complete test data setup.
-
-### References
-
-- API Documentation: README.md
-- Technical Specifications: Project documentation
-- User Stories: Product requirements
-- Test Automation Framework: Jest, Supertest
-
----
-
-**Document Version:** 1.0  
-**Last Updated:** January 2025  
-**Next Review:** Monthly or after major releases  
-**Approved By:** QA Team Lead
+- Email: john.smith@student.college.edu
+- Password: password123
+- Email: alice.johnson@student.college.edu
+- Password: password123
 
 ---
 
 ## Notes
 
-- All test cases should be executed in a dedicated test environment
-- Database should be reset to known state before test execution
-- Automated tests should run on every commit (CI/CD pipeline)
-- Manual testing required for UI/UX and exploratory testing
-- Performance benchmarks should be established and monitored
-- Security testing should be conducted regularly
-- Regression test suite should be maintained and updated
+- All test cases use placeholders `[Date]` and `[Tester Name]` for execution tracking
+- Actual results, pass/fail status, and additional notes should be filled during test execution
+- Test cases cover all major functional areas of the application beyond just login/signup
+- Each test case includes detailed step-by-step instructions and expected results
+- Test control is set to "Manual" but can be updated to "Automated" for automated test cases
 
 **END OF DOCUMENT**
