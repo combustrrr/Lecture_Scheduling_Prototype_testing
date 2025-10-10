@@ -180,80 +180,827 @@ The system aims to improve the efficiency of academic schedule management, reduc
 % Main Content Chapters
 \chapter{Introduction}
 
-\section{Project Overview}
-The Timetable Buddy is a modern web-based lecture scheduling system designed to address the complex challenges of academic timetable management in educational institutions. The system provides an integrated solution for students, faculty, and administrators to efficiently manage and access class schedules.
+\section{Introduction}
+The Timetable Buddy is a comprehensive web-based lecture scheduling system designed to revolutionize the way educational institutions manage their academic schedules. In today's fast-paced educational environment, the need for efficient, reliable, and user-friendly scheduling tools has become paramount. This system addresses these needs by providing an integrated platform that simplifies the complex process of managing lecture slots, student enrollments, and faculty schedules.
 
-\section{Motivation}
-Traditional methods of managing academic schedules often involve manual processes, spreadsheets, and disparate systems that can lead to scheduling conflicts, communication gaps, and inefficiencies. The need for an automated, user-friendly, and reliable system motivated the development of Timetable Buddy.
+Traditional methods of academic scheduling often rely on manual processes, spreadsheets, and fragmented communication channels, leading to inefficiencies, scheduling conflicts, and administrative overhead. The Timetable Buddy eliminates these challenges by offering a centralized, automated solution that ensures seamless coordination between students, faculty, and administrators.
+
+Built using modern web technologies including the MERN stack (MongoDB, Express.js, React, Node.js), the system leverages the power of full-stack JavaScript development to deliver a responsive, scalable, and maintainable application. The frontend is developed using React with TypeScript for enhanced type safety and developer experience, while the backend utilizes Node.js and Express.js to provide a robust REST API architecture.
+
+The system's architecture follows industry best practices, including role-based access control (RBAC), JWT-based authentication, and comprehensive input validation. This ensures that the application is not only feature-rich but also secure and reliable. The responsive design, powered by Tailwind CSS, guarantees an optimal user experience across all devices, from desktop computers to mobile phones.
 
 \section{Objectives}
-The primary objectives of this project are:
+The primary objectives of the Timetable Buddy project are:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Centralized Schedule Management:} To develop a unified platform where all stakeholders (students, faculty, and administrators) can access and manage lecture schedules from a single interface.
+    
+    \item \textbf{Automated Enrollment Processing:} To implement an intelligent enrollment system that handles student registrations, manages waiting lists, and automatically promotes students when slots become available.
+    
+    \item \textbf{Role-Based Access Control:} To provide differentiated access and functionality based on user roles, ensuring that each user type (student, faculty, admin) has appropriate permissions and views.
+    
+    \item \textbf{Real-Time Conflict Detection:} To enable automatic detection of scheduling conflicts, preventing students from enrolling in overlapping lecture slots and helping faculty avoid double-booking.
+    
+    \item \textbf{Intuitive User Interface:} To create a modern, user-friendly interface that requires minimal training and provides an excellent user experience across all devices.
+    
+    \item \textbf{Comprehensive Testing and Quality Assurance:} To ensure system reliability through extensive testing, including 60 comprehensive test cases covering all functional areas.
+    
+    \item \textbf{Scalable Architecture:} To build a system that can easily scale to accommodate growing numbers of users, courses, and lecture slots without performance degradation.
+    
+    \item \textbf{Data Security:} To implement robust security measures including password encryption, JWT-based authentication, and protection against common web vulnerabilities.
+\end{enumerate}
+
+\section{Problem Statement}
+Educational institutions face numerous challenges in managing their lecture schedules effectively:
+
 \begin{itemize}[leftmargin=*]
-    \item To develop a centralized platform for lecture schedule management
-    \item To implement automated enrollment processing with capacity management
-    \item To provide role-based access control for different user types
-    \item To enable real-time schedule conflict detection
-    \item To create an intuitive user interface for easy navigation and operation
-    \item To ensure system reliability through comprehensive testing and quality assurance
+    \item \textbf{Manual Scheduling Inefficiencies:} Traditional scheduling methods using spreadsheets and manual coordination are time-consuming, error-prone, and difficult to maintain.
+    
+    \item \textbf{Limited Accessibility:} Students and faculty often struggle to access schedule information in real-time, leading to confusion and missed classes.
+    
+    \item \textbf{Scheduling Conflicts:} Without automated conflict detection, students may accidentally enroll in overlapping classes, and faculty may be double-booked for lecture slots.
+    
+    \item \textbf{Capacity Management:} Manual tracking of course capacity and waitlists is challenging, often resulting in overcrowded classes or underutilized slots.
+    
+    \item \textbf{Communication Gaps:} Lack of centralized communication channels leads to delays in notifying students about enrollment status, schedule changes, or important updates.
+    
+    \item \textbf{Administrative Overhead:} Managing enrollments, generating timetables, and handling student queries requires significant administrative effort.
+    
+    \item \textbf{Limited Reporting:} Existing systems often lack comprehensive analytics and reporting capabilities, making it difficult to track enrollment trends and optimize resource allocation.
 \end{itemize}
 
-\section{Scope}
-The system encompasses the following functional areas:
+The Timetable Buddy system addresses these challenges by providing an automated, centralized, and user-friendly platform that streamlines the entire scheduling process, reduces administrative burden, and enhances the overall academic experience for all stakeholders.
+
+\chapter{Specific Requirements}
+
+\section{Functional Requirements}
+
+The Timetable Buddy system provides a comprehensive set of functional capabilities across different user roles. The following sections detail the specific functional requirements implemented in the system.
+
+\subsection{Authentication and User Management Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{User Registration}
+    \begin{itemize}
+        \item New users can create accounts with email, password, and role selection
+        \item Email validation ensures unique user accounts
+        \item Password strength requirements enforce security standards
+        \item Role assignment (Student, Faculty, Admin) during registration
+    \end{itemize}
+    
+    \item \textbf{User Authentication}
+    \begin{itemize}
+        \item Secure login with email and password credentials
+        \item JWT-based token generation for session management
+        \item Password encryption using bcrypt hashing algorithm
+        \item Automatic session timeout after inactivity
+    \end{itemize}
+    
+    \item \textbf{Profile Management}
+    \begin{itemize}
+        \item Users can view and update their personal information
+        \item Students can manage student ID, year, and department details
+        \item Faculty can update employee ID and department information
+        \item Password change functionality with verification
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Lecture Slot Management Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Create Lecture Slots} (Faculty/Admin)
+    \begin{itemize}
+        \item Define subject name, venue, and capacity
+        \item Set schedule (day of week, start time, end time)
+        \item Configure recurring or one-time sessions
+        \item Assign faculty to lecture slots
+    \end{itemize}
+    
+    \item \textbf{View Lecture Slots} (All Users)
+    \begin{itemize}
+        \item Browse all available lecture slots
+        \item Filter by subject, faculty, day, or time
+        \item Search functionality for quick access
+        \item View enrollment count and available seats
+    \end{itemize}
+    
+    \item \textbf{Update Lecture Slots} (Faculty/Admin)
+    \begin{itemize}
+        \item Modify lecture slot details
+        \item Adjust capacity based on room changes
+        \item Update schedule information
+        \item Activate or deactivate slots
+    \end{itemize}
+    
+    \item \textbf{Delete Lecture Slots} (Admin)
+    \begin{itemize}
+        \item Remove obsolete lecture slots
+        \item Handle enrolled student notifications
+        \item Archive historical data
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Enrollment Management Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Student Enrollment}
+    \begin{itemize}
+        \item Enroll in available lecture slots
+        \item Automatic conflict detection for overlapping schedules
+        \item Join waitlist when slot is full
+        \item View enrollment confirmation
+    \end{itemize}
+    
+    \item \textbf{Waitlist Management}
+    \begin{itemize}
+        \item Automatic position tracking in waitlist
+        \item Auto-promotion when seats become available
+        \item Waitlist position visibility
+        \item Notification on enrollment status change
+    \end{itemize}
+    
+    \item \textbf{Drop Enrollment}
+    \begin{itemize}
+        \item Students can withdraw from enrolled slots
+        \item Automatic waitlist promotion processing
+        \item Enrollment history tracking
+    \end{itemize}
+    
+    \item \textbf{View Enrollments} (Faculty)
+    \begin{itemize}
+        \item View list of enrolled students per slot
+        \item Access student contact information
+        \item Monitor enrollment statistics
+        \item Export enrollment data
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Timetable and Schedule Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Personal Timetable View}
+    \begin{itemize}
+        \item Weekly grid view of enrolled lectures
+        \item Daily schedule overview
+        \item Color-coded subject identification
+        \item Time slot visualization
+    \end{itemize}
+    
+    \item \textbf{Timetable Export}
+    \begin{itemize}
+        \item Export to PDF format
+        \item Print-friendly formatting
+        \item Include all enrolled course details
+    \end{itemize}
+    
+    \item \textbf{Schedule Management}
+    \begin{itemize}
+        \item Create custom schedules (Admin/Faculty)
+        \item Manage recurring lecture patterns
+        \item Handle schedule modifications
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Dashboard and Analytics Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Student Dashboard}
+    \begin{itemize}
+        \item Overview of enrolled courses
+        \item Upcoming lectures display
+        \item Quick access to enrollment actions
+        \item Statistics on completed vs. pending enrollments
+    \end{itemize}
+    
+    \item \textbf{Faculty Dashboard}
+    \begin{itemize}
+        \item Total lecture slots managed
+        \item Enrollment statistics per slot
+        \item Student count across all slots
+        \item Quick links to manage slots
+    \end{itemize}
+    
+    \item \textbf{Admin Dashboard}
+    \begin{itemize}
+        \item System-wide statistics
+        \item User management overview
+        \item Enrollment trends and analytics
+        \item System health monitoring
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Additional Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Search and Filter}
+    \begin{itemize}
+        \item Search lecture slots by subject name
+        \item Filter by faculty, day, or time
+        \item Advanced search with multiple criteria
+    \end{itemize}
+    
+    \item \textbf{Notifications}
+    \begin{itemize}
+        \item Toast notifications for user actions
+        \item Success/error message display
+        \item Real-time feedback on operations
+    \end{itemize}
+    
+    \item \textbf{Data Validation}
+    \begin{itemize}
+        \item Input validation on all forms
+        \item Server-side data verification
+        \item Error message display for invalid inputs
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Total Functions Provided:} The Timetable Buddy system implements approximately \textbf{30+ distinct functions} across authentication, lecture slot management, enrollment processing, timetable viewing, dashboard analytics, and administrative operations.
+
+\section{Non-Functional Requirements}
+
+Non-functional requirements define the quality attributes and constraints of the system. These requirements ensure that the Timetable Buddy not only functions correctly but also provides an excellent user experience.
+
+\subsection{Performance Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Response Time}
+    \begin{itemize}
+        \item API responses should complete within 500ms for standard operations
+        \item Database queries optimized for sub-200ms execution
+        \item Page load time under 2 seconds on standard connections
+        \item Real-time updates with minimal latency
+    \end{itemize}
+    
+    \item \textbf{Scalability}
+    \begin{itemize}
+        \item Support for 1000+ concurrent users
+        \item Handle 10,000+ lecture slot records efficiently
+        \item Manage 50,000+ enrollment transactions
+        \item Database indexing for optimal query performance
+    \end{itemize}
+    
+    \item \textbf{Throughput}
+    \begin{itemize}
+        \item Process 100+ API requests per second
+        \item Handle batch operations for enrollment processing
+        \item Efficient pagination for large data sets
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Security Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Authentication Security}
+    \begin{itemize}
+        \item JWT-based stateless authentication
+        \item Bcrypt password hashing with salt rounds
+        \item Secure token storage and transmission
+        \item Automatic token expiration and refresh
+    \end{itemize}
+    
+    \item \textbf{Authorization}
+    \begin{itemize}
+        \item Role-based access control (RBAC)
+        \item Route-level permission enforcement
+        \item Resource-level authorization checks
+    \end{itemize}
+    
+    \item \textbf{Data Protection}
+    \begin{itemize}
+        \item HTTPS encryption for data in transit
+        \item Sensitive data encryption in database
+        \item SQL injection prevention through Mongoose ODM
+        \item XSS protection with input sanitization
+        \item CSRF token implementation
+    \end{itemize}
+    
+    \item \textbf{API Security}
+    \begin{itemize}
+        \item Rate limiting to prevent abuse (100 requests per 15 minutes)
+        \item Helmet.js for security headers
+        \item CORS configuration for controlled access
+        \item Input validation using Joi and Zod
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Usability Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{User Interface}
+    \begin{itemize}
+        \item Intuitive navigation with consistent layout
+        \item Modern, clean design using Tailwind CSS
+        \item Clear visual hierarchy and typography
+        \item Icon-based navigation with Lucide React icons
+    \end{itemize}
+    
+    \item \textbf{Responsiveness}
+    \begin{itemize}
+        \item Mobile-first design approach
+        \item Responsive breakpoints for tablets and desktops
+        \item Touch-friendly interface elements
+        \item Adaptive layouts for all screen sizes
+    \end{itemize}
+    
+    \item \textbf{Accessibility}
+    \begin{itemize}
+        \item WCAG 2.1 Level AA compliance
+        \item Keyboard navigation support
+        \item Screen reader compatibility
+        \item Sufficient color contrast ratios
+        \item Descriptive labels and error messages
+    \end{itemize}
+    
+    \item \textbf{User Feedback}
+    \begin{itemize}
+        \item Real-time toast notifications
+        \item Clear success and error messages
+        \item Loading indicators for asynchronous operations
+        \item Form validation with inline error display
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Reliability Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Availability}
+    \begin{itemize}
+        \item Target uptime of 99.5\% (allowing 3.65 hours downtime per month)
+        \item Graceful degradation for partial failures
+        \item Proper error handling and recovery mechanisms
+    \end{itemize}
+    
+    \item \textbf{Data Integrity}
+    \begin{itemize}
+        \item ACID transactions for critical operations
+        \item Data validation at multiple layers
+        \item Referential integrity through Mongoose schemas
+        \item Backup and recovery procedures
+    \end{itemize}
+    
+    \item \textbf{Error Handling}
+    \begin{itemize}
+        \item Comprehensive error logging with Morgan
+        \item User-friendly error messages
+        \item Automatic error recovery where possible
+        \item Fallback mechanisms for failed operations
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Maintainability Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Code Quality}
+    \begin{itemize}
+        \item TypeScript for type safety in frontend
+        \item ESLint for code linting and standards
+        \item Prettier for consistent code formatting
+        \item Modular architecture with clear separation of concerns
+    \end{itemize}
+    
+    \item \textbf{Documentation}
+    \begin{itemize}
+        \item Comprehensive README with setup instructions
+        \item API documentation for all endpoints
+        \item Inline code comments for complex logic
+        \item Test case documentation (60 test cases)
+    \end{itemize}
+    
+    \item \textbf{Testing}
+    \begin{itemize}
+        \item Unit tests with Jest
+        \item Integration tests with Supertest
+        \item 60+ manual test cases covering all features
+        \item Test coverage monitoring
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Portability Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Platform Independence}
+    \begin{itemize}
+        \item Cross-platform compatibility (Windows, macOS, Linux)
+        \item Browser compatibility (Chrome, Firefox, Safari, Edge)
+        \item Node.js runtime (version 18+)
+        \item Database portability with Mongoose ODM
+    \end{itemize}
+    
+    \item \textbf{Deployment Flexibility}
+    \begin{itemize}
+        \item Docker containerization support
+        \item Cloud deployment compatibility (AWS, Azure, GCP)
+        \item Local development environment setup
+        \item Environment-based configuration with dotenv
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Compatibility Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Browser Requirements}
+    \begin{itemize}
+        \item Modern browsers with ES6+ support
+        \item Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+        \item JavaScript enabled
+        \item Cookies and local storage support
+    \end{itemize}
+    
+    \item \textbf{Device Requirements}
+    \begin{itemize}
+        \item Desktop: 1024px minimum width
+        \item Tablet: 768px and above
+        \item Mobile: 375px and above
+        \item Touch and mouse input support
+    \end{itemize}
+\end{enumerate}
+
+\chapter{Technology Stack}
+
+The Timetable Buddy system is built using modern web technologies, following industry best practices and leveraging the power of full-stack JavaScript development. This chapter details the technologies, frameworks, libraries, and tools used in the development of the system.
+
+\section{Overview}
+
+The system follows a three-tier architecture:
 \begin{itemize}[leftmargin=*]
-    \item User authentication and authorization
-    \item Lecture slot creation and management
-    \item Course enrollment with waitlist functionality
-    \item Dashboard views for different user roles
-    \item Timetable visualization and export capabilities
-    \item Profile management for users
-    \item Administrative controls for system management
+    \item \textbf{Presentation Layer:} React-based frontend with TypeScript
+    \item \textbf{Application Layer:} Node.js/Express.js REST API backend
+    \item \textbf{Data Layer:} MongoDB database with Mongoose ODM
 \end{itemize}
 
-\chapter{Literature Survey / Existing Systems}
+\section{Frontend Technologies}
 
-\section{Background Study}
-Academic scheduling has been a subject of research and development for several decades. Various approaches have been proposed, ranging from simple manual systems to complex automated scheduling algorithms.
+\subsection{Core Technologies}
 
-\section{Existing Systems Analysis}
-\subsection{Traditional Manual Systems}
-Many institutions still rely on manual scheduling using spreadsheets and physical notice boards. These systems are prone to errors and lack real-time updates.
+\subsubsection{React 18.3+}
+\begin{itemize}[leftmargin=*]
+    \item Modern JavaScript library for building user interfaces
+    \item Component-based architecture for reusability
+    \item Virtual DOM for efficient rendering
+    \item Hooks for state management and side effects
+    \item Used for: All UI components, pages, and layouts
+\end{itemize}
 
-\subsection{Commercial Solutions}
-Several commercial timetable management systems exist in the market, but they often come with high licensing costs and may not be customizable to specific institutional needs.
+\subsubsection{TypeScript 5.5+}
+\begin{itemize}[leftmargin=*]
+    \item Superset of JavaScript with static typing
+    \item Enhanced IDE support with IntelliSense
+    \item Compile-time error detection
+    \item Better code documentation and maintainability
+    \item Used for: Type-safe component development
+\end{itemize}
 
-\subsection{Open Source Alternatives}
-While some open-source scheduling systems are available, they may lack comprehensive features or require significant technical expertise to deploy and maintain.
+\subsubsection{Vite 5.4+}
+\begin{itemize}[leftmargin=*]
+    \item Next-generation frontend build tool
+    \item Lightning-fast Hot Module Replacement (HMR)
+    \item Optimized production builds
+    \item Native ES modules support
+    \item Used for: Development server and production builds
+\end{itemize}
 
-\section{Comparative Analysis}
+\subsection{UI and Styling}
+
+\subsubsection{Tailwind CSS 3.4+}
+\begin{itemize}[leftmargin=*]
+    \item Utility-first CSS framework
+    \item Rapid UI development with pre-built classes
+    \item Responsive design utilities
+    \item Dark mode support (configurable)
+    \item Used for: All component styling and layouts
+\end{itemize}
+
+\subsubsection{Lucide React 0.344+}
+\begin{itemize}[leftmargin=*]
+    \item Modern icon library with 1000+ icons
+    \item Tree-shakeable for optimal bundle size
+    \item Consistent design system
+    \item Customizable size and colors
+    \item Used for: Navigation icons, action buttons, status indicators
+\end{itemize}
+
+\subsection{Routing and Navigation}
+
+\subsubsection{React Router 6.20+}
+\begin{itemize}[leftmargin=*]
+    \item Declarative routing for React applications
+    \item Nested routes support
+    \item Protected routes for authentication
+    \item URL parameter handling
+    \item Used for: Client-side routing and navigation
+\end{itemize}
+
+\subsection{HTTP and API Communication}
+
+\subsubsection{Axios 1.6+}
+\begin{itemize}[leftmargin=*]
+    \item Promise-based HTTP client
+    \item Request and response interceptors
+    \item Automatic JSON transformation
+    \item Error handling capabilities
+    \item Used for: All API calls to backend
+\end{itemize}
+
+\subsection{Form Management and Validation}
+
+\subsubsection{React Hook Form 7.48+}
+\begin{itemize}[leftmargin=*]
+    \item Performant form state management
+    \item Built-in validation support
+    \item Minimal re-renders for better performance
+    \item Easy integration with UI libraries
+    \item Used for: All forms (login, registration, enrollment, etc.)
+\end{itemize}
+
+\subsubsection{Zod 3.22+}
+\begin{itemize}[leftmargin=*]
+    \item TypeScript-first schema validation
+    \item Runtime type checking
+    \item Integration with React Hook Form
+    \item Detailed error messages
+    \item Used for: Form validation schemas
+\end{itemize}
+
+\subsection{User Feedback and Notifications}
+
+\subsubsection{React Hot Toast 2.4+}
+\begin{itemize}[leftmargin=*]
+    \item Lightweight toast notification library
+    \item Customizable appearance
+    \item Promise-based API
+    \item Accessible notifications
+    \item Used for: Success/error messages, user feedback
+\end{itemize}
+
+\subsection{Utility Libraries}
+
+\subsubsection{Date-fns 2.30+}
+\begin{itemize}[leftmargin=*]
+    \item Modern JavaScript date utility library
+    \item Modular and tree-shakeable
+    \item Timezone support
+    \item Date formatting and manipulation
+    \item Used for: Date/time handling in timetables
+\end{itemize}
+
+\section{Backend Technologies}
+
+\subsection{Core Technologies}
+
+\subsubsection{Node.js 18+}
+\begin{itemize}[leftmargin=*]
+    \item JavaScript runtime built on Chrome's V8 engine
+    \item Event-driven, non-blocking I/O model
+    \item NPM ecosystem with 2M+ packages
+    \item High performance for I/O operations
+    \item Used for: Backend runtime environment
+\end{itemize}
+
+\subsubsection{Express.js 4.18+}
+\begin{itemize}[leftmargin=*]
+    \item Fast, unopinionated web framework for Node.js
+    \item Robust routing system
+    \item Middleware support
+    \item RESTful API development
+    \item Used for: REST API implementation, routing
+\end{itemize}
+
+\subsection{Database}
+
+\subsubsection{MongoDB 7.0}
+\begin{itemize}[leftmargin=*]
+    \item NoSQL document-oriented database
+    \item Flexible schema design
+    \item High performance and scalability
+    \item JSON-like document storage (BSON)
+    \item Used for: Data persistence (users, lecture slots, enrollments)
+\end{itemize}
+
+\subsubsection{Mongoose 8.0+}
+\begin{itemize}[leftmargin=*]
+    \item MongoDB object modeling for Node.js
+    \item Schema-based data modeling
+    \item Built-in validation
+    \item Middleware (hooks) support
+    \item Query building and population
+    \item Used for: Data models, validation, queries
+\end{itemize}
+
+\subsection{Authentication and Security}
+
+\subsubsection{JSON Web Tokens (JWT) via jsonwebtoken 9.0+}
+\begin{itemize}[leftmargin=*]
+    \item Stateless authentication mechanism
+    \item Compact, URL-safe tokens
+    \item Signed tokens for verification
+    \item Expiration and refresh capabilities
+    \item Used for: User authentication and session management
+\end{itemize}
+
+\subsubsection{bcryptjs 2.4+}
+\begin{itemize}[leftmargin=*]
+    \item Password hashing library
+    \item Adaptive hashing algorithm
+    \item Salt generation and verification
+    \item Resistant to rainbow table attacks
+    \item Used for: Password encryption and verification
+\end{itemize}
+
+\subsubsection{Helmet 7.1+}
+\begin{itemize}[leftmargin=*]
+    \item Security middleware for Express
+    \item Sets various HTTP headers for security
+    \item XSS protection
+    \item Content Security Policy
+    \item Used for: HTTP security headers
+\end{itemize}
+
+\subsection{Validation and Data Processing}
+
+\subsubsection{Joi 17.11+}
+\begin{itemize}[leftmargin=*]
+    \item Object schema validation
+    \item Comprehensive validation rules
+    \item Custom error messages
+    \item Async validation support
+    \item Used for: API request validation
+\end{itemize}
+
+\subsection{API Protection and Optimization}
+
+\subsubsection{Express Rate Limit 7.1+}
+\begin{itemize}[leftmargin=*]
+    \item Rate limiting middleware
+    \item Prevents API abuse
+    \item Configurable limits per route
+    \item IP-based tracking
+    \item Used for: API rate limiting (100 requests per 15 minutes)
+\end{itemize}
+
+\subsubsection{Compression 1.7+}
+\begin{itemize}[leftmargin=*]
+    \item Response compression middleware
+    \item Gzip compression support
+    \item Reduces payload size
+    \item Improves transfer speed
+    \item Used for: HTTP response compression
+\end{itemize}
+
+\subsubsection{CORS 2.8+}
+\begin{itemize}[leftmargin=*]
+    \item Cross-Origin Resource Sharing middleware
+    \item Configurable origin policies
+    \item Preflight request handling
+    \item Credential support
+    \item Used for: Cross-origin API access control
+\end{itemize}
+
+\subsection{Logging and Monitoring}
+
+\subsubsection{Morgan 1.10+}
+\begin{itemize}[leftmargin=*]
+    \item HTTP request logger middleware
+    \item Customizable logging formats
+    \item Stream support for log files
+    \item Development and production modes
+    \item Used for: Request logging and debugging
+\end{itemize}
+
+\subsection{Configuration Management}
+
+\subsubsection{dotenv 16.3+}
+\begin{itemize}[leftmargin=*]
+    \item Environment variable management
+    \item Loads variables from .env files
+    \item Separate configs for dev/production
+    \item Security through environment isolation
+    \item Used for: Configuration management (DB URI, JWT secret, etc.)
+\end{itemize}
+
+\section{Development Tools}
+
+\subsection{Build and Development}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Nodemon 3.0+:} Auto-restart on file changes during development
+    \item \textbf{ESLint 8.55+:} JavaScript/TypeScript linting
+    \item \textbf{Prettier 3.1+:} Code formatting
+    \item \textbf{PostCSS 8.4+:} CSS transformations
+    \item \textbf{Autoprefixer 10.4+:} Automatic vendor prefix addition
+\end{itemize}
+
+\subsection{Testing}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Jest 29.7+:} JavaScript testing framework
+    \item \textbf{Supertest 6.3+:} HTTP assertion library for API testing
+    \item \textbf{Manual Testing:} 60 comprehensive test cases
+\end{itemize}
+
+\section{DevOps and Deployment}
+
+\subsection{Containerization}
+
+\subsubsection{Docker}
+\begin{itemize}[leftmargin=*]
+    \item Container platform for deployment
+    \item Separate Dockerfiles for frontend and backend
+    \item Docker Compose for multi-container orchestration
+    \item Environment-agnostic deployment
+    \item Used for: Development and production deployment
+\end{itemize}
+
+\subsection{Version Control}
+
+\subsubsection{Git and GitHub}
+\begin{itemize}[leftmargin=*]
+    \item Distributed version control system
+    \item Collaboration and code review
+    \item Branch-based development workflow
+    \item CI/CD integration capabilities
+    \item Used for: Source code management and collaboration
+\end{itemize}
+
+\section{Architecture Pattern}
+
+\subsection{MERN Stack Architecture}
+
+The system follows the MERN (MongoDB, Express, React, Node.js) stack architecture:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{MongoDB:} NoSQL database for flexible data storage
+    \item \textbf{Express.js:} Backend framework for API development
+    \item \textbf{React:} Frontend library for user interface
+    \item \textbf{Node.js:} JavaScript runtime for backend execution
+\end{enumerate}
+
+\subsection{REST API Architecture}
+
+\begin{itemize}[leftmargin=*]
+    \item RESTful endpoints following HTTP standards
+    \item JSON data format for requests and responses
+    \item Proper HTTP status codes
+    \item Stateless communication
+    \item Resource-based URL structure
+\end{itemize}
+
+\subsection{MVC Pattern (Backend)}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Models:} Mongoose schemas for data structure
+    \item \textbf{Views:} JSON responses (no traditional views)
+    \item \textbf{Controllers:} Business logic and request handling
+    \item \textbf{Routes:} URL mapping to controllers
+\end{itemize}
+
+\subsection{Component-Based Architecture (Frontend)}
+
+\begin{itemize}[leftmargin=*]
+    \item Reusable React components
+    \item Props and state management
+    \item Context API for global state
+    \item Custom hooks for shared logic
+\end{itemize}
+
+\section{Technology Justification}
+
+\subsection{Why MERN Stack?}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Full-Stack JavaScript:} Single language across frontend and backend reduces context switching
+    \item \textbf{JSON Throughout:} Seamless data flow from database to client
+    \item \textbf{Active Community:} Large ecosystem and community support
+    \item \textbf{Scalability:} Proven track record for scalable applications
+    \item \textbf{Performance:} Non-blocking I/O and efficient rendering
+    \item \textbf{Modern Development:} Latest features and best practices
+    \item \textbf{Rich Ecosystem:} Extensive NPM package availability
+\end{enumerate}
+
+\subsection{Key Technology Benefits}
+
 \begin{table}[h]
 \centering
-\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\begin{tabular}{|p{4cm}|p{9cm}|}
 \hline
-\textbf{Feature} & \textbf{Manual Systems} & \textbf{Commercial} & \textbf{Timetable Buddy} \\
+\textbf{Technology} & \textbf{Key Benefit} \\
 \hline
-Cost & Low & High & Low (Open Source) \\
+React & Component reusability and efficient DOM updates \\
 \hline
-Automation & None & Full & Full \\
+TypeScript & Type safety and better developer experience \\
 \hline
-Customization & Limited & Limited & High \\
+Tailwind CSS & Rapid UI development and consistent design \\
 \hline
-Real-time Updates & No & Yes & Yes \\
+MongoDB & Flexible schema for evolving requirements \\
 \hline
-User-friendly & No & Yes & Yes \\
+Express.js & Lightweight and flexible API development \\
+\hline
+JWT & Stateless authentication for scalability \\
+\hline
+Docker & Consistent deployment across environments \\
 \hline
 \end{tabular}
-\caption{Comparison of Timetable Management Systems}
+\caption{Technology Benefits Summary}
 \end{table}
-
-\section{Identified Gaps}
-Based on the analysis of existing systems, the following gaps were identified:
-\begin{itemize}[leftmargin=*]
-    \item Lack of affordable, customizable solutions
-    \item Limited mobile responsiveness
-    \item Insufficient integration capabilities
-    \item Complex user interfaces
-    \item Inadequate conflict detection mechanisms
-\end{itemize}
 
 \chapter{System Requirements and Analysis}
 
