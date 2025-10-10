@@ -1,0 +1,37 @@
+% Appendix B: Risk Assessment Documentation
+\chapter{Risk Assessment Documentation}
+
+\section{Risk Format}
+All risks are documented in the RISK\_ASSESSMENT\_SHEET.md file with probabilities ≤15\%:
+\begin{itemize}[leftmargin=*]
+    \item Risk ID: R-TTB-XXX
+    \item Type: Technical/External/Operational
+    \item Probability: Percentage value
+    \item Impact: Critical/High/Medium/Low
+    \item Risk Description
+    \item Mitigation Plan
+    \item Monitoring Plan
+    \item Management Plan
+\end{itemize}
+
+\section{Sample Risk}
+\textbf{Risk ID:} R-TTB-005
+
+\textbf{Type:} Technical
+
+\textbf{Probability:} 10\%
+
+\textbf{Impact:} Critical
+
+\textbf{Risk Description:} Critical security vulnerability discovered in production system allowing unauthorized data access.
+
+\textbf{Mitigation Plan:}
+\begin{enumerate}
+    \item Conduct regular security audits and penetration testing
+    \item Implement security scanning in CI/CD
+    \item Follow OWASP guidelines
+\end{enumerate}
+
+\textbf{Monitoring Plan:} Run automated security scans weekly. Monitor security patch releases for dependencies.
+
+\textbf{Management Plan:} Deploy emergency patch within 4 hours. Notify affected users. Conduct incident post-mortem.
