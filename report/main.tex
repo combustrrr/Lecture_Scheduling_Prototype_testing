@@ -1,0 +1,85 @@
+% Project Report for Timetable Buddy
+% Main Document - This file includes all modular components
+\documentclass[12pt,a4paper]{report}
+
+% Required packages
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{parskip}
+
+% Better spacing and formatting
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\linespread{1.2}
+
+% Better list formatting
+\setlist[itemize]{leftmargin=*,topsep=3pt,itemsep=2pt,parsep=1pt}
+\setlist[enumerate]{leftmargin=*,topsep=3pt,itemsep=2pt,parsep=1pt}
+
+% Graphics path - set the directory for images
+\graphicspath{{./}{./images/}}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyfoot[C]{\thepage}
+
+% Title formatting
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{40pt}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Timetable Buddy - Project Report},
+    pdfpagemode=FullScreen,
+}
+
+\begin{document}
+
+% Front Matter
+\input{frontmatter/titlepage}
+\input{frontmatter/certificate}
+
+% Index/Contents
+\tableofcontents
+\input{frontmatter/abstract}
+\listoftables
+\listoffigures
+
+% Main Chapters
+\input{chapters/chapter1_introduction}
+\input{chapters/chapter2_requirements}
+\input{chapters/chapter3_technology}
+\input{chapters/chapter4_design}
+\input{chapters/chapter8_results}  % Chapter 5: Results & Discussion
+\input{chapters/chapter11_conclusion}  % Chapter 6: Conclusion and Future Scope
+
+% References
+\input{frontmatter/references}
+
+% Appendices
+\input{appendices/testcases}
+\input{appendices/risks}
+\input{appendices/screenshots}
+\input{appendices/deployment}
+
+\end{document}
