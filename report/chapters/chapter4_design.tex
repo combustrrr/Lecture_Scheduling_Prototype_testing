@@ -1,17 +1,17 @@
 % Chapter 4: Methodology
 \chapter{Methodology}
 
-This chapter presents the comprehensive methodology used in the development of the Timetable Buddy system. It includes various modeling diagrams, project management artifacts, and quality assurance documentation that guided the system development process.
+This chapter presents the comprehensive methodology used in the development of the Timetable Buddy system. It includes various modeling diagrams, project management artifacts, and quality assurance documentation that guided the systematic development approach for creating a robust lecture scheduling solution.
 
 \section{Data Flow Diagrams (DFD)}
 
-Data Flow Diagrams represent the flow of data through the system at different levels of abstraction, showing how information moves between processes, data stores, and external entities.
+Data Flow Diagrams represent the flow of data through the system at different levels of abstraction, showing how information moves between processes, data stores, and external entities in the Timetable Buddy system.
 
 \subsection{DFD Level 0 (Context Diagram)}
 
 The Context Diagram provides a high-level view of the entire Timetable Buddy system, showing its interaction with external entities including Students, Faculty, and Administrators.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.85\textwidth]{images/DFD Level 0.png}
     \caption{DFD Level 0 - Context Diagram showing system boundaries and external entities}
@@ -23,13 +23,14 @@ The context diagram illustrates:
     \item \textbf{External Entities:} Students, Faculty, Administrators
     \item \textbf{Main System:} Timetable Buddy System (central process)
     \item \textbf{Data Flows:} Authentication requests, enrollment data, lecture schedules, timetable information
+    \item \textbf{System Boundary:} Clear delineation between internal processes and external interactions
 \end{itemize}
 
 \subsection{DFD Level 1 (High-Level Processes)}
 
-Level 1 DFD decomposes the main system into major processes, showing the primary functional components and their interactions.
+Level 1 DFD decomposes the main system into major processes, showing the primary functional components and their interactions with data stores and external entities.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.95\textwidth]{images/DFD Level 1.png}
     \caption{DFD Level 1 - Major system processes and data stores}
@@ -38,16 +39,17 @@ Level 1 DFD decomposes the main system into major processes, showing the primary
 
 Key processes shown in Level 1 include:
 \begin{itemize}[leftmargin=*]
-    \item User Authentication and Authorization
-    \item Lecture Slot Management
-    \item Enrollment Processing
-    \item Timetable Generation
-    \item Dashboard and Analytics
+    \item \textbf{Process 1:} User Authentication and Authorization
+    \item \textbf{Process 2:} Lecture Slot Management
+    \item \textbf{Process 3:} Enrollment Processing
+    \item \textbf{Process 4:} Timetable Generation and Display
+    \item \textbf{Process 5:} Dashboard and Analytics
+    \item \textbf{Data Stores:} User Database, Lecture Slots, Enrollments, Schedules
 \end{itemize}
 
 \subsection{DFD Level 2 (Detailed Processes)}
 
-Level 2 DFD provides detailed decomposition of complex processes from Level 1, showing sub-processes and their interactions.
+Level 2 DFD provides detailed decomposition of complex processes from Level 1, showing sub-processes and their detailed interactions within the enrollment management system.
 
 \begin{figure}[h]
     \centering
@@ -492,7 +494,37 @@ The test suite comprehensively covers:
     \item[3.4] Verify available slots count $\rightarrow$ \textit{Expected:} Correct availability displayed $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
 \end{enumerate}
 
-\textit{[Note: Due to space constraints in the report, a representative sample of 3 test cases is shown above. The complete test suite contains all 60 test cases (TC-TTB-01 through TC-TTB-60) with full step-by-step documentation following the same standardized format. All test cases include test ID, number, priority, description, dependencies, conditions, control method, detailed steps with expected and actual results, and pass/fail status. For the complete test documentation, see Appendix A.]}
+\textbf{Additional Sample Test Cases:}
+
+\textbf{Test Case \#8: TC-TTB-08 - Course List Pagination}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Priority:} High
+    \item \textbf{Description:} Test pagination controls on course listing
+    \item \textbf{Test Steps:}
+    \begin{enumerate}[leftmargin=*]
+        \item[8.1] Navigate to courses page $\rightarrow$ \textit{Expected:} Course list loads $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+        \item[8.2] Verify pagination controls are visible $\rightarrow$ \textit{Expected:} Next/Previous buttons shown $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+        \item[8.3] Click 'Next Page' button $\rightarrow$ \textit{Expected:} Second page of courses loads $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+        \item[8.4] Verify page number updates $\rightarrow$ \textit{Expected:} Page indicator shows '2' $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+        \item[8.5] Click 'Previous Page' $\rightarrow$ \textit{Expected:} Returns to first page $\rightarrow$ \textit{Actual:} Error encountered $\rightarrow$ \textbf{FAIL} (Bug \#1037)
+    \end{enumerate}
+\end{itemize}
+
+\textbf{Test Case \#10: TC-TTB-10 - Course Search by Name}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Priority:} High
+    \item \textbf{Description:} Test search functionality on courses page
+    \item \textbf{Test Steps:}
+    \begin{enumerate}[leftmargin=*]
+        \item[10.1] Navigate to courses page $\rightarrow$ \textit{Expected:} Page loads with all courses $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+        \item[10.2] Enter 'Data Structures' in search box $\rightarrow$ \textit{Expected:} Search input accepts text $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+        \item[10.3] Press Enter or click Search $\rightarrow$ \textit{Expected:} Results filter in real-time $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+        \item[10.4] Verify only matching courses appear $\rightarrow$ \textit{Expected:} Only courses with 'Data Structures' in name shown $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+        \item[10.5] Clear search field $\rightarrow$ \textit{Expected:} All courses reappear $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \end{enumerate}
+\end{itemize}
+
+The complete test suite includes 60 comprehensive test cases covering all functional areas. Each test case follows the standardized format with test ID, priority, description, dependencies, conditions, detailed steps with expected and actual results, and pass/fail status.
 
 \subsection{Test Execution Summary}
 
