@@ -1,5 +1,378 @@
 % Chapter 2: Specific Requirements
-% This file contains functional and non-functional requirements
-% Edit this file to modify requirements without affecting other chapters
-\input{chapters/sections/requirements_functional}
-\input{chapters/sections/requirements_nonfunctional}
+\chapter{Specific Requirements}
+
+\section{Functional Requirements}
+
+The Timetable Buddy system provides a comprehensive set of functional capabilities across different user roles. The following sections detail the specific functional requirements implemented in the system.
+
+\subsection{Authentication and User Management Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{User Registration}
+    \begin{itemize}
+        \item New users can create accounts with email, password, and role selection
+        \item Email validation ensures unique user accounts
+        \item Password strength requirements enforce security standards
+        \item Role assignment (Student, Faculty, Admin) during registration
+    \end{itemize}
+    
+    \item \textbf{User Authentication}
+    \begin{itemize}
+        \item Secure login with email and password credentials
+        \item JWT-based token generation for session management
+        \item Password encryption using bcrypt hashing algorithm
+        \item Automatic session timeout after inactivity
+    \end{itemize}
+    
+    \item \textbf{Profile Management}
+    \begin{itemize}
+        \item Users can view and update their personal information
+        \item Students can manage student ID, year, and department details
+        \item Faculty can update employee ID and department information
+        \item Password change functionality with verification
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Lecture Slot Management Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Create Lecture Slots} (Faculty/Admin)
+    \begin{itemize}
+        \item Define subject name, venue, and capacity
+        \item Set schedule (day of week, start time, end time)
+        \item Configure recurring or one-time sessions
+        \item Assign faculty to lecture slots
+    \end{itemize}
+    
+    \item \textbf{View Lecture Slots} (All Users)
+    \begin{itemize}
+        \item Browse all available lecture slots
+        \item Filter by subject, faculty, day, or time
+        \item Search functionality for quick access
+        \item View enrollment count and available seats
+    \end{itemize}
+    
+    \item \textbf{Update Lecture Slots} (Faculty/Admin)
+    \begin{itemize}
+        \item Modify lecture slot details
+        \item Adjust capacity based on room changes
+        \item Update schedule information
+        \item Activate or deactivate slots
+    \end{itemize}
+    
+    \item \textbf{Delete Lecture Slots} (Admin)
+    \begin{itemize}
+        \item Remove obsolete lecture slots
+        \item Handle enrolled student notifications
+        \item Archive historical data
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Enrollment Management Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Student Enrollment}
+    \begin{itemize}
+        \item Enroll in available lecture slots
+        \item Automatic conflict detection for overlapping schedules
+        \item Join waitlist when slot is full
+        \item View enrollment confirmation
+    \end{itemize}
+    
+    \item \textbf{Waitlist Management}
+    \begin{itemize}
+        \item Automatic position tracking in waitlist
+        \item Auto-promotion when seats become available
+        \item Waitlist position visibility
+        \item Notification on enrollment status change
+    \end{itemize}
+    
+    \item \textbf{Drop Enrollment}
+    \begin{itemize}
+        \item Students can withdraw from enrolled slots
+        \item Automatic waitlist promotion processing
+        \item Enrollment history tracking
+    \end{itemize}
+    
+    \item \textbf{View Enrollments} (Faculty)
+    \begin{itemize}
+        \item View list of enrolled students per slot
+        \item Access student contact information
+        \item Monitor enrollment statistics
+        \item Export enrollment data
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Timetable and Schedule Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Personal Timetable View}
+    \begin{itemize}
+        \item Weekly grid view of enrolled lectures
+        \item Daily schedule overview
+        \item Color-coded subject identification
+        \item Time slot visualization
+    \end{itemize}
+    
+    \item \textbf{Timetable Export}
+    \begin{itemize}
+        \item Export to PDF format
+        \item Print-friendly formatting
+        \item Include all enrolled course details
+    \end{itemize}
+    
+    \item \textbf{Schedule Management}
+    \begin{itemize}
+        \item Create custom schedules (Admin/Faculty)
+        \item Manage recurring lecture patterns
+        \item Handle schedule modifications
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Dashboard and Analytics Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Student Dashboard}
+    \begin{itemize}
+        \item Overview of enrolled courses
+        \item Upcoming lectures display
+        \item Quick access to enrollment actions
+        \item Statistics on completed vs. pending enrollments
+    \end{itemize}
+    
+    \item \textbf{Faculty Dashboard}
+    \begin{itemize}
+        \item Total lecture slots managed
+        \item Enrollment statistics per slot
+        \item Student count across all slots
+        \item Quick links to manage slots
+    \end{itemize}
+    
+    \item \textbf{Admin Dashboard}
+    \begin{itemize}
+        \item System-wide statistics
+        \item User management overview
+        \item Enrollment trends and analytics
+        \item System health monitoring
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Additional Functions}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Search and Filter}
+    \begin{itemize}
+        \item Search lecture slots by subject name
+        \item Filter by faculty, day, or time
+        \item Advanced search with multiple criteria
+    \end{itemize}
+    
+    \item \textbf{Notifications}
+    \begin{itemize}
+        \item Toast notifications for user actions
+        \item Success/error message display
+        \item Real-time feedback on operations
+    \end{itemize}
+    
+    \item \textbf{Data Validation}
+    \begin{itemize}
+        \item Input validation on all forms
+        \item Server-side data verification
+        \item Error message display for invalid inputs
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Total Functions Provided:} The Timetable Buddy system implements approximately \textbf{30+ distinct functions} across authentication, lecture slot management, enrollment processing, timetable viewing, dashboard analytics, and administrative operations.
+
+\section{Non-Functional Requirements}
+
+Non-functional requirements define the quality attributes and constraints of the system. These requirements ensure that the Timetable Buddy not only functions correctly but also provides an excellent user experience.
+
+\subsection{Performance Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Response Time}
+    \begin{itemize}
+        \item API responses should complete within 500ms for standard operations
+        \item Database queries optimized for sub-200ms execution
+        \item Page load time under 2 seconds on standard connections
+        \item Real-time updates with minimal latency
+    \end{itemize}
+    
+    \item \textbf{Scalability}
+    \begin{itemize}
+        \item Support for 1000+ concurrent users
+        \item Horizontal scaling capability with load balancing
+        \item Database indexing for efficient queries
+        \item Optimized data structures and algorithms
+    \end{itemize}
+    
+    \item \textbf{Resource Optimization}
+    \begin{itemize}
+        \item Minimal memory footprint
+        \item Efficient database connection pooling
+        \item Frontend code splitting and lazy loading
+        \item CDN integration for static assets
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Security Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Authentication \& Authorization}
+    \begin{itemize}
+        \item JWT-based stateless authentication
+        \item Role-based access control (RBAC)
+        \item Secure password hashing with bcrypt (10 salt rounds)
+        \item Session management with automatic timeout
+    \end{itemize}
+    
+    \item \textbf{Data Protection}
+    \begin{itemize}
+        \item HTTPS encryption for all communications
+        \item Sensitive data encryption in database
+        \item SQL injection prevention through Mongoose ODM
+        \item XSS protection with input sanitization
+        \item CSRF token implementation
+    \end{itemize}
+    
+    \item \textbf{API Security}
+    \begin{itemize}
+        \item Rate limiting to prevent abuse (100 requests per 15 minutes)
+        \item Helmet.js for security headers
+        \item CORS configuration for controlled access
+        \item Input validation using Joi and Zod
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Usability Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{User Interface}
+    \begin{itemize}
+        \item Intuitive navigation with consistent layout
+        \item Modern, clean design using Tailwind CSS
+        \item Clear visual hierarchy and typography
+        \item Icon-based navigation with Lucide React icons
+    \end{itemize}
+    
+    \item \textbf{Responsiveness}
+    \begin{itemize}
+        \item Mobile-first design approach
+        \item Responsive breakpoints for tablets and desktops
+        \item Touch-friendly interface elements
+        \item Adaptive layouts for all screen sizes
+    \end{itemize}
+    
+    \item \textbf{Accessibility}
+    \begin{itemize}
+        \item WCAG 2.1 Level AA compliance
+        \item Keyboard navigation support
+        \item Screen reader compatibility
+        \item Sufficient color contrast ratios
+        \item Descriptive labels and error messages
+    \end{itemize}
+    
+    \item \textbf{User Feedback}
+    \begin{itemize}
+        \item Real-time toast notifications
+        \item Clear success and error messages
+        \item Loading indicators for asynchronous operations
+        \item Form validation with inline error display
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Reliability Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Availability}
+    \begin{itemize}
+        \item Target uptime of 99.5\% (allowing 3.65 hours downtime per month)
+        \item Graceful degradation for partial failures
+        \item Proper error handling and recovery mechanisms
+    \end{itemize}
+    
+    \item \textbf{Data Integrity}
+    \begin{itemize}
+        \item ACID transactions for critical operations
+        \item Data validation at multiple layers
+        \item Referential integrity through Mongoose schemas
+        \item Backup and recovery procedures
+    \end{itemize}
+    
+    \item \textbf{Error Handling}
+    \begin{itemize}
+        \item Comprehensive error logging with Morgan
+        \item User-friendly error messages
+        \item Automatic error recovery where possible
+        \item Fallback mechanisms for failed operations
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Maintainability Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Code Quality}
+    \begin{itemize}
+        \item TypeScript for type safety in frontend
+        \item ESLint for code linting and standards
+        \item Prettier for consistent code formatting
+        \item Modular architecture with clear separation of concerns
+    \end{itemize}
+    
+    \item \textbf{Documentation}
+    \begin{itemize}
+        \item Comprehensive README with setup instructions
+        \item API documentation for all endpoints
+        \item Inline code comments for complex logic
+        \item Test case documentation (60 test cases)
+    \end{itemize}
+    
+    \item \textbf{Testing}
+    \begin{itemize}
+        \item Unit tests with Jest
+        \item Integration tests with Supertest
+        \item 60+ manual test cases covering all features
+        \item Test coverage monitoring
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Portability Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Platform Independence}
+    \begin{itemize}
+        \item Cross-platform compatibility (Windows, macOS, Linux)
+        \item Browser compatibility (Chrome, Firefox, Safari, Edge)
+        \item Node.js runtime (version 18+)
+        \item Database portability with Mongoose ODM
+    \end{itemize}
+    
+    \item \textbf{Deployment Flexibility}
+    \begin{itemize}
+        \item Docker containerization support
+        \item Cloud deployment compatibility (AWS, Azure, GCP)
+        \item Local development environment setup
+        \item Environment-based configuration with dotenv
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Compatibility Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Browser Requirements}
+    \begin{itemize}
+        \item Modern browsers with ES6+ support
+        \item Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+        \item JavaScript enabled
+        \item Cookies and local storage support
+    \end{itemize}
+    
+    \item \textbf{Device Requirements}
+    \begin{itemize}
+        \item Desktop: 1024px minimum width
+        \item Tablet: 768px and above
+        \item Mobile: 375px and above
+        \item Touch and mouse input support
+    \end{itemize}
+\end{enumerate}

@@ -1,0 +1,141 @@
+\contentsline {chapter}{Certificate}{1}{chapter*.1}%
+\contentsline {chapter}{Declaration}{2}{chapter*.2}%
+\contentsline {chapter}{Acknowledgment}{3}{chapter*.3}%
+\contentsline {chapter}{Abstract}{4}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}Introduction}{10}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduction}{10}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Objectives}{10}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Problem Statement}{11}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Specific Requirements}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Functional Requirements}{12}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Authentication and User Management Functions}{12}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Lecture Slot Management Functions}{12}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Enrollment Management Functions}{13}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Timetable and Schedule Functions}{14}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Dashboard and Analytics Functions}{14}{subsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.1.6}Additional Functions}{15}{subsection.2.1.6}%
+\contentsline {section}{\numberline {2.2}Non-Functional Requirements}{15}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Performance Requirements}{15}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Security Requirements}{16}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Usability Requirements}{16}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Reliability Requirements}{17}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Maintainability Requirements}{17}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.6}Portability Requirements}{18}{subsection.2.2.6}%
+\contentsline {subsection}{\numberline {2.2.7}Compatibility Requirements}{18}{subsection.2.2.7}%
+\contentsline {chapter}{\numberline {3}Technology Stack}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Frontend Technologies}{19}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Core Technologies}{19}{subsection.3.2.1}%
+\contentsline {subsubsection}{React 18.3+}{19}{subsubsection*.8}%
+\contentsline {subsubsection}{TypeScript 5.5+}{19}{subsubsection*.9}%
+\contentsline {subsubsection}{Vite 5.4+}{20}{subsubsection*.10}%
+\contentsline {subsection}{\numberline {3.2.2}UI and Styling}{20}{subsection.3.2.2}%
+\contentsline {subsubsection}{Tailwind CSS 3.4+}{20}{subsubsection*.11}%
+\contentsline {subsubsection}{Lucide React 0.344+}{20}{subsubsection*.12}%
+\contentsline {subsection}{\numberline {3.2.3}Routing and Navigation}{20}{subsection.3.2.3}%
+\contentsline {subsubsection}{React Router 6.20+}{20}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {3.2.4}HTTP and API Communication}{21}{subsection.3.2.4}%
+\contentsline {subsubsection}{Axios 1.6+}{21}{subsubsection*.14}%
+\contentsline {subsection}{\numberline {3.2.5}Form Management and Validation}{21}{subsection.3.2.5}%
+\contentsline {subsubsection}{React Hook Form 7.48+}{21}{subsubsection*.15}%
+\contentsline {subsubsection}{Zod 3.22+}{21}{subsubsection*.16}%
+\contentsline {subsection}{\numberline {3.2.6}User Feedback and Notifications}{21}{subsection.3.2.6}%
+\contentsline {subsubsection}{React Hot Toast 2.4+}{21}{subsubsection*.17}%
+\contentsline {subsection}{\numberline {3.2.7}Utility Libraries}{22}{subsection.3.2.7}%
+\contentsline {subsubsection}{Date-fns 2.30+}{22}{subsubsection*.18}%
+\contentsline {section}{\numberline {3.3}Backend Technologies}{22}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Core Technologies}{22}{subsection.3.3.1}%
+\contentsline {subsubsection}{Node.js 18+}{22}{subsubsection*.19}%
+\contentsline {subsubsection}{Express.js 4.18+}{22}{subsubsection*.20}%
+\contentsline {subsection}{\numberline {3.3.2}Database}{22}{subsection.3.3.2}%
+\contentsline {subsubsection}{MongoDB 7.0}{22}{subsubsection*.21}%
+\contentsline {subsubsection}{Mongoose 8.0+}{23}{subsubsection*.22}%
+\contentsline {subsection}{\numberline {3.3.3}Authentication and Security}{23}{subsection.3.3.3}%
+\contentsline {subsubsection}{JSON Web Tokens (JWT)}{23}{subsubsection*.23}%
+\contentsline {subsubsection}{bcryptjs}{23}{subsubsection*.24}%
+\contentsline {subsubsection}{Helmet.js}{23}{subsubsection*.25}%
+\contentsline {subsection}{\numberline {3.3.4}Validation and Data Processing}{24}{subsection.3.3.4}%
+\contentsline {subsubsection}{Joi}{24}{subsubsection*.26}%
+\contentsline {subsection}{\numberline {3.3.5}API Security and Rate Limiting}{24}{subsection.3.3.5}%
+\contentsline {subsubsection}{Express Rate Limit}{24}{subsubsection*.27}%
+\contentsline {subsubsection}{CORS}{24}{subsubsection*.28}%
+\contentsline {subsection}{\numberline {3.3.6}Logging and Monitoring}{24}{subsection.3.3.6}%
+\contentsline {subsubsection}{Morgan}{24}{subsubsection*.29}%
+\contentsline {subsection}{\numberline {3.3.7}Configuration Management}{25}{subsection.3.3.7}%
+\contentsline {subsubsection}{dotenv}{25}{subsubsection*.30}%
+\contentsline {section}{\numberline {3.4}Development Tools}{25}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Code Quality}{25}{subsection.3.4.1}%
+\contentsline {subsubsection}{ESLint}{25}{subsubsection*.31}%
+\contentsline {subsubsection}{Prettier}{25}{subsubsection*.32}%
+\contentsline {subsection}{\numberline {3.4.2}Testing}{25}{subsection.3.4.2}%
+\contentsline {subsubsection}{Jest}{25}{subsubsection*.33}%
+\contentsline {subsubsection}{Supertest}{26}{subsubsection*.34}%
+\contentsline {subsection}{\numberline {3.4.3}Containerization}{26}{subsection.3.4.3}%
+\contentsline {subsubsection}{Docker}{26}{subsubsection*.35}%
+\contentsline {section}{\numberline {3.5}Architecture Patterns}{26}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}MERN Stack Architecture}{26}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}REST API Architecture}{26}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}MVC Pattern (Backend)}{27}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Component-Based Architecture (Frontend)}{27}{subsection.3.5.4}%
+\contentsline {section}{\numberline {3.6}Technology Justification}{27}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Why MERN Stack?}{27}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Key Technology Benefits}{27}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Methodology}{28}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Data Flow Diagrams (DFD)}{28}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}DFD Level 0 (Context Diagram)}{28}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}DFD Level 1 (High-Level Processes)}{29}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}DFD Level 2 (Detailed Processes)}{30}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Use Case Diagram}{30}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Sequence Diagram}{32}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Activity Diagram}{32}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Deployment Diagram}{33}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Work Breakdown Structure (WBS)}{33}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Gantt Chart}{33}{section.4.7}%
+\contentsline {section}{\numberline {4.8}RMMM Plan (Risk Management, Monitoring, and Mitigation)}{34}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Risk Identification and Assessment}{34}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Detailed Risk Assessment}{34}{subsection.4.8.2}%
+\contentsline {subsubsection}{Risk \#1: R-TTB-005}{34}{subsubsection*.36}%
+\contentsline {subsubsection}{Risk \#2: R-TTB-008}{35}{subsubsection*.37}%
+\contentsline {subsubsection}{Risk \#3: R-TTB-015}{35}{subsubsection*.38}%
+\contentsline {subsubsection}{Risk \#4: R-TTB-018}{35}{subsubsection*.39}%
+\contentsline {subsubsection}{Risk \#5: R-TTB-024}{36}{subsubsection*.40}%
+\contentsline {subsection}{\numberline {4.8.3}Risk Management Process}{36}{subsection.4.8.3}%
+\contentsline {subsection}{\numberline {4.8.4}Risk Summary}{37}{subsection.4.8.4}%
+\contentsline {section}{\numberline {4.9}Test Cases}{37}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Test Case Overview}{37}{subsection.4.9.1}%
+\contentsline {subsection}{\numberline {4.9.2}Test Case Coverage Areas}{38}{subsection.4.9.2}%
+\contentsline {subsection}{\numberline {4.9.3}Detailed Test Cases}{38}{subsection.4.9.3}%
+\contentsline {subsubsection}{TC-TTB-01: Verify Dashboard Loads Correctly on Login}{38}{subsubsection*.41}%
+\contentsline {subsubsection}{TC-TTB-02: Verify Homepage Navigation for Unauthenticated User}{39}{subsubsection*.42}%
+\contentsline {subsubsection}{TC-TTB-03: Verify Faculty Dashboard Analytics Display}{39}{subsubsection*.43}%
+\contentsline {subsection}{\numberline {4.9.4}Test Execution Summary}{39}{subsection.4.9.4}%
+\contentsline {subsection}{\numberline {4.9.5}Quality Assurance Approach}{40}{subsection.4.9.5}%
+\contentsline {chapter}{\numberline {5}Implementation}{46}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Development Methodology}{46}{section.5.1}%
+\contentsline {chapter}{\numberline {6}Testing and Quality Assurance}{47}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Testing Strategy}{47}{section.6.1}%
+\contentsline {chapter}{\numberline {7}Risk Assessment and Management}{48}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Risk Identification}{48}{section.7.1}%
+\contentsline {chapter}{\numberline {8}Results and Achievements}{49}{chapter.8}%
+\contentsline {section}{\numberline {8.1}System Features Implemented}{49}{section.8.1}%
+\contentsline {chapter}{\numberline {9}Challenges and Solutions}{50}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Technical Challenges}{50}{section.9.1}%
+\contentsline {chapter}{\numberline {10}Future Enhancements}{51}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Planned Features}{51}{section.10.1}%
+\contentsline {chapter}{\numberline {11}Conclusion}{52}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Summary}{52}{section.11.1}%
+\contentsline {chapter}{\numberline {A}Test Case Documentation}{54}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Test Case Format}{54}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Sample Test Case}{54}{section.A.2}%
+\contentsline {chapter}{\numberline {B}Risk Assessment Documentation}{55}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Risk Format}{55}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Sample Risk}{55}{section.B.2}%
+\contentsline {chapter}{\numberline {C}System Screenshots}{56}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Dashboard View}{56}{section.C.1}%
+\contentsline {section}{\numberline {C.2}Lecture Slots Management}{56}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Timetable View}{56}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Enrollment Interface}{56}{section.C.4}%
+\contentsline {chapter}{\numberline {D}Installation and Deployment Guide}{57}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Prerequisites}{57}{section.D.1}%
+\contentsline {section}{\numberline {D.2}Installation Steps}{57}{section.D.2}%
+\contentsline {section}{\numberline {D.3}Docker Deployment}{58}{section.D.3}%

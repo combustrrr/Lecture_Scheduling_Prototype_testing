@@ -1,5 +1,386 @@
 % Chapter 3: Technology Stack
-% TODO: Extract from PROJECT_REPORT.tex or add new content
 \chapter{Technology Stack}
+
+The Timetable Buddy system is built using modern web technologies, following industry best practices and leveraging the power of full-stack JavaScript development. This chapter details the technologies, frameworks, libraries, and tools used in the development of the system.
+
 \section{Overview}
-Technology stack content will be added here.
+
+The system follows a three-tier architecture:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Presentation Layer:} React-based frontend with TypeScript
+    \item \textbf{Application Layer:} Node.js/Express.js REST API backend
+    \item \textbf{Data Layer:} MongoDB database with Mongoose ODM
+\end{itemize}
+
+\section{Frontend Technologies}
+
+\subsection{Core Technologies}
+
+\subsubsection{React 18.3+}
+\begin{itemize}[leftmargin=*]
+    \item Modern JavaScript library for building user interfaces
+    \item Component-based architecture for reusability
+    \item Virtual DOM for efficient rendering
+    \item Hooks for state management and side effects
+    \item Used for: All UI components, pages, and layouts
+\end{itemize}
+
+\subsubsection{TypeScript 5.5+}
+\begin{itemize}[leftmargin=*]
+    \item Superset of JavaScript with static typing
+    \item Enhanced IDE support with IntelliSense
+    \item Compile-time error detection
+    \item Better code documentation and maintainability
+    \item Used for: Type-safe component development
+\end{itemize}
+
+\subsubsection{Vite 5.4+}
+\begin{itemize}[leftmargin=*]
+    \item Next-generation frontend build tool
+    \item Lightning-fast Hot Module Replacement (HMR)
+    \item Optimized production builds
+    \item Native ES modules support
+    \item Used for: Development server and production builds
+\end{itemize}
+
+\subsection{UI and Styling}
+
+\subsubsection{Tailwind CSS 3.4+}
+\begin{itemize}[leftmargin=*]
+    \item Utility-first CSS framework
+    \item Rapid UI development with pre-built classes
+    \item Responsive design utilities
+    \item Dark mode support (configurable)
+    \item Used for: All component styling and layouts
+\end{itemize}
+
+\subsubsection{Lucide React 0.344+}
+\begin{itemize}[leftmargin=*]
+    \item Modern icon library with 1000+ icons
+    \item Tree-shakeable for optimal bundle size
+    \item Consistent design system
+    \item Customizable size and colors
+    \item Used for: Navigation icons, action buttons, status indicators
+\end{itemize}
+
+\subsection{Routing and Navigation}
+
+\subsubsection{React Router 6.20+}
+\begin{itemize}[leftmargin=*]
+    \item Declarative routing for React applications
+    \item Nested routes support
+    \item Protected routes for authentication
+    \item URL parameter handling
+    \item Used for: Client-side routing and navigation
+\end{itemize}
+
+\subsection{HTTP and API Communication}
+
+\subsubsection{Axios 1.6+}
+\begin{itemize}[leftmargin=*]
+    \item Promise-based HTTP client
+    \item Request and response interceptors
+    \item Automatic JSON transformation
+    \item Error handling capabilities
+    \item Used for: All API calls to backend
+\end{itemize}
+
+\subsection{Form Management and Validation}
+
+\subsubsection{React Hook Form 7.48+}
+\begin{itemize}[leftmargin=*]
+    \item Performant form state management
+    \item Built-in validation support
+    \item Minimal re-renders for better performance
+    \item Easy integration with UI libraries
+    \item Used for: All forms (login, registration, enrollment, etc.)
+\end{itemize}
+
+\subsubsection{Zod 3.22+}
+\begin{itemize}[leftmargin=*]
+    \item TypeScript-first schema validation
+    \item Runtime type checking
+    \item Integration with React Hook Form
+    \item Detailed error messages
+    \item Used for: Form validation schemas
+\end{itemize}
+
+\subsection{User Feedback and Notifications}
+
+\subsubsection{React Hot Toast 2.4+}
+\begin{itemize}[leftmargin=*]
+    \item Lightweight toast notification library
+    \item Customizable appearance
+    \item Promise-based API
+    \item Accessible notifications
+    \item Used for: Success/error messages, user feedback
+\end{itemize}
+
+\subsection{Utility Libraries}
+
+\subsubsection{Date-fns 2.30+}
+\begin{itemize}[leftmargin=*]
+    \item Modern JavaScript date utility library
+    \item Modular and tree-shakeable
+    \item Timezone support
+    \item Date formatting and manipulation
+    \item Used for: Date/time handling in timetables
+\end{itemize}
+
+\section{Backend Technologies}
+
+\subsection{Core Technologies}
+
+\subsubsection{Node.js 18+}
+\begin{itemize}[leftmargin=*]
+    \item JavaScript runtime built on Chrome's V8 engine
+    \item Event-driven, non-blocking I/O model
+    \item NPM ecosystem with 2M+ packages
+    \item High performance for I/O operations
+    \item Used for: Backend runtime environment
+\end{itemize}
+
+\subsubsection{Express.js 4.18+}
+\begin{itemize}[leftmargin=*]
+    \item Fast, unopinionated web framework for Node.js
+    \item Robust routing system
+    \item Middleware support
+    \item RESTful API development
+    \item Used for: REST API implementation, routing
+\end{itemize}
+
+\subsection{Database}
+
+\subsubsection{MongoDB 7.0}
+\begin{itemize}[leftmargin=*]
+    \item NoSQL document-oriented database
+    \item Flexible schema design
+    \item High performance and scalability
+    \item JSON-like document storage (BSON)
+    \item Used for: Data persistence (users, lecture slots, enrollments)
+\end{itemize}
+
+\subsubsection{Mongoose 8.0+}
+\begin{itemize}[leftmargin=*]
+    \item MongoDB object modeling for Node.js
+    \item Schema validation and type casting
+    \item Middleware (hooks) support
+    \item Query building and population
+    \item Used for: Database schema definition and operations
+\end{itemize}
+
+\subsection{Authentication and Security}
+
+\subsubsection{JSON Web Tokens (JWT)}
+\begin{itemize}[leftmargin=*]
+    \item Stateless authentication mechanism
+    \item Compact and URL-safe tokens
+    \item Signature verification
+    \item Payload encryption support
+    \item Used for: User authentication and authorization
+\end{itemize}
+
+\subsubsection{bcryptjs}
+\begin{itemize}[leftmargin=*]
+    \item Password hashing library
+    \item Salt generation for enhanced security
+    \item Adaptive hashing (configurable rounds)
+    \item Resistant to brute-force attacks
+    \item Used for: Password encryption and verification
+\end{itemize}
+
+\subsubsection{Helmet.js}
+\begin{itemize}[leftmargin=*]
+    \item Security middleware for Express.js
+    \item Sets various HTTP headers for protection
+    \item XSS protection
+    \item Clickjacking prevention
+    \item Used for: HTTP security headers
+\end{itemize}
+
+\subsection{Validation and Data Processing}
+
+\subsubsection{Joi}
+\begin{itemize}[leftmargin=*]
+    \item Object schema validation
+    \item Powerful validation rules
+    \item Custom error messages
+    \item Async validation support
+    \item Used for: API request validation
+\end{itemize}
+
+\subsection{API Security and Rate Limiting}
+
+\subsubsection{Express Rate Limit}
+\begin{itemize}[leftmargin=*]
+    \item Rate limiting middleware
+    \item Configurable time windows
+    \item Per-IP or per-user limits
+    \item DDoS protection
+    \item Used for: API rate limiting (100 requests per 15 minutes)
+\end{itemize}
+
+\subsubsection{CORS}
+\begin{itemize}[leftmargin=*]
+    \item Cross-Origin Resource Sharing middleware
+    \item Configurable allowed origins
+    \item Preflight request handling
+    \item Credentials support
+    \item Used for: Cross-origin API access control
+\end{itemize}
+
+\subsection{Logging and Monitoring}
+
+\subsubsection{Morgan}
+\begin{itemize}[leftmargin=*]
+    \item HTTP request logger middleware
+    \item Multiple logging formats
+    \item Stream support for file logging
+    \item Request/response tracking
+    \item Used for: API request logging
+\end{itemize}
+
+\subsection{Configuration Management}
+
+\subsubsection{dotenv}
+\begin{itemize}[leftmargin=*]
+    \item Environment variable management
+    \item Secure configuration handling
+    \item Environment-specific settings
+    \item Sensitive data protection
+    \item Used for: Environment configuration (database URLs, JWT secrets, etc.)
+\end{itemize}
+
+\section{Development Tools}
+
+\subsection{Code Quality}
+
+\subsubsection{ESLint}
+\begin{itemize}[leftmargin=*]
+    \item JavaScript and TypeScript linter
+    \item Code quality enforcement
+    \item Custom rule configuration
+    \item Auto-fix capabilities
+    \item Used for: Code linting and standards enforcement
+\end{itemize}
+
+\subsubsection{Prettier}
+\begin{itemize}[leftmargin=*]
+    \item Opinionated code formatter
+    \item Consistent code style
+    \item Integration with ESLint
+    \item Auto-formatting on save
+    \item Used for: Code formatting
+\end{itemize}
+
+\subsection{Testing}
+
+\subsubsection{Jest}
+\begin{itemize}[leftmargin=*]
+    \item JavaScript testing framework
+    \item Unit and integration testing
+    \item Snapshot testing
+    \item Code coverage reports
+    \item Used for: Frontend and backend unit tests
+\end{itemize}
+
+\subsubsection{Supertest}
+\begin{itemize}[leftmargin=*]
+    \item HTTP assertion library
+    \item API endpoint testing
+    \item Integration with Jest
+    \item Request/response validation
+    \item Used for: API integration tests
+\end{itemize}
+
+\subsection{Containerization}
+
+\subsubsection{Docker}
+\begin{itemize}[leftmargin=*]
+    \item Container platform
+    \item Consistent development environments
+    \item Easy deployment and scaling
+    \item Service isolation
+    \item Used for: Application containerization and deployment
+\end{itemize}
+
+\section{Architecture Patterns}
+
+\subsection{MERN Stack Architecture}
+
+The system follows the MERN (MongoDB, Express, React, Node.js) stack architecture:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{MongoDB:} NoSQL database for flexible data storage
+    \item \textbf{Express.js:} Backend framework for API development
+    \item \textbf{React:} Frontend library for user interface
+    \item \textbf{Node.js:} JavaScript runtime for backend execution
+\end{enumerate}
+
+\subsection{REST API Architecture}
+
+\begin{itemize}[leftmargin=*]
+    \item RESTful endpoints following HTTP standards
+    \item JSON data format for requests and responses
+    \item Proper HTTP status codes
+    \item Stateless communication
+    \item Resource-based URL structure
+\end{itemize}
+
+\subsection{MVC Pattern (Backend)}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Models:} Mongoose schemas for data structure
+    \item \textbf{Views:} JSON responses (no traditional views)
+    \item \textbf{Controllers:} Business logic and request handling
+    \item \textbf{Routes:} URL mapping to controllers
+\end{itemize}
+
+\subsection{Component-Based Architecture (Frontend)}
+
+\begin{itemize}[leftmargin=*]
+    \item Reusable React components
+    \item Props and state management
+    \item Context API for global state
+    \item Custom hooks for shared logic
+\end{itemize}
+
+\section{Technology Justification}
+
+\subsection{Why MERN Stack?}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Full-Stack JavaScript:} Single language across frontend and backend reduces context switching
+    \item \textbf{JSON Throughout:} Seamless data flow from database to client
+    \item \textbf{Active Community:} Large ecosystem and community support
+    \item \textbf{Scalability:} Proven track record for scalable applications
+    \item \textbf{Performance:} Non-blocking I/O and efficient rendering
+    \item \textbf{Modern Development:} Latest features and best practices
+    \item \textbf{Rich Ecosystem:} Extensive NPM package availability
+\end{enumerate}
+
+\subsection{Key Technology Benefits}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\textbf{Technology} & \textbf{Key Benefit} \\
+\hline
+React & Component reusability and efficient DOM updates \\
+\hline
+TypeScript & Type safety and better developer experience \\
+\hline
+Tailwind CSS & Rapid UI development and consistent design \\
+\hline
+MongoDB & Flexible schema for evolving requirements \\
+\hline
+Express.js & Lightweight and flexible API development \\
+\hline
+JWT & Stateless authentication for scalability \\
+\hline
+Docker & Consistent deployment across environments \\
+\hline
+\end{tabular}
+\caption{Technology Benefits Summary}
+\end{table}

@@ -207,7 +207,13 @@ The RMMM Plan provides a comprehensive framework for identifying, assessing, mon
 
 \subsection{Risk Identification and Assessment}
 
-Risks have been identified across technical, operational, and external categories. Each risk is assessed for probability and impact, with detailed mitigation strategies.
+Risks have been identified across technical, operational, and external categories. Each risk is assessed for probability and impact, with detailed mitigation strategies. This document includes only risks with a probability of 15\% or less, as higher probability risks are managed through other project management processes.
+
+\textbf{Risk Assessment Criteria:}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Probability Levels:} Only risks with $\leq$15\% probability are included
+    \item \textbf{Impact Levels:} Critical, High, Medium, Low
+\end{itemize}
 
 \textbf{Risk Categories:}
 \begin{itemize}[leftmargin=*]
@@ -216,119 +222,333 @@ Risks have been identified across technical, operational, and external categorie
     \item \textbf{External Risks:} Third-party dependencies, requirement changes, infrastructure issues
 \end{itemize}
 
-\subsection{Risk Management Framework}
+\subsection{Detailed Risk Assessment}
 
-\textbf{Key Risks Identified (Probability $\leq$ 15\%):}
+\subsubsection{Risk \#1: R-TTB-005}
 
+\begin{table}[h]
+\small
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Risk ID} & R-TTB-005 & \textbf{Type} & Technical \\
+\hline
+\textbf{Probability} & 10\% & \textbf{Impact} & Critical \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Risk Description:} Critical security vulnerability discovered in production system allowing unauthorized data access.
+
+\textbf{Mitigation Plan:}
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{R-TTB-005 - Security Vulnerability (10\% probability, Critical impact)}
-    \begin{itemize}
-        \item \textit{Description:} Critical security vulnerability discovered in production
-        \item \textit{Mitigation:} Regular security audits, penetration testing, OWASP compliance
-        \item \textit{Monitoring:} Weekly automated security scans, dependency vulnerability checks
-        \item \textit{Management:} Emergency patch deployment within 4 hours, incident response plan
-    \end{itemize}
-    
-    \item \textbf{R-TTB-008 - Database Performance (15\% probability, High impact)}
-    \begin{itemize}
-        \item \textit{Description:} Database performance degradation affecting system responsiveness
-        \item \textit{Mitigation:} Query optimization, indexing strategy, caching implementation
-        \item \textit{Monitoring:} Database performance metrics, query execution time tracking
-        \item \textit{Management:} Scale database resources, optimize queries, implement connection pooling
-    \end{itemize}
-    
-    \item \textbf{R-TTB-015 - API Integration Failure (15\% probability, High impact)}
-    \begin{itemize}
-        \item \textit{Description:} Critical API endpoints failing or becoming unresponsive
-        \item \textit{Mitigation:} Comprehensive API testing, error handling, retry mechanisms
-        \item \textit{Monitoring:} API health checks, response time monitoring, error rate tracking
-        \item \textit{Management:} Implement circuit breakers, fallback mechanisms, load balancing
-    \end{itemize}
-    
-    \item \textbf{R-TTB-018 - Data Loss (12\% probability, Critical impact)}
-    \begin{itemize}
-        \item \textit{Description:} Critical data loss due to system failure or human error
-        \item \textit{Mitigation:} Automated backups, data validation, transaction management
-        \item \textit{Monitoring:} Backup verification, data integrity checks, audit logs
-        \item \textit{Management:} Disaster recovery plan, point-in-time recovery, backup restoration procedures
-    \end{itemize}
-    
-    \item \textbf{R-TTB-024 - Concurrent Access Issues (15\% probability, Medium impact)}
-    \begin{itemize}
-        \item \textit{Description:} Race conditions and conflicts during simultaneous user operations
-        \item \textit{Mitigation:} Optimistic locking, transaction isolation, conflict detection
-        \item \textit{Monitoring:} Concurrent access logs, conflict occurrence tracking
-        \item \textit{Management:} Implement proper locking mechanisms, user notifications for conflicts
-    \end{itemize}
+    \item Conduct regular security audits and penetration testing
+    \item Implement security scanning in CI/CD pipeline
+    \item Follow OWASP guidelines for secure development
 \end{enumerate}
 
-For complete risk documentation, refer to the RISK\_ASSESSMENT\_SHEET.md file in the project repository.
+\textbf{Monitoring Plan:} Run automated security scans weekly. Monitor security patch releases for dependencies.
+
+\textbf{Management Plan:} Deploy emergency patch within 4 hours. Notify affected users. Conduct incident post-mortem.
+
+\subsubsection{Risk \#2: R-TTB-008}
+
+\begin{table}[h]
+\small
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Risk ID} & R-TTB-008 & \textbf{Type} & Technical \\
+\hline
+\textbf{Probability} & 15\% & \textbf{Impact} & High \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Risk Description:} Cloud service provider experiences prolonged outage affecting application availability.
+
+\textbf{Mitigation Plan:}
+\begin{enumerate}[leftmargin=*]
+    \item Implement multi-region deployment
+    \item Design for high availability
+    \item Have disaster recovery plan in place
+\end{enumerate}
+
+\textbf{Monitoring Plan:} Subscribe to cloud provider status updates. Monitor service health across regions.
+
+\textbf{Management Plan:} Failover to backup region. Communicate status to users. Document incident for review.
+
+\subsubsection{Risk \#3: R-TTB-015}
+
+\begin{table}[h]
+\small
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Risk ID} & R-TTB-015 & \textbf{Type} & External \\
+\hline
+\textbf{Probability} & 15\% & \textbf{Impact} & High \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Risk Description:} Vendor lock-in prevents migration to alternative solutions, increasing long-term costs.
+
+\textbf{Mitigation Plan:}
+\begin{enumerate}[leftmargin=*]
+    \item Use open standards where possible
+    \item Design abstraction layers for vendor services
+    \item Evaluate vendor independence regularly
+\end{enumerate}
+
+\textbf{Monitoring Plan:} Review vendor contracts annually. Assess switching costs and alternatives.
+
+\textbf{Management Plan:} Plan phased migration to alternative vendor. Negotiate better terms with current vendor. Implement vendor-agnostic architecture.
+
+\subsubsection{Risk \#4: R-TTB-018}
+
+\begin{table}[h]
+\small
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Risk ID} & R-TTB-018 & \textbf{Type} & External \\
+\hline
+\textbf{Probability} & 12\% & \textbf{Impact} & Critical \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Risk Description:} Competitor launches similar product first, reducing market opportunity.
+
+\textbf{Mitigation Plan:}
+\begin{enumerate}[leftmargin=*]
+    \item Conduct competitive analysis regularly
+    \item Focus on unique value propositions
+    \item Plan for rapid iteration and deployment
+\end{enumerate}
+
+\textbf{Monitoring Plan:} Monitor competitor activities and product launches. Track market trends and customer feedback.
+
+\textbf{Management Plan:} Accelerate development of differentiating features. Adjust marketing strategy. Consider strategic partnerships.
+
+\subsubsection{Risk \#5: R-TTB-024}
+
+\begin{table}[h]
+\small
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Risk ID} & R-TTB-024 & \textbf{Type} & Operational \\
+\hline
+\textbf{Probability} & 15\% & \textbf{Impact} & High \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Risk Description:} Inadequate disaster recovery procedures lead to extended downtime after incident.
+
+\textbf{Mitigation Plan:}
+\begin{enumerate}[leftmargin=*]
+    \item Document and test DR procedures quarterly
+    \item Automate recovery processes
+    \item Maintain offsite backups
+\end{enumerate}
+
+\textbf{Monitoring Plan:} Test disaster recovery plan every 6 months. Track RTO and RPO metrics.
+
+\textbf{Management Plan:} Execute disaster recovery plan. Communicate with stakeholders. Document incident for improvement.
+
+\subsection{Risk Management Process}
+
+\textbf{1. Risk Identification}
+\begin{itemize}[leftmargin=*]
+    \item Conduct risk identification workshops at project initiation and quarterly
+    \item Encourage all team members to report potential risks
+    \item Review lessons learned from previous projects
+\end{itemize}
+
+\textbf{2. Risk Assessment}
+\begin{itemize}[leftmargin=*]
+    \item Evaluate each risk for probability (as percentage) and impact
+    \item Calculate risk score (Probability × Impact)
+    \item Prioritize risks based on score
+\end{itemize}
+
+\textbf{3. Risk Mitigation}
+\begin{itemize}[leftmargin=*]
+    \item Develop proactive plans to reduce probability or impact
+    \item Assign risk owners for each identified risk
+    \item Implement mitigation strategies before risks materialize
+\end{itemize}
+
+\textbf{4. Risk Monitoring}
+\begin{itemize}[leftmargin=*]
+    \item Track identified risks throughout project lifecycle
+    \item Update risk status in weekly project meetings
+    \item Use risk dashboard for visibility
+\end{itemize}
+
+\textbf{5. Risk Management}
+\begin{itemize}[leftmargin=*]
+    \item Execute management plans when risks occur
+    \item Document lessons learned
+    \item Update risk assessment based on new information
+\end{itemize}
+
+\subsection{Risk Summary}
+
+\textbf{Total Risks Included:} 5 risks with probability $\leq$ 15\%
+
+\textbf{Risks by Impact:}
+\begin{itemize}[leftmargin=*]
+    \item Critical Impact: 2 risks (R-TTB-005, R-TTB-018)
+    \item High Impact: 3 risks (R-TTB-008, R-TTB-015, R-TTB-024)
+\end{itemize}
+
+\textbf{Escalation Criteria:} Risks should be escalated to senior management when impact level is Critical, mitigation plans are not effective, or additional resources/authority are needed.
 
 \section{Test Cases}
 
-Comprehensive test case planning and execution has been documented to ensure system quality and reliability. The test strategy covers all functional areas of the system.
+Comprehensive test case planning and execution has been documented to ensure system quality and reliability. The test strategy covers all functional areas of the system with 60 detailed test cases.
 
-\subsection{Test Case Coverage}
+\subsection{Test Case Overview}
 
-\textbf{Test Categories:}
+\textbf{Project:} Lecture Scheduling System  
+\textbf{Version:} 1.0  
+\textbf{Date:} 2025-10-07  
+\textbf{Prepared By:} QA Engineering Team
+
+\textbf{Test Case Format Standards:}
 \begin{itemize}[leftmargin=*]
-    \item \textbf{Authentication Tests:} Login, logout, password reset, role-based access (TC-TTB-01 to TC-TTB-10)
-    \item \textbf{Lecture Slot Tests:} CRUD operations, scheduling, conflicts (TC-TTB-11 to TC-TTB-20)
-    \item \textbf{Enrollment Tests:} Student enrollment, waitlist, capacity management (TC-TTB-21 to TC-TTB-30)
-    \item \textbf{Timetable Tests:} View, export, filtering (TC-TTB-31 to TC-TTB-40)
-    \item \textbf{Dashboard Tests:} Analytics, statistics, notifications (TC-TTB-41 to TC-TTB-50)
-    \item \textbf{UI/UX Tests:} Responsiveness, accessibility, navigation (TC-TTB-51 to TC-TTB-60)
+    \item \textbf{Test Case ID:} TC-TTB-XX (standardized format)
+    \item \textbf{Test Number:} X.1 - X.Y (decimal notation indicating step range)
+    \item \textbf{Priority:} High (all test cases are high priority for critical functionality)
+    \item \textbf{Test Designed By:} Sarthak Kulkarni, Dhruv Tikhande, Atharv Petkar, Pulkit Saini
+    \item \textbf{Test Executed By:} Sarthak Kulkarni, Dhruv Tikhande, Atharv Petkar, Pulkit Saini
+    \item \textbf{Execution Date:} 2025-10-07
 \end{itemize}
+
+\subsection{Test Case Coverage Areas}
+
+The test suite comprehensively covers:
+\begin{itemize}[leftmargin=*]
+    \item Dashboard \& Homepage (TC-TTB-01 to TC-TTB-03)
+    \item User Profile Management (TC-TTB-04 to TC-TTB-05)
+    \item User List \& Search (TC-TTB-06 to TC-TTB-08)
+    \item Course Management (TC-TTB-09 to TC-TTB-13)
+    \item Lecture Slot Management (TC-TTB-14 to TC-TTB-18)
+    \item Schedule Creation (TC-TTB-19 to TC-TTB-22)
+    \item Enrollment Management (TC-TTB-23 to TC-TTB-26)
+    \item Timetable Operations (TC-TTB-27 to TC-TTB-30)
+    \item User Management (TC-TTB-31 to TC-TTB-32)
+    \item Mobile \& Responsive Design (TC-TTB-33 to TC-TTB-34)
+    \item Notifications (TC-TTB-35 to TC-TTB-36)
+    \item Settings \& Configuration (TC-TTB-37 to TC-TTB-40)
+    \item Advanced Features (TC-TTB-41 to TC-TTB-48)
+    \item Security \& Validation (TC-TTB-49 to TC-TTB-60)
+\end{itemize}
+
+\subsection{Detailed Test Cases}
+
+\subsubsection{TC-TTB-01: Verify Dashboard Loads Correctly on Login}
+
+\textbf{Test Number:} 1.1 - 1.4 | \textbf{Priority:} High | \textbf{Date:} 2025-10-07
+
+\textbf{Description:} Ensure dashboard displays all widgets and statistics after user login
+
+\textbf{Dependencies:} User must be logged in | \textbf{Conditions:} Browser: Chrome, Role: Student | \textbf{Control:} Manual
+
+\textbf{Test Steps:}
+\begin{enumerate}[leftmargin=*]
+    \item[1.1] Navigate to login page $\rightarrow$ \textit{Expected:} Login page displays correctly $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[1.2] Enter valid credentials $\rightarrow$ \textit{Expected:} Credentials accepted $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[1.3] Click 'Sign In' button $\rightarrow$ \textit{Expected:} User is redirected to dashboard $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[1.4] Verify dashboard widgets load $\rightarrow$ \textit{Expected:} All statistics, upcoming classes, and quick actions are visible $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+\end{enumerate}
+
+\subsubsection{TC-TTB-02: Verify Homepage Navigation for Unauthenticated User}
+
+\textbf{Test Number:} 2.1 - 2.4 | \textbf{Priority:} High | \textbf{Date:} 2025-10-07
+
+\textbf{Description:} Test homepage displays correctly for users not logged in
+
+\textbf{Dependencies:} None | \textbf{Conditions:} Browser: Chrome, Role: Unauthenticated | \textbf{Control:} Manual
+
+\textbf{Test Steps:}
+\begin{enumerate}[leftmargin=*]
+    \item[2.1] Navigate to homepage $\rightarrow$ \textit{Expected:} Homepage loads with welcome message $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[2.2] Verify 'Get Started' button is visible $\rightarrow$ \textit{Expected:} Button displays prominently $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[2.3] Verify 'Sign In' button is visible $\rightarrow$ \textit{Expected:} Button is accessible $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[2.4] Click 'Sign In' button $\rightarrow$ \textit{Expected:} User is redirected to login page $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+\end{enumerate}
+
+\subsubsection{TC-TTB-03: Verify Faculty Dashboard Analytics Display}
+
+\textbf{Test Number:} 3.1 - 3.4 | \textbf{Priority:} High | \textbf{Date:} 2025-10-07
+
+\textbf{Description:} Ensure faculty dashboard shows enrollment statistics
+
+\textbf{Test Steps:}
+\begin{enumerate}[leftmargin=*]
+    \item[3.1] Navigate to faculty dashboard $\rightarrow$ \textit{Expected:} Dashboard loads successfully $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[3.2] Verify total lecture slots count $\rightarrow$ \textit{Expected:} Correct number displayed $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[3.3] Verify enrolled students count $\rightarrow$ \textit{Expected:} Accurate count shown $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+    \item[3.4] Verify available slots count $\rightarrow$ \textit{Expected:} Correct availability displayed $\rightarrow$ \textit{Actual:} As Expected $\rightarrow$ \textbf{PASS}
+\end{enumerate}
+
+\textit{[Note: Due to space constraints in the report, a representative sample of 3 test cases is shown above. The complete test suite contains all 60 test cases (TC-TTB-01 through TC-TTB-60) with full step-by-step documentation following the same standardized format. All test cases include test ID, number, priority, description, dependencies, conditions, control method, detailed steps with expected and actual results, and pass/fail status. For the complete test documentation, see Appendix A.]}
 
 \subsection{Test Execution Summary}
 
-\textbf{Total Test Cases:} 60
-
-\textbf{Test Case Format:}
+\textbf{Overall Test Metrics:}
 \begin{itemize}[leftmargin=*]
-    \item Test Case ID: TC-TTB-XX (standardized format)
-    \item Test Number: X.1 - X.Y (decimal notation indicating step range)
-    \item Priority: High/Medium/Low
-    \item Test Designed By: Sarthak Kulkarni, Dhruv Tikhande, Atharv Petkar, Pulkit Saini
-    \item Test Executed By: Sarthak Kulkarni, Dhruv Tikhande, Atharv Petkar, Pulkit Saini
-    \item Execution Date: 2025-10-07
-    \item Detailed Steps with Expected and Actual Results
+    \item \textbf{Total Test Cases:} 60
+    \item \textbf{Total Test Steps:} 332 (with decimal notation)
+    \item \textbf{Tests Passed:} 58 (96.7\%)
+    \item \textbf{Tests Failed:} 2 (3.3\%)
+    \item \textbf{Test Coverage:} All major functional areas covered
+    \item \textbf{Execution Date:} 2025-10-07
 \end{itemize}
 
-\textbf{Sample Test Case:}
-
-\textit{TC-TTB-01: Verify Dashboard Loads Correctly on Login}
+\textbf{Test Results by Category:}
 \begin{itemize}[leftmargin=*]
-    \item \textbf{Test Number:} 1.1 - 1.4
-    \item \textbf{Priority:} High
-    \item \textbf{Description:} Ensure dashboard displays all widgets and statistics after user login
-    \item \textbf{Steps:}
-    \begin{enumerate}
-        \item[1.1] Navigate to login page - Expected: Login page displays correctly
-        \item[1.2] Enter valid credentials - Expected: Credentials accepted
-        \item[1.3] Click 'Sign In' button - Expected: User is redirected to dashboard
-        \item[1.4] Verify dashboard widgets load - Expected: All statistics, upcoming classes, and quick actions are visible
-    \end{enumerate}
-    \item \textbf{Result:} PASS - All steps executed successfully with actual results matching expected results
+    \item Dashboard \& Homepage: 3/3 PASS
+    \item User Profile Management: 2/2 PASS
+    \item User List \& Search: 2/3 PASS (1 FAIL - TC-TTB-08 pagination issue)
+    \item Course Management: 5/5 PASS
+    \item Lecture Slot Management: 5/5 PASS
+    \item Schedule Creation: 4/4 PASS
+    \item Enrollment Management: 4/4 PASS
+    \item Timetable Operations: 4/4 PASS
+    \item User Management: 2/2 PASS
+    \item Mobile \& Responsive Design: 2/2 PASS
+    \item Notifications: 2/2 PASS
+    \item Settings \& Configuration: 4/4 PASS
+    \item Advanced Features: 7/8 PASS (1 FAIL - TC-TTB-48 error validation)
+    \item Security \& Validation: 12/12 PASS
 \end{itemize}
 
-\textbf{Test Execution Results:}
+\textbf{Failed Test Cases:}
 \begin{itemize}[leftmargin=*]
-    \item Total Tests Executed: 60
-    \item Passed: 58 (96.7\%)
-    \item Failed: 2 (3.3\%)
-    \item Test Coverage: All major functional areas covered
+    \item \textbf{TC-TTB-08 (Step 5):} Click 'Previous Page' - Error encountered (Bug ticket \#1037 reported)
+    \item \textbf{TC-TTB-48 (Step 6):} User stays on login page - Performance issue noted (Performance acceptable, marked as PASS with notes)
 \end{itemize}
 
-For complete test case documentation with all 60 test cases, step-by-step execution details, and results, refer to the TEST\_CASE\_PLANNING\_AND\_EXECUTION.md file in the project repository.
-
-\subsection{Quality Assurance}
+\subsection{Quality Assurance Approach}
 
 The testing methodology ensures:
 \begin{itemize}[leftmargin=*]
-    \item \textbf{Comprehensive Coverage:} All functional requirements tested
-    \item \textbf{Traceability:} Test cases mapped to requirements
-    \item \textbf{Repeatability:} Standardized test procedures for consistent execution
-    \item \textbf{Documentation:} Detailed test results with actual vs expected outcomes
+    \item \textbf{Comprehensive Coverage:} All functional requirements tested across 60 test cases
+    \item \textbf{Traceability:} Test cases mapped to requirements with standardized TC-TTB-XX IDs
+    \item \textbf{Repeatability:} Standardized test procedures with decimal step notation (X.1, X.2, etc.)
+    \item \textbf{Documentation:} Detailed test results with "As Expected" standardization for PASS cases
     \item \textbf{Defect Tracking:} Failed tests documented with bug ticket references
+    \item \textbf{Team Collaboration:} All tests designed and executed by full team (Sarthak Kulkarni, Dhruv Tikhande, Atharv Petkar, Pulkit Saini)
+    \item \textbf{Priority Management:} All test cases designated as High priority for critical functionality
+\end{itemize}
+
+\textbf{Testing Standards:}
+\begin{itemize}[leftmargin=*]
+    \item Manual testing with browser-based execution
+    \item Role-based test scenarios (Admin, Faculty, Student)
+    \item Cross-browser compatibility (Chrome primary)
+    \item Responsive design validation
+    \item Security and validation testing
+    \item Performance and usability testing
 \end{itemize}
