@@ -11,97 +11,69 @@ Data Flow Diagrams represent the flow of data through the system at different le
 
 The Context Diagram provides a high-level view of the entire Timetable Buddy system, showing its interaction with external entities including Students, Faculty, and Administrators.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{images/DFD Level 0.png}
     \caption{DFD Level 0 - Context Diagram showing system boundaries and external entities}
     \label{fig:dfd0}
 \end{figure}
 
-The context diagram illustrates:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{External Entities:} Students, Faculty, Administrators
-    \item \textbf{Main System:} Timetable Buddy System (central process)
-    \item \textbf{Data Flows:} Authentication requests, enrollment data, lecture schedules, timetable information
-    \item \textbf{System Boundary:} Clear delineation between internal processes and external interactions
-\end{itemize}
+The context diagram provides a comprehensive overview of the Timetable Buddy system's interaction with its operational environment, clearly defining the boundaries between internal system processes and external entities. The diagram identifies three primary external entities that interact with the system: Students who utilize the platform for course enrollment and schedule management, Faculty members who create and manage lecture slots while monitoring student participation, and Administrators who oversee system-wide operations and maintain institutional policies. At the center of this diagram, the Timetable Buddy System serves as the central processing hub that orchestrates all interactions between these external entities and manages the complex data transformations required for effective academic scheduling. The data flows depicted in the diagram encompass authentication requests that verify user identities and establish secure sessions, enrollment data that captures student registration preferences and course participation, lecture schedules that define the temporal and spatial parameters of academic sessions, and comprehensive timetable information that provides consolidated views of academic activities. The system boundary clearly delineates between internal processes that occur within the Timetable Buddy platform and external interactions that involve human users or other institutional systems, ensuring that the scope and responsibilities of the scheduling system are precisely defined.
 
 \subsection{DFD Level 1 (High-Level Processes)}
 
 Level 1 DFD decomposes the main system into major processes, showing the primary functional components and their interactions with data stores and external entities.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{images/DFD Level 1.png}
     \caption{DFD Level 1 - Major system processes and data stores}
     \label{fig:dfd1}
 \end{figure}
 
-Key processes shown in Level 1 include:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{Process 1:} User Authentication and Authorization
-    \item \textbf{Process 2:} Lecture Slot Management
-    \item \textbf{Process 3:} Enrollment Processing
-    \item \textbf{Process 4:} Timetable Generation and Display
-    \item \textbf{Process 5:} Dashboard and Analytics
-    \item \textbf{Data Stores:} User Database, Lecture Slots, Enrollments, Schedules
-\end{itemize}
+The Level 1 Data Flow Diagram reveals the sophisticated internal architecture of the Timetable Buddy system through the identification of five critical processes that collectively deliver comprehensive academic scheduling functionality. Process 1 encompasses User Authentication and Authorization mechanisms that verify user identities, establish secure sessions, and implement role-based access controls that ensure appropriate system permissions for different user categories. Process 2 focuses on Lecture Slot Management operations that enable authorized users to create, modify, and maintain lecture slots while ensuring data integrity and proper scheduling coordination. Process 3 handles Enrollment Processing activities that manage student registrations, implement conflict detection algorithms, maintain waitlist functionality, and coordinate automatic promotion procedures when enrollment capacity changes occur. Process 4 involves Timetable Generation and Display operations that synthesize enrollment data and lecture slot information into coherent schedule presentations customized for different user roles and preferences. Process 5 encompasses Dashboard and Analytics functionality that provides users with personalized insights, statistical summaries, and operational metrics relevant to their academic scheduling activities. The diagram also identifies critical data stores that support these processes, including the User Database that maintains account information and authentication credentials, the Lecture Slots repository that stores course scheduling details and capacity information, the Enrollments database that tracks student registrations and waitlist positions, and the Schedules data store that preserves generated timetable configurations and historical scheduling patterns.
 
 \subsection{DFD Level 2 (Detailed Processes)}
 
 Level 2 DFD provides detailed decomposition of complex processes from Level 1, showing sub-processes and their detailed interactions within the enrollment management system.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{images/DFD Level 2.png}
     \caption{DFD Level 2 - Detailed process decomposition}
     \label{fig:dfd2}
 \end{figure}
 
-The Level 2 diagram details:
-\begin{itemize}[leftmargin=*]
-    \item Enrollment workflow with waitlist management
-    \item Conflict detection mechanisms
-    \item Capacity validation processes
-    \item Notification generation
-\end{itemize}
+The Level 2 Data Flow Diagram provides an intricate examination of the enrollment management subsystem, revealing the sophisticated sub-processes that orchestrate student course registration and academic schedule coordination. The enrollment workflow with waitlist management demonstrates how the system processes initial student registration requests, evaluates course capacity constraints, and seamlessly transitions students between active enrollment and waitlist positions based on availability and academic policies. The conflict detection mechanisms illustrate the complex algorithms that continuously monitor student schedules to identify potential time conflicts, prerequisite violations, or other academic constraints that might prevent successful course registration. Capacity validation processes showcase how the system maintains real-time awareness of course enrollment limits, manages overflow situations through waitlist functionality, and ensures that lecture slots never exceed their designated capacity while optimizing resource utilization. The notification generation sub-processes demonstrate how the system maintains continuous communication with students and faculty through automated messaging systems that provide updates about enrollment status changes, course modifications, and other relevant academic information that affects scheduling decisions.
 
 \section{Use Case Diagram}
 
 The Use Case Diagram illustrates the functional requirements from the user's perspective, showing the interactions between different actors and the system use cases.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{images/Usecase diagram.png}
     \caption{Use Case Diagram showing actor interactions and system use cases}
     \label{fig:usecase}
 \end{figure}
 
-\textbf{Actors:}
-\begin{itemize}[leftmargin=*]
-    \item \textbf{Student:} Can view timetables, enroll in courses, manage profile, view enrollment status
-    \item \textbf{Faculty:} Can manage lecture slots, view enrolled students, update course details
-    \item \textbf{Administrator:} Can manage users, courses, lecture slots, generate reports, configure system settings
-\end{itemize}
+The Use Case Diagram identifies three primary actors who interact with the Timetable Buddy system, each possessing distinct responsibilities and access privileges that align with their institutional roles and academic responsibilities.
 
-\textbf{Key Use Cases:}
-\begin{itemize}[leftmargin=*]
-    \item User Authentication (Login/Logout)
-    \item Manage Lecture Slots
-    \item Enroll in Courses
-    \item View Timetable
-    \item Manage Enrollments
-    \item Generate Reports
-    \item User Management
-\end{itemize}
+Students represent the primary user category within the system, possessing comprehensive capabilities that enable them to effectively manage their academic schedules and course enrollments. These users can access personalized timetable views that display their enrolled courses in intuitive calendar formats, facilitating effective time management and academic planning. Students utilize sophisticated enrollment functionality that allows them to register for available courses while benefiting from automatic conflict detection and waitlist management features. Profile management capabilities enable students to maintain current personal information, academic credentials, and communication preferences, ensuring that their system interactions remain personalized and effective. Additionally, students can monitor their enrollment status across all registered courses, providing transparency in their academic progress and enabling informed decisions about future course selections.
+
+Faculty members operate within an expanded set of system capabilities that reflect their instructional responsibilities and course management needs. These users possess comprehensive lecture slot management functionality that enables them to create new courses, modify existing offerings, and maintain accurate scheduling information throughout academic terms. Faculty can access detailed enrollment information for their courses, including student contact details, participation statistics, and waitlist management tools that support effective course administration. Course detail management capabilities allow faculty to update syllabi, modify capacity limits, adjust scheduling parameters, and communicate important information to enrolled students through integrated messaging systems.
+
+Administrators function at the highest privilege level within the system, possessing comprehensive oversight capabilities that support institutional management and strategic planning activities. These users maintain complete user management functionality that enables them to create, modify, and deactivate accounts for students, faculty, and other administrators while ensuring appropriate access controls and security measures. Course and lecture slot management capabilities provide administrators with system-wide visibility and control over academic offerings, enabling them to coordinate institutional scheduling policies and resolve conflicts that span multiple departments or programs. Advanced reporting functionality provides administrators with comprehensive analytics about system utilization, enrollment trends, resource allocation, and operational efficiency metrics that support data-driven decision making and strategic planning initiatives.
+
+The system encompasses several critical use cases that define the core functionality available to these various actors. User authentication processes ensure secure access through comprehensive login and logout procedures that maintain session security while providing seamless user experiences. Lecture slot management operations enable authorized users to create, modify, and maintain course offerings while ensuring scheduling coordination and resource optimization. Course enrollment functionality provides students with intuitive registration processes that include conflict detection, waitlist management, and automatic notification systems. Timetable viewing capabilities deliver personalized schedule presentations that accommodate different user roles and preferences while maintaining data accuracy and real-time updates. Enrollment management tools provide faculty and administrators with comprehensive oversight of student registrations, waitlist positions, and course capacity utilization. Report generation functionality enables administrators to extract operational data, analyze system performance, and generate insights that support institutional planning and academic policy development.
 
 \section{Sequence Diagram}
 
 Sequence Diagrams show the interaction between objects over time, illustrating the message flow and order of operations for specific scenarios.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{images/Sequence Diagram.png}
+    \includegraphics[width=0.9\textwidth,height=0.7\textheight,keepaspectratio]{images/Sequence Diagram.png}
     \caption{Sequence Diagram showing object interactions for enrollment process}
     \label{fig:sequence}
 \end{figure}
@@ -118,90 +90,83 @@ The sequence diagram depicts:
 
 \section{Activity Diagram}
 
-Activity Diagrams model the workflow and business logic, showing the sequence of activities and decision points in system processes.
+Activity Diagrams model the workflow and business logic, showing the sequence of activities and decision points in system processes. The activity diagram provides a comprehensive view of the system's dynamic behavior, particularly focusing on the enrollment workflow and decision-making processes.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{images/Activity Diagram.jpg}
+    \includegraphics[width=0.8\textwidth,height=0.6\textheight,keepaspectratio]{images/Activity Diagram.jpg}
     \caption{Activity Diagram illustrating enrollment workflow and decision logic}
     \label{fig:activity}
 \end{figure}
 
-The activity diagram illustrates:
-\begin{itemize}[leftmargin=*]
-    \item Enrollment process workflow
-    \item Decision points for capacity checks
-    \item Conflict detection logic
-    \item Waitlist management
-    \item Success and failure paths
-\end{itemize}
+The activity diagram demonstrates the complete enrollment process workflow, beginning with student login and progressing through course selection, capacity verification, and enrollment confirmation. The diagram incorporates crucial decision points for capacity checks, ensuring that students cannot enroll in courses that have reached their maximum capacity. Additionally, the conflict detection logic prevents scheduling conflicts by analyzing time slot overlaps across multiple course enrollments.
+
+The workflow includes comprehensive waitlist management functionality, automatically placing students on waiting lists when courses reach capacity and notifying them when spaces become available. The diagram clearly illustrates both success and failure paths, showing how the system handles various scenarios including successful enrollments, capacity restrictions, scheduling conflicts, and error conditions. This visual representation ensures that all stakeholders understand the complete user journey and system behavior during the enrollment process.
 
 \section{Deployment Diagram}
 
-The Deployment Diagram shows the physical architecture of the system, illustrating how software components are deployed on hardware nodes.
+The Deployment Diagram illustrates the physical architecture of the system, demonstrating how software components are strategically deployed across hardware nodes to ensure optimal performance, scalability, and maintainability. This architectural visualization provides a comprehensive understanding of the system's infrastructure and component relationships.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{images/Deployment Diagram.jpg}
     \caption{Deployment Diagram showing system architecture and component deployment}
     \label{fig:deployment}
 \end{figure}
 
-\textbf{System Components:}
-\begin{itemize}[leftmargin=*]
-    \item \textbf{Client Layer:} Web browsers on user devices
-    \item \textbf{Application Layer:} React frontend, Node.js backend
-    \item \textbf{Database Layer:} MongoDB database server
-    \item \textbf{Deployment:} Docker containers for containerized deployment
-\end{itemize}
+The system architecture follows a three-tier deployment model that separates concerns and enhances system maintainability. The client layer consists of web browsers running on various user devices, providing the interface through which students, faculty, and administrators interact with the system. This layer handles user interface rendering, input validation, and local state management while communicating with the server through secure protocols.
 
-\textbf{Communication Protocols:}
-\begin{itemize}[leftmargin=*]
-    \item HTTPS for client-server communication
-    \item REST API for frontend-backend interaction
-    \item MongoDB protocol for database connections
-\end{itemize}
+The application layer comprises the React frontend application and Node.js backend services, deployed as separate but interconnected components. The React frontend manages user interactions, dynamic content rendering, and state management, while the Node.js backend handles business logic, authentication, authorization, and data processing. These components work together to provide a seamless user experience while maintaining clear separation of concerns.
+
+The database layer features a MongoDB database server that manages all persistent data storage, including user information, course details, schedules, and enrollment records. The database is designed for high availability and scalability, supporting the concurrent access requirements of a multi-user educational system.
+
+The entire system leverages Docker containerization technology for deployment, ensuring consistent environments across development, testing, and production stages. This containerized approach facilitates easy scaling, maintenance, and deployment while reducing environment-specific issues.
+
+Communication between layers follows established protocols and security standards. HTTPS ensures secure client-server communication, protecting sensitive user data during transmission. RESTful API architecture governs frontend-backend interactions, providing a standardized and scalable communication pattern. The MongoDB protocol handles database connections efficiently, optimizing data retrieval and storage operations.
 
 \section{Work Breakdown Structure (WBS)}
 
-The Work Breakdown Structure decomposes the project into manageable components, showing the hierarchical breakdown of deliverables and tasks.
+The Work Breakdown Structure provides a systematic decomposition of the project into manageable components, establishing a hierarchical framework that organizes deliverables and tasks according to their relationships and dependencies. This structured approach ensures comprehensive project coverage while facilitating effective resource allocation and progress monitoring.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{images/WBS.jpg}
+    \includegraphics[width=0.8\textwidth,height=0.6\textheight,keepaspectratio]{images/WBS.jpg}
     \caption{Work Breakdown Structure showing project task hierarchy}
     \label{fig:wbs}
 \end{figure}
 
-\textbf{Major Work Packages:}
-\begin{enumerate}[leftmargin=*]
-    \item \textbf{Project Planning:} Requirements gathering, feasibility analysis, project plan
-    \item \textbf{Design:} System architecture, database design, UI/UX design, API design
-    \item \textbf{Development:} Frontend development, backend development, database implementation
-    \item \textbf{Testing:} Unit testing, integration testing, system testing, user acceptance testing
-    \item \textbf{Deployment:} Environment setup, deployment, documentation
-    \item \textbf{Project Management:} Risk management, quality assurance, documentation
-\end{enumerate}
+The project structure encompasses six major work packages, each containing specific deliverables and milestones. The Project Planning phase establishes the foundation through comprehensive requirements gathering, detailed feasibility analysis covering technical and economic aspects, and creation of a detailed project plan that guides subsequent development activities. This initial phase ensures that all stakeholders understand project objectives, constraints, and success criteria.
+
+The Design phase transforms requirements into technical specifications through systematic system architecture development, comprehensive database design that ensures data integrity and performance, intuitive UI/UX design that prioritizes user experience, and robust API design that facilitates seamless component integration. This phase establishes the technical blueprint that guides implementation efforts.
+
+The Development phase implements the designed system through parallel frontend and backend development efforts, ensuring consistent progress across all technical components. Frontend development focuses on creating responsive, accessible user interfaces using React technology, while backend development implements business logic, data processing, and security features using Node.js. Database implementation involves schema creation, data migration procedures, and performance optimization.
+
+The Testing phase ensures system quality through multiple testing levels, beginning with comprehensive unit testing of individual components, progressing through integration testing that validates component interactions, advancing to system testing that verifies complete functionality, and concluding with user acceptance testing that confirms system meets user requirements and expectations.
+
+The Deployment phase transitions the system from development to production through careful environment setup, systematic deployment procedures, and comprehensive documentation creation. This phase ensures that the system operates reliably in the production environment while providing necessary support materials for ongoing maintenance.
+
+The Project Management work package provides continuous oversight through systematic risk management, comprehensive quality assurance processes, and thorough documentation practices. This cross-cutting work package ensures that project activities remain aligned with objectives while maintaining high quality standards throughout the development lifecycle.
 
 \section{Gantt Chart}
 
-The Gantt Chart provides a timeline view of project activities, showing task dependencies, durations, and milestones.
+The Gantt Chart presents a comprehensive timeline visualization of project activities, illustrating the temporal relationships between tasks, their dependencies, estimated durations, and critical milestones. This project management tool enables effective scheduling, resource allocation, and progress tracking throughout the development lifecycle.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{images/Gantt Chart.jpg}
     \caption{Gantt Chart showing project timeline and task scheduling}
     \label{fig:gantt}
 \end{figure}
 
-\textbf{Project Phases and Timeline:}
-\begin{itemize}[leftmargin=*]
-    \item \textbf{Phase 1 - Planning:} Requirements analysis, feasibility study, project planning
-    \item \textbf{Phase 2 - Design:} System design, database design, UI mockups
-    \item \textbf{Phase 3 - Development:} Frontend and backend implementation
-    \item \textbf{Phase 4 - Testing:} Comprehensive testing across all modules
-    \item \textbf{Phase 5 - Deployment:} Production deployment and user training
-\end{itemize}
+The project timeline is structured across five distinct phases, each with specific objectives and deliverables. Phase 1 focuses on Planning activities, encompassing thorough requirements analysis to understand stakeholder needs, comprehensive feasibility study evaluation covering technical, economic, and operational aspects, and detailed project planning that establishes timelines, resource requirements, and risk mitigation strategies. This foundation phase typically spans the initial weeks of the project and establishes the framework for all subsequent activities.
+
+Phase 2 concentrates on Design activities, transforming requirements into technical specifications through systematic system design that defines architecture and component relationships, detailed database design ensuring data integrity and optimal performance, and comprehensive UI mockup creation that visualizes user interactions and interface layouts. This design phase builds upon planning deliverables and provides the blueprint for development activities.
+
+Phase 3 encompasses Development activities, implementing the designed system through coordinated frontend and backend development efforts. Frontend implementation creates responsive user interfaces and implements client-side functionality, while backend development focuses on server-side logic, API development, and database integration. These parallel development streams require careful coordination to ensure consistent progress and seamless integration.
+
+Phase 4 involves comprehensive Testing activities that validate system functionality across multiple levels. Testing begins with unit testing of individual components, progresses through integration testing that verifies component interactions, advances to system testing that validates complete functionality, and concludes with user acceptance testing that confirms the system meets stakeholder requirements.
+
+Phase 5 concludes with Deployment activities that transition the system from development to production environments. This final phase includes production environment setup, systematic deployment procedures, comprehensive user training programs, and knowledge transfer activities that ensure successful system adoption and ongoing maintenance capability.
 
 \section{RMMM Plan (Risk Management, Monitoring, and Mitigation)}
 

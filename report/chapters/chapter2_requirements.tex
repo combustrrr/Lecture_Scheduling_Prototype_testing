@@ -3,105 +3,41 @@
 
 \section{Functional Requirements}
 
-The Timetable Buddy system provides a comprehensive set of functional capabilities across different user roles. The following sections detail the specific functional requirements implemented in the system.
+The Timetable Buddy system encompasses a comprehensive suite of functional capabilities that have been meticulously designed to address the diverse needs of educational institutions. These functional requirements span multiple user roles and operational scenarios, ensuring that the system provides complete coverage of academic scheduling and management needs.
 
 \subsection{Authentication and User Management Functions}
 
-\begin{enumerate}[leftmargin=*]
-    \item \textbf{User Registration}
-    \begin{itemize}
-        \item New users can create accounts with email, password, and role selection
-        \item Email validation ensures unique user accounts
-        \item Password strength requirements enforce security standards
-        \item Role assignment (Student, Faculty, Admin) during registration
-    \end{itemize}
-    
-    \item \textbf{User Authentication}
-    \begin{itemize}
-        \item Secure login with email and password credentials
-        \item JWT-based token generation for session management
-        \item Password encryption using bcrypt hashing algorithm
-        \item Automatic session timeout after inactivity
-    \end{itemize}
-    
-    \item \textbf{Profile Management}
-    \begin{itemize}
-        \item Users can view and update their personal information
-        \item Students can manage student ID, year, and department details
-        \item Faculty can update employee ID and department information
-        \item Password change functionality with verification
-    \end{itemize}
-\end{enumerate}
+The foundation of the Timetable Buddy system rests upon a sophisticated authentication and user management framework that ensures secure access while providing appropriate functionality based on user roles and responsibilities.
+
+The user registration functionality enables new users to establish accounts within the system through a comprehensive registration process that captures essential information including email addresses, secure passwords, and appropriate role selection. This registration system incorporates robust email validation mechanisms that ensure each user maintains a unique account, preventing duplicate registrations while maintaining data integrity. The system enforces stringent password strength requirements that mandate the use of complex passwords containing a combination of uppercase letters, lowercase letters, numbers, and special characters, thereby establishing a strong foundation for account security. During the registration process, users must select their appropriate role from the available options including Student, Faculty, or Administrator, which subsequently determines their access permissions and available functionality within the system.
+
+The user authentication system provides secure access to the platform through a carefully designed login process that requires users to provide their registered email addresses and corresponding passwords. Upon successful credential verification, the system generates JSON Web Tokens (JWT) that serve as secure session management tools, enabling users to maintain authenticated sessions while interacting with various system components. The system implements advanced password encryption using the bcrypt hashing algorithm, which ensures that user passwords are stored securely and remain protected against potential security breaches. To maintain security integrity, the system incorporates automatic session timeout functionality that terminates user sessions after predetermined periods of inactivity, requiring users to reauthenticate to continue using the system.
+
+Profile management capabilities enable users to maintain and update their personal information through intuitive interfaces that accommodate the specific needs of different user roles. All users can view and modify their basic personal information including contact details, preferences, and account settings through user-friendly forms that validate input data and ensure information accuracy. Students benefit from specialized profile management features that enable them to maintain their student identification numbers, academic year information, and departmental affiliations, ensuring that their academic records remain current and accurate. Faculty members can access dedicated profile management tools that allow them to update their employee identification numbers, departmental assignments, and academic credentials, providing comprehensive support for their professional information management needs. The system includes secure password change functionality that requires users to verify their current passwords before establishing new ones, ensuring that account security remains uncompromised during password updates.
 
 \subsection{Lecture Slot Management Functions}
 
-\begin{enumerate}[leftmargin=*]
-    \item \textbf{Create Lecture Slots} (Faculty/Admin)
-    \begin{itemize}
-        \item Define subject name, venue, and capacity
-        \item Set schedule (day of week, start time, end time)
-        \item Configure recurring or one-time sessions
-        \item Assign faculty to lecture slots
-    \end{itemize}
-    
-    \item \textbf{View Lecture Slots} (All Users)
-    \begin{itemize}
-        \item Browse all available lecture slots
-        \item Filter by subject, faculty, day, or time
-        \item Search functionality for quick access
-        \item View enrollment count and available seats
-    \end{itemize}
-    
-    \item \textbf{Update Lecture Slots} (Faculty/Admin)
-    \begin{itemize}
-        \item Modify lecture slot details
-        \item Adjust capacity based on room changes
-        \item Update schedule information
-        \item Activate or deactivate slots
-    \end{itemize}
-    
-    \item \textbf{Delete Lecture Slots} (Admin)
-    \begin{itemize}
-        \item Remove obsolete lecture slots
-        \item Handle enrolled student notifications
-        \item Archive historical data
-    \end{itemize}
-\end{enumerate}
+The lecture slot management subsystem represents a critical component of the Timetable Buddy platform, providing comprehensive functionality for creating, maintaining, and administering academic lecture sessions across the institution.
+
+Faculty members and administrators possess comprehensive lecture slot creation capabilities that enable them to establish new academic sessions within the system. This creation process encompasses the definition of essential parameters including subject names, physical venues, and maximum capacity limits that determine how many students can participate in each session. The scheduling component allows authorized users to establish precise timing information including the specific day of the week, start times, and end times for each lecture session, ensuring accurate temporal coordination within the academic calendar. The system supports both recurring lecture sessions that repeat weekly throughout a semester and one-time special sessions that occur on specific dates, providing flexibility to accommodate various academic formats. Faculty assignment functionality ensures that each lecture slot is properly associated with qualified instructors, maintaining clear accountability and enabling students to identify their professors for each course.
+
+All system users benefit from comprehensive lecture slot viewing capabilities that provide transparent access to academic schedule information. The browsing functionality enables users to explore all available lecture slots within the system, providing complete visibility into course offerings and scheduling options. Advanced filtering mechanisms allow users to narrow their search results based on specific criteria including subject areas, assigned faculty members, days of the week, or time periods, ensuring that users can quickly locate relevant academic opportunities. The integrated search functionality provides rapid access to specific lecture slots through keyword searches, enabling users to efficiently find courses that match their academic interests or scheduling requirements. Real-time enrollment tracking displays current enrollment counts alongside available seat information, helping students make informed decisions about course registration and enabling faculty to monitor class sizes.
+
+Faculty members and administrators have access to sophisticated lecture slot modification capabilities that ensure academic schedules can adapt to changing institutional needs. The detail modification functionality allows authorized users to update essential information about existing lecture slots, including subject descriptions, venue assignments, and instructional content, ensuring that course information remains current and accurate. Capacity adjustment features enable real-time modifications to maximum enrollment limits based on classroom changes, special accommodations, or administrative decisions, providing operational flexibility while maintaining enrollment control. Schedule information updates allow faculty and administrators to modify timing details when necessary, accommodating room conflicts, instructor availability changes, or other scheduling adjustments. The activation and deactivation functionality provides temporary or permanent control over lecture slot availability, enabling administrators to suspend enrollment for specific sessions while preserving historical data.
+
+Administrators possess exclusive lecture slot deletion capabilities that ensure proper data management while protecting institutional records and student interests. The removal functionality enables administrators to eliminate obsolete or cancelled lecture slots from active scheduling while maintaining proper documentation of the deletion process. When lecture slots with existing enrollments require removal, the system implements comprehensive notification procedures that ensure all affected students receive appropriate communication about schedule changes and available alternatives. The archival system preserves historical data from deleted lecture slots, maintaining institutional records while removing outdated information from active scheduling interfaces, ensuring that past academic activities remain documented for reporting and compliance purposes.
 
 \subsection{Enrollment Management Functions}
 
-\begin{enumerate}[leftmargin=*]
-    \item \textbf{Student Enrollment}
-    \begin{itemize}
-        \item Enroll in available lecture slots
-        \item Automatic conflict detection for overlapping schedules
-        \item Join waitlist when slot is full
-        \item View enrollment confirmation
-    \end{itemize}
-    
-    \item \textbf{Waitlist Management}
-    \begin{itemize}
-        \item Automatic position tracking in waitlist
-        \item Auto-promotion when seats become available
-        \item Waitlist position visibility
-        \item Notification on enrollment status change
-    \end{itemize}
-    
-    \item \textbf{Drop Enrollment}
-    \begin{itemize}
-        \item Students can withdraw from enrolled slots
-        \item Automatic waitlist promotion processing
-        \item Enrollment history tracking
-    \end{itemize}
-    
-    \item \textbf{View Enrollments} (Faculty)
-    \begin{itemize}
-        \item View list of enrolled students per slot
-        \item Access student contact information
-        \item Monitor enrollment statistics
-        \item Export enrollment data
-    \end{itemize}
-\end{enumerate}
+The enrollment management system constitutes the operational heart of the Timetable Buddy platform, orchestrating the complex processes through which students register for courses, manage their academic commitments, and maintain their educational schedules.
+
+Student enrollment functionality provides comprehensive tools that enable students to register for available lecture slots through an intuitive and user-friendly interface. The enrollment process incorporates sophisticated automatic conflict detection mechanisms that continuously monitor student schedules to prevent registration in overlapping time slots, ensuring that students cannot accidentally commit to simultaneous academic obligations. When students attempt to enroll in lecture slots that have reached maximum capacity, the system seamlessly facilitates waitlist registration, allowing students to maintain their position for potential future enrollment while continuing to explore alternative scheduling options. Upon successful enrollment or waitlist registration, the system generates comprehensive enrollment confirmations that provide students with detailed information about their registration status, course details, and next steps in their academic planning process.
+
+The waitlist management system implements advanced algorithms that provide transparent and equitable access to course enrollment opportunities. Automatic position tracking functionality ensures that each waitlisted student receives accurate information about their current position within the waitlist queue, enabling them to make informed decisions about alternative course selections and academic planning. When enrolled students withdraw from lecture slots or when administrators increase course capacity, the auto-promotion system immediately processes waitlist queues and automatically enrolls the next eligible students, ensuring optimal utilization of available academic resources. Waitlist position visibility provides students with real-time updates about their standing in the queue, while comprehensive notification systems ensure that students receive immediate communication whenever their enrollment status changes, whether through successful auto-promotion or other waitlist modifications.
+
+Drop enrollment functionality enables students to maintain flexibility in their academic planning by providing secure and efficient mechanisms for withdrawing from registered lecture slots. When students withdraw from courses, the system immediately processes automatic waitlist promotion procedures that advance qualified students from waiting lists into available positions, ensuring continuous optimization of enrollment patterns. The system maintains comprehensive enrollment history tracking that preserves complete records of student registration activities, including initial enrollments, withdrawals, waitlist positions, and final enrollment outcomes, providing valuable data for academic advising and institutional planning purposes.
+
+Faculty members benefit from comprehensive enrollment viewing capabilities that provide detailed insights into their course participation and student engagement patterns. The system enables faculty to access complete lists of enrolled students for each of their assigned lecture slots, providing essential information for course preparation, communication, and academic assessment activities. Faculty can access relevant student contact information through secure interfaces that respect privacy requirements while enabling necessary academic communication. Enrollment statistics monitoring provides faculty with real-time data about course popularity, capacity utilization, and enrollment trends, supporting informed decisions about course planning and resource allocation. The enrollment data export functionality enables faculty to extract enrollment information in various formats suitable for gradebooks, communication systems, and administrative reporting requirements.
 
 \subsection{Timetable and Schedule Functions}
 
